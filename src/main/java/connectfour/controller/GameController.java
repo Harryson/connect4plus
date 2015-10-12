@@ -1,15 +1,22 @@
 package connectfour.controller;
 
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.swing.undo.UndoManager;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import connectfour.model.*;
+
+import connectfour.model.Computer;
+import connectfour.model.GameField;
+import connectfour.model.GameFieldEdit;
+import connectfour.model.Human;
+import connectfour.model.Player;
+import connectfour.model.SaveGame;
 import connectfour.persistence.ISaveGameDAO;
 import connectfour.util.observer.IObserverWithArguments;
 import connectfour.util.observer.ObservableWithArguments;
-
-import javax.swing.undo.UndoManager;
-import java.util.List;
-import java.util.logging.Logger;
 
 @Singleton
 public final class GameController extends ObservableWithArguments implements IObserverWithArguments, IController {

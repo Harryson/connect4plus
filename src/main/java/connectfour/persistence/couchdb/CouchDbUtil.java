@@ -1,6 +1,10 @@
 package connectfour.persistence.couchdb;
 
-import connectfour.model.*;
+import connectfour.model.Computer;
+import connectfour.model.GameField;
+import connectfour.model.Human;
+import connectfour.model.Player;
+import connectfour.model.SaveGame;
 import connectfour.util.observer.IObserverWithArguments;
 
 /**

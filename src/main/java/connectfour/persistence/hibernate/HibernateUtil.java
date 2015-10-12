@@ -1,10 +1,11 @@
 package connectfour.persistence.hibernate;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
+
 import connectfour.model.Computer;
 import connectfour.model.Human;
 import connectfour.model.Player;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 
 public final class HibernateUtil {
