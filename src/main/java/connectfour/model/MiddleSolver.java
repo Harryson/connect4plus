@@ -54,7 +54,7 @@ public class MiddleSolver implements SolverPlugin {
             GameField newState = computer.saveState();
             computer.setGameField(previousState);
             if (newState.getWinner() != null) {
-                drawValue = Computer.IF_WINNER_TURN_VALUE;
+                drawValue = Computer.IF_WINNER_TURN_VALUE();
             }
             if (drawValue > computed) {
                 computed = drawValue;
@@ -90,7 +90,7 @@ public class MiddleSolver implements SolverPlugin {
             }
 
             if (newState.getWinner() != null) {
-                drawValue = Computer.IF_LOOSER_TURN_VALUE;
+                drawValue = Computer.IF_LOOSER_TURN_VALUE();
             }
             computer.setGameField(previousState);
             if (drawValue < computed) {
