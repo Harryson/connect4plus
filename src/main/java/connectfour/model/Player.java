@@ -8,8 +8,6 @@ public interface Player extends IObserverWithArguments {
     
     String getName();
     
-    int getMove();
-
     public GameField getGameField();
     
     public void setGameField(final GameField gameField);

@@ -3,7 +3,6 @@ package connectfour.model;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import connectfour.GameControllerModule;
 import connectfour.util.observer.IObserverWithArguments;
 
 public class Computer extends PlayerAbstract {
@@ -18,11 +17,6 @@ public class Computer extends PlayerAbstract {
 		this.addObserver(controllerObserver);
         final Injector injector = Guice.createInjector(new SolverModule());
         solver = injector.getInstance(SolverPlugin.class);
-	}
-
-	@Override
-	public int getMove() {
-		return solver.solve(this);
 	}
 
 	public GameField saveState() {
@@ -40,7 +34,7 @@ public class Computer extends PlayerAbstract {
 		GameField gameField = (GameField) arg;
 		this.setGameField(gameField);
 		if (gameField.getPlayerOnTurn().equals(this)) {
-			int columnToDrop = this.getMove();
+			int columnToDrop = solver.solve(this);
 			this.notifyObservers(columnToDrop);
 		}
 	}
