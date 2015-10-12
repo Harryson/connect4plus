@@ -1,7 +1,9 @@
- package connectfour.model
+ package connectfour.model 
  
- trait Player2 {
-    def name: String
+ import connectfour.util.observer.IObserverWithArguments;
+ 
+ trait Player extends IObserverWithArguments {
+    var name: String
     
     def getGameField(): GameField
     

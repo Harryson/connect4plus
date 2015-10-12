@@ -11,9 +11,9 @@ public class CouchDbUtil {
     public static PlayerCouchDb convertPlayer(Player player) {
         if(player !=null) {
             if (player instanceof Computer) {
-                return new PlayerCouchDb(player.getName(), true);
+                return new PlayerCouchDb(player.name(), true);
             } else {
-                return new PlayerCouchDb(player.getName(), false);
+                return new PlayerCouchDb(player.name(), false);
             }
         }
         return null;

@@ -27,13 +27,13 @@ public abstract class PlayerAbstract extends ObservableWithArguments implements 
     }
     
     @Override
-    public String getName() {
-        return name;
-    }
+    public String name() {
+    	return name;    	
+    } 
     
     @Override
-    public void setName(final String string) {
-        name = string;
+    public void name_$eq(String name) {
+    	this.name = name;
     }
 
     @Override

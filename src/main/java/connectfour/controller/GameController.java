@@ -98,7 +98,7 @@ public final class GameController extends ObservableWithArguments implements IOb
     public String getWinner() {
         Player winner = gameField.getWinner();
         if (winner != null) {
-            return winner.getName();
+            return winner.name();
         } else {
             return "";
         }
@@ -149,7 +149,7 @@ public final class GameController extends ObservableWithArguments implements IOb
 
 
                 String undoInfo = String.format("Undoing %s Player Move", getPlayerOnTurn()
-                                                        .getName());
+                                                        .name());
                 GameFieldEdit edit = new GameFieldEdit(this, previousState, newState, undoInfo);
                 undoManager.addEdit(edit);
 
@@ -180,7 +180,7 @@ public final class GameController extends ObservableWithArguments implements IOb
     @Override
     public String getPlayerNameOnTurn() {
         Player player = gameField.getPlayerOnTurn();
-        return player.getName();
+        return player.name();
         
     }
     

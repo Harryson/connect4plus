@@ -27,7 +27,7 @@ public final class HibernateUtil {
     public static PlayerHibernate convertToPlayerHibernate(Player player) {
         if (player == null) { return null;}
 
-        String playerName = player.getName();
+        String playerName = player.name();
         return new PlayerHibernate(playerName, player instanceof Computer);
     }
 
