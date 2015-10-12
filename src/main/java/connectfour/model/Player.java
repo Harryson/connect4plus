@@ -8,21 +8,9 @@ public interface Player extends IObserverWithArguments {
     
     String getName();
     
-    /**
-     * This function should delegate to the method GameField.dropCoin(column, player).
-     * 
-     * @param column
-     *            the Column where to drop the Coin
-     * @return
-     */
-    int dropCoin(int column);
-    
     int getMove();
 
-    void setMove(int column);
+    public GameField getGameField();
     
-    GameField getGameField();
-    
-    void setGameField(final GameField gameField);
-    
+    public void setGameField(final GameField gameField);
 }

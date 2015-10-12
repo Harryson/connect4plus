@@ -13,12 +13,6 @@ public class Computer extends PlayerAbstract {
     @Inject
     private SolverPlugin solver;
 
-    @Override
-	public int dropCoin(final int column) {
-		setMove(column);
-		return getMove();
-	}
-
 	public Computer(final IObserverWithArguments controllerObserver, String playerName) {
 		super(playerName);
 		this.addObserver(controllerObserver);
@@ -29,11 +23,6 @@ public class Computer extends PlayerAbstract {
 	@Override
 	public int getMove() {
 		return solver.solve(this);
-	}
-
-	@Override
-	public void setMove(final int column) {
-
 	}
 
 	public GameField saveState() {
