@@ -182,6 +182,7 @@ buildNumber.properties
 
 # sbt specific
 .cache
+.cache*
 .history
 .lib/
 .directory
