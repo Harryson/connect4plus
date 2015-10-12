@@ -48,11 +48,6 @@
             <version>4.0-beta</version>
         </dependency>
         <dependency>
-            <groupId>com.db4o</groupId>
-            <artifactId>db4o-full-java5</artifactId>
-            <version>8.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>4.2.8.Final</version>
@@ -79,12 +74,6 @@
         </dependency>
     </dependencies>
     <repositories>
-        <repository>
-            <id>db4omaverepositories</id>
-            <name>db4omaverepositories</name>
-            <url>http://source.db4o.com/maven/</url>
-            <layout>default</layout>
-        </repository>
         <repository>
             <id>SonatypeOSSSnapshots</id>
             <name>Sonatype OSS Snapshots</name>
