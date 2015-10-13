@@ -49,7 +49,7 @@ public class SaveGameCouchDbDAO implements ISaveGameDAO {
 
     @Override
     public void saveGame(SaveGame saveGame) {
-        if (saveGameExists(saveGame.getSaveGameName())) {
+        if (saveGameExists(saveGame.saveGameName())) {
             db.update(CouchDbUtil.convertSaveGame(saveGame));
         } else {
             db.create(CouchDbUtil.convertSaveGame(saveGame));

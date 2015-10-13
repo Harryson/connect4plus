@@ -89,9 +89,9 @@ public final class GameController extends ObservableWithArguments implements IOb
     @Override
     public void loadSaveGame(String saveGameName) {
     	SaveGame sg = saveGameDAO.loadSaveGame(saveGameName);
-    	this.setGameField(sg.getGameField());
-    	this.setPlayer(sg.getPlayer1());
-    	this.setOpponend(sg.getPlayer2());
+    	this.setGameField(sg.gameField());
+    	this.setPlayer(sg.player1());
+    	this.setOpponend(sg.player2());
         this.undoManager = new UndoManager();
 
     	this.bGameHasStarted = true;

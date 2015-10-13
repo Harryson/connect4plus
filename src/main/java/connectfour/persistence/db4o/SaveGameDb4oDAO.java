@@ -41,11 +41,11 @@ public class SaveGameDb4oDAO implements ISaveGameDAO {
     @Override
 	public void saveGame(SaveGame saveGame) {
 		// Player's gamefield shouldn't be saved!
-		saveGame.getPlayer1().setGameField(null);
-		saveGame.getPlayer2().setGameField(null);
+		saveGame.player1().setGameField(null);
+		saveGame.player2().setGameField(null);
 
 
-		if (deleteSaveGameIfExists(saveGame.getSaveGameName())) {
+		if (deleteSaveGameIfExists(saveGame.saveGameName())) {
             log.info("Game correctly deleted");
         } else {
             log.info("Savegame did not exist.");
@@ -64,7 +64,7 @@ public class SaveGameDb4oDAO implements ISaveGameDAO {
             private static final long serialVersionUID = 1L;
 
             public boolean match(SaveGame sg) {
-                return sg.getSaveGameName().equals(saveGameName);
+                return sg.saveGameName().equals(saveGameName);
             }
         });
 
@@ -99,7 +99,7 @@ public class SaveGameDb4oDAO implements ISaveGameDAO {
 			private static final long serialVersionUID = 1L;
 
 			public boolean match(SaveGame sg) {
-				return sg.getSaveGameName().equals(saveGameName);
+				return sg.saveGameName().equals(saveGameName);
 			}
 		});
 
@@ -120,7 +120,7 @@ public class SaveGameDb4oDAO implements ISaveGameDAO {
 		
 		while(it.hasNext()) {
 			SaveGame sg = it.next();
-			allSaveGames.add(sg.getSaveGameName());
+			allSaveGames.add(sg.saveGameName());
 		}
 
         closeDB();

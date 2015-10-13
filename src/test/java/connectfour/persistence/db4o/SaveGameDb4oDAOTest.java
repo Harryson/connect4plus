@@ -159,9 +159,9 @@ public class SaveGameDb4oDAOTest {
         // Load gameField and players
         sg = sgdb4o.loadSaveGame(sgName);
 
-        gameField = sg.getGameField();
-        player = sg.getPlayer1();
-        opponent = sg.getPlayer2();
+        gameField = sg.gameField();
+        player = sg.player1();
+        opponent = sg.player2();
 
         // Check, if the state has been loaded correctly!
         Iterator<Integer> it = rows.iterator();

@@ -39,7 +39,7 @@ public class CouchDbUtil {
     }
 
     public static SaveGameCouchDb convertSaveGame(SaveGame saveGame) {
-        return new SaveGameCouchDb(saveGame.getSaveGameName(), saveGame.getGameField(), saveGame.getPlayer1(), saveGame.getPlayer2());
+        return new SaveGameCouchDb(saveGame.saveGameName(), saveGame.gameField(), saveGame.player1(), saveGame.player2());
 
     }
 

@@ -1,7 +1,19 @@
 package connectfour.persistence.hibernate;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import connectfour.controller.GameController;
 import connectfour.model.GameField;
 import connectfour.model.Human;
@@ -9,15 +21,6 @@ import connectfour.model.Player;
 import connectfour.model.SaveGame;
 import connectfour.persistence.ISaveGameDAO;
 import connectfour.util.observer.IObserverWithArguments;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 /**
  * User: Stefano Di Martino
@@ -161,9 +164,9 @@ public class HibernateUtilTest {
         // Load gameField and players
         sg = db.loadSaveGame(sgName);
 
-        gameField = sg.getGameField();
-        player = sg.getPlayer1();
-        opponent = sg.getPlayer2();
+        gameField = sg.gameField();
+        player = sg.player1();
+        opponent = sg.player2();
 
         // Check, if the state has been loaded correctly!
         Iterator<Integer> it = rows.iterator();

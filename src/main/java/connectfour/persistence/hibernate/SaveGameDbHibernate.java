@@ -36,10 +36,10 @@ public class SaveGameDbHibernate implements ISaveGameDAO {
 
     private SaveGameHibernate convertToHibernateSaveGame(SaveGame saveGame) {
         return new SaveGameHibernate(
-                        saveGame.getSaveGameName(),
-                        saveGame.getGameField(),
-                        saveGame.getPlayer1(),
-                        saveGame.getPlayer2());
+                        saveGame.saveGameName(),
+                        saveGame.gameField(),
+                        saveGame.player1(),
+                        saveGame.player2());
 
     }
 
@@ -55,7 +55,7 @@ public class SaveGameDbHibernate implements ISaveGameDAO {
     public void saveGame(SaveGame saveGame) {
         SaveGameHibernate sgh = convertToHibernateSaveGame(saveGame);
 
-        deleteSaveGameIfExists(saveGame.getSaveGameName());
+        deleteSaveGameIfExists(saveGame.saveGameName());
 
         session.beginTransaction();
         session.save(sgh);
