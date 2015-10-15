@@ -1,4 +1,8 @@
-package connectfour.model;
+package connectfour.controller;
+
+import connectfour.model.Computer;
+import connectfour.model.GameField;
+import connectfour.model.SolverPlugin;
 
 /**
  * User: Stefano Di Martino

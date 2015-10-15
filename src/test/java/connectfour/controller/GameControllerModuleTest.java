@@ -2,7 +2,6 @@ package connectfour.controller;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-import connectfour.model.MiddleSolver;
 import connectfour.model.SolverPlugin;
 import connectfour.persistence.ISaveGameDAO;
 import connectfour.persistence.couchdb.SaveGameCouchDbDAO;

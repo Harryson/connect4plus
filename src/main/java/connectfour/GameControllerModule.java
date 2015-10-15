@@ -10,7 +10,7 @@ import connectfour.persistence.ISaveGameDAO;
 import connectfour.persistence.couchdb.SaveGameCouchDbDAO;
 import connectfour.persistence.db4o.SaveGameDb4oDAO;
 import connectfour.persistence.hibernate.SaveGameDbHibernate;
-import connectfour.model.MiddleSolver;
+import connectfour.controller.MiddleSolver;
 import connectfour.model.SolverPlugin;
 import connectfour.util.observer.IObserverWithArguments;
 
