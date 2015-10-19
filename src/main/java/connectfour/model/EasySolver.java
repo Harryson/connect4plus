@@ -43,7 +43,6 @@ public class EasySolver implements SolverPlugin {
 
             if (computer.getGameField().dropCoin(i) >= GameField.DEFAULT_ROWS) {
                 computer.setGameField(previousState);
-                //TODO: Was soll das ein???
                 continue;
             }
 
