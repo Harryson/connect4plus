@@ -31,14 +31,15 @@ class HighScoreController extends IHighScoreController{
 
     val response: HttpResponse = client.execute(post)
 
-    val br: BufferedReader = new BufferedReader(new InputStreamReader((response.getEntity.getContent)))
+    val br: BufferedReader = new BufferedReader(new InputStreamReader(response.getEntity.getContent))
 
     var output: String = null
     System.out.println("Output from Server .... \n")
 
-    while ((({
-      output = br.readLine; output
-    })) != null) {
+    while ( {
+      output = br.readLine
+      output
+    } != null) {
       log.info(output)
     }
 
