@@ -20,8 +20,6 @@ import connectfour.util.observer.ObservableWithArguments;
 
 @Singleton
 public final class GameController extends ObservableWithArguments implements IObserverWithArguments, IController {
-
-
     private static final Logger log = Logger.getLogger(GameController.class.getName());
 
     private GameField gameField;
