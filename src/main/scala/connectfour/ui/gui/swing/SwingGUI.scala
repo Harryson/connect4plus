@@ -112,7 +112,7 @@ class SwingGUI @Inject() (controller: IController) extends JFrame with UI with I
   }
 
   override def drawGameField {
-    players = controller.getPlayers()
+    players = controller.getPlayers
     statusDisplay.update
 
     for (currentRow <- 0 until GameField.DEFAULT_ROWS) {
