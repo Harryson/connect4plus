@@ -21,7 +21,7 @@ class Computer(controllerObserver: IObserverWithArguments, playerName: String) e
 		}
 	}
 
-	override def update(arg: Object) {
+	override def update(arg: Any) {
 		val gameField: GameField = arg.asInstanceOf[GameField]
 		this.setGameField(gameField);
 		

@@ -10,7 +10,7 @@ class ObservableWithArguments extends Observable {
 
   def removeObserver(s: IObserverWithArguments) = subscribers = subscribers.filter(_ != s)
 
-  def notifyObservers(arg: Object) = for(subscriber <- subscribers) {
+  def notifyObservers(arg: Any) = for(subscriber <- subscribers) {
     subscriber.update(arg)
   }
 }
