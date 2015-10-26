@@ -24,8 +24,6 @@ libraryDependencies ++= Seq(
   "org.hsqldb" % "hsqldb" % "2.3.1"
 )
 
-EclipseKeys.withSource := true
-
 
 javacOptions in (Compile, compile) ++= Seq("-source", "1.8", "-target", "1.8")
 

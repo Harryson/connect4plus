@@ -31,7 +31,7 @@ public class HighScoreController implements IHighScoreController {
         HttpPost post = new HttpPost(HIGHSCORE_URL);
         StringEntity input = null;
         try {
-            String s = String.format("{\"game\":\"%s\",\"player\":\"%s\",\"score\":\"%d\"}",gameName, playerName, highScore);
+            String s = String.format("{\"game\":\"%s\",\"player\":\"%s\",\"score\":\"%s\"}",gameName, playerName, highScore);
             System.out.println(s);
             input = new StringEntity(s);
 

@@ -11,7 +11,7 @@ abstract class Menu(controller: IController) {
 
   def loadSaveGame
 
-  def newGame = controller.newGame()
+  def newGame = controller.newGame
 
   //TODO: Braucht an die Methode auch mit Spieler?
   //def newGameWithPlayer = controller.newGame(player1, player2)
