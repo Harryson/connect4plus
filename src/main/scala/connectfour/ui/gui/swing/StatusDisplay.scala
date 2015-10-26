@@ -5,9 +5,8 @@ import connectfour.controller.IController;
 import javax.swing._
 import java.awt._
 
-class StatusDisplay(c: IController) extends JPanel {
+class StatusDisplay(controller: IController) extends JPanel {
   private val status = new JLabel();
-  private val controller = c;
 
   this.add(status)
   this.setBackground(Color.WHITE)
