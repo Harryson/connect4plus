@@ -29,7 +29,7 @@ class GameFieldPrototype
 		val b = new StringBuilder
 		
 		for (i <- GameField.DEFAULT_ROWS - 1 to 0 by -1) {
-		  for (j <- 0 to GameField.DEFAULT_COLUMNS) { 
+		  for (j <- 0 until GameField.DEFAULT_COLUMNS) { 
 				val actualPlayer = gameField(i)(j)
 				
 				if (actualPlayer != null && actualPlayer.equals(player)) {
@@ -104,7 +104,7 @@ class GameFieldPrototype
 
 	private def checkRigthLeftDiagonal(playerToCheck: Player): Boolean = {
 	  for (row <- GameField.DEFAULT_ROWS - 1 to 3 by -1) {
-		  for (col <- 0 to GameField.DEFAULT_COLUMNS - 3) { 
+		  for (col <- 0 until GameField.DEFAULT_COLUMNS - 3) { 
 				if (gameField(row)(col) != null
                         && gameField(row)(col).equals(playerToCheck)
 						&& gameField(row)(col).equals(gameField(row - 1)(col + 1))
@@ -119,8 +119,8 @@ class GameFieldPrototype
 	}
 
 	private def checkLeftRightDiagonal(playerToCheck: Player): Boolean = {
-		for (row <- 0 to GameField.DEFAULT_ROWS - 3) {
-			for (col <- 0 to GameField.DEFAULT_COLUMNS - 3) {
+		for (row <- 0 until GameField.DEFAULT_ROWS - 3) {
+			for (col <- 0 until GameField.DEFAULT_COLUMNS - 3) {
 				if (gameField(row)(col) != null
                         && gameField(row)(col).equals(playerToCheck)
 						&& gameField(row)(col).equals(gameField(row + 1)(col + 1))
@@ -135,8 +135,8 @@ class GameFieldPrototype
 	}
 
 	private def checkVertical(playerToCheck: Player): Boolean = {
-		for (col <- 0 to GameField.DEFAULT_COLUMNS) {
-			for (row <- 0 to GameField.DEFAULT_ROWS - 3) {
+		for (col <- 0 until GameField.DEFAULT_COLUMNS) {
+			for (row <- 0 until GameField.DEFAULT_ROWS - 3) {
 				if (gameField(row)(col) != null
                         && gameField(row)(col).equals(playerToCheck)
 						&& gameField(row)(col).equals(gameField(row + 1)(col))
@@ -151,8 +151,8 @@ class GameFieldPrototype
 	}
 
 	private def checkHorizontal(playerToCheck: Player): Boolean = {
-		for (row <- 0 to GameField.DEFAULT_ROWS) {
-			for (col <- 0 to GameField.DEFAULT_COLUMNS - 3) {
+		for (row <- 0 until GameField.DEFAULT_ROWS) {
+			for (col <- 0 until GameField.DEFAULT_COLUMNS - 3) {
 				if (gameField(row)(col) != null
                         && gameField(row)(col).equals(playerToCheck)
 						&& gameField(row)(col).equals(gameField(row)(col + 1))
