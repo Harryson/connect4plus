@@ -1,7 +1,6 @@
 package connectfour.persistence.db4o;
 
 import com.db4o.Db4oEmbedded;
-import com.db4o.EmbeddedObjectContainer;
 import com.db4o.ObjectContainer;
 import com.db4o.ext.DatabaseFileLockedException;
 import com.db4o.query.Predicate;

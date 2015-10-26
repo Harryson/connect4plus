@@ -1,5 +1,9 @@
 package connectfour.model;
 
+import connectfour.model.Computer;
+import connectfour.model.GameField;
+import connectfour.model.SolverPlugin;
+
 /**
  * User: Stefano Di Martino
  * Date: 13.01.14
