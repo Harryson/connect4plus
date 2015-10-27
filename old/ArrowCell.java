@@ -10,19 +10,18 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ArrowCell extends JPanel {
-    public static final int ARROW_WIDTH = 10;
-    public static final int X_MIDDLE_LEFT = 34;
-    public static final int ARROW_LENGTH = 40;
-    public static final int Y_TOP = 20;
+	private static final int ARROW_WIDTH = 10;
+	private static final int X_MIDDLE_LEFT = 34;
+	private static final int ARROW_LENGTH = 40;
+	private static final int Y_TOP = 20;
 
 
     private final int column;
     private boolean drawArrow;
     
     // x coordinates
-    private final int arrowWidth = ARROW_WIDTH;
     private final int xMiddleLeft = X_MIDDLE_LEFT;
-    private final int xMiddleRight = xMiddleLeft + arrowWidth;
+    private final int xMiddleRight = xMiddleLeft + ARROW_WIDTH;
 
     // y coordinates
     private final int arrowLength = ARROW_LENGTH;
@@ -45,12 +44,12 @@ public class ArrowCell extends JPanel {
         arrow.addPoint(this.xMiddleLeft, this.yTop);
         int yMiddle = yTop + arrowLength / 2;
         arrow.addPoint(this.xMiddleLeft, yMiddle);
-        int xLeft = xMiddleLeft - arrowWidth;
+        int xLeft = xMiddleLeft - ARROW_WIDTH;
         arrow.addPoint(xLeft, yMiddle);
         int yArrowPoint = yTop + arrowLength;
         int xArrowPoint = xMiddleLeft + ((xMiddleRight - xMiddleLeft) / 2);
         arrow.addPoint(xArrowPoint, yArrowPoint);
-        int xRight = xMiddleRight + arrowWidth;
+        int xRight = xMiddleRight + ARROW_WIDTH;
         arrow.addPoint(xRight, yMiddle);
         arrow.addPoint(this.xMiddleRight, yMiddle);
         arrow.addPoint(this.xMiddleRight, this.yTop);
