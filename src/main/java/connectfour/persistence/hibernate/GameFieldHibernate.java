@@ -1,6 +1,6 @@
 package connectfour.persistence.hibernate;
 
-import connectfour.model.GameField;
+import connectfour.model.GameField$;
 import connectfour.model.Player;
 
 import javax.persistence.*;
@@ -51,10 +51,10 @@ public class GameFieldHibernate  implements Serializable {
     private void mapToHibernateScheme(Player[][] gameField) {
         matrix = new LinkedHashSet<MatrixRow>();
 
-        for(int i = 0; i < GameField.DEFAULT_ROWS; i++) {
+        for(int i = 0; i < GameField$.MODULE$.DEFAULT_ROWS(); i++) {
             List<PlayerHibernate> row = new LinkedList<PlayerHibernate>();
 
-            for(int j = 0; j < GameField.DEFAULT_COLUMNS; j++) {
+            for(int j = 0; j < GameField$.MODULE$.DEFAULT_COLUMNS(); j++) {
                 row.add(HibernateUtil.convertToPlayerHibernate(gameField[i][j]));
             }
 
