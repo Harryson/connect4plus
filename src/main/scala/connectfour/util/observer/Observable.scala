@@ -12,7 +12,7 @@ class Observable {
 
   def removeAllObservers = subscribers = List[IObserver]()
 
-  def notifyObservers = for(subscriber <- subscribers) {
+  def notifyObservers() = for(subscriber <- subscribers) {
     subscriber.update
   }
 }

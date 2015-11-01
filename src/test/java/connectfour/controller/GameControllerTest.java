@@ -1,20 +1,14 @@
 package connectfour.controller;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import connectfour.model.Human;
+import connectfour.model.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import connectfour.GameControllerModule;
-import connectfour.model.Human;
-import connectfour.model.Player;
+import static org.junit.Assert.*;
 
 public class GameControllerTest {
 	private final Human player1 = new Human("Hugo");
@@ -97,9 +91,11 @@ public class GameControllerTest {
 		success &= gc.dropCoinWithSuccessFeedback(0);
 		success &= gc.dropCoinWithSuccessFeedback(0);
 		success &= gc.dropCoinWithSuccessFeedback(0);
+		Player p = gc.getGameField().getPlayerAt(4, 0);
+		assertNull(p);
 		success &= gc.dropCoinWithSuccessFeedback(0);
 		assertTrue(success);
-		Player p = gc.getGameField().getPlayerAt(4, 0);
+		p = gc.getGameField().getPlayerAt(4, 0);
 		assertNotNull(p);
 		gc.undoStep();
 		p = null;

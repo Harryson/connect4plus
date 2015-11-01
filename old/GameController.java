@@ -1,15 +1,22 @@
 package connectfour.controller;
 
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.swing.undo.UndoManager;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import connectfour.model.*;
+
+import connectfour.model.Computer;
+import connectfour.model.GameField;
+import connectfour.model.GameFieldEdit;
+import connectfour.model.Human;
+import connectfour.model.Player;
+import connectfour.model.SaveGame;
 import connectfour.persistence.ISaveGameDAO;
 import connectfour.util.observer.IObserverWithArguments;
 import connectfour.util.observer.ObservableWithArguments;
-
-import javax.swing.undo.UndoManager;
-import java.util.List;
-import java.util.logging.Logger;
 
 @Singleton
 public final class GameController extends ObservableWithArguments implements IObserverWithArguments, IController {
@@ -42,7 +49,7 @@ public final class GameController extends ObservableWithArguments implements IOb
         Player opponent = new Computer(this, "Boesewicht");
         undoManager.discardAllEdits();
         gameField = new GameField(p1, opponent);
-        this.addObserver(gameField.opponent());
+        this.addObserver(gameField.getOpponent());
         this.notifyObservers();
         this.notifyObservers(gameField);
     }
@@ -86,7 +93,7 @@ public final class GameController extends ObservableWithArguments implements IOb
         this.undoManager = new UndoManager();
 
     	this.bGameHasStarted = true;
-    	this.addObserver(gameField.opponent());
+    	this.addObserver(gameField.getOpponent());
 
         this.notifyObservers();
         this.notifyObservers(gameField);
@@ -127,7 +134,7 @@ public final class GameController extends ObservableWithArguments implements IOb
                 int row = gameField.dropCoin(col);
                 
                 gameField.changePlayerTurn(); // Change only on success the players turn
-                if (row >= GameField$.MODULE$.DEFAULT_ROWS()) {
+                if (row >= GameField.DEFAULT_ROWS) {
                     success = false;
                     useState(previousState);
                     return success;
@@ -231,12 +238,12 @@ public final class GameController extends ObservableWithArguments implements IOb
     
     @Override
     public Player getOpponend() {
-        return gameField.opponent();
+        return gameField.getOpponent();
     }
     
     @Override
     public Player getPlayer() {
-        return gameField.player();
+        return gameField.getPlayer();
     }
     
     @Override

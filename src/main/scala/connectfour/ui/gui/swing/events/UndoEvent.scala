@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent
 
 class UndoEvent(controller: IController, observer: IObserver) extends EventAdapter(observer) {
 
-  override def  mousePressed(e: MouseEvent) {
+  override def mousePressed(e: MouseEvent) {
         controller.undoStep
         notifyObservers
     }

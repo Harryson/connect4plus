@@ -1,6 +1,7 @@
 package connectfour.persistence.hibernate;
 
 import connectfour.model.GameField;
+import connectfour.model.GameField$;
 import connectfour.model.Player;
 
 import javax.persistence.*;
@@ -68,7 +69,7 @@ public class SaveGameHibernate implements Serializable {
 
     private GameFieldHibernate mapToGameFieldHibernate(GameField gf) {
         try {
-            return new GameFieldHibernate(gf.getPlayer(), gf.getOpponent(), gf.getCopyOfGamefield(), gf.getPlayerOnTurn(),
+            return new GameFieldHibernate(gf.player(), gf.opponent(), gf.getCopyOfGamefield(), gf.getPlayerOnTurn(),
                     gf.getModCount(), gf.getWinner(), gf.isGameWon());
 
         } catch (CloneNotSupportedException e) {
@@ -88,7 +89,7 @@ public class SaveGameHibernate implements Serializable {
     }
 
     private Player[][] mapToGameFieldsArray(List<MatrixRow> matrix) {
-        Player [][] players = new Player[GameField.DEFAULT_ROWS][GameField.DEFAULT_COLUMNS];
+        Player [][] players = new Player[GameField$.MODULE$.DEFAULT_ROWS()][GameField$.MODULE$.DEFAULT_COLUMNS()];
 
         int i = 0;
 

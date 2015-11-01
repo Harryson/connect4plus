@@ -1,9 +1,5 @@
 package connectfour.model;
 
-import connectfour.model.Computer;
-import connectfour.model.GameField;
-import connectfour.model.SolverPlugin;
-
 /**
  * User: Stefano Di Martino
  * Date: 13.01.14
@@ -39,13 +35,13 @@ public class MiddleSolver implements SolverPlugin {
         int computed = -Integer.MAX_VALUE;
         int drawValue;
 
-        for (int i = 0; i < GameField.DEFAULT_COLUMNS; i++) {
+        for (int i = 0; i < GameField$.MODULE$.DEFAULT_COLUMNS(); i++) {
             GameField previousState = computer.saveState();
             if (computer.getGameField().getPlayerOnTurn() != this) {
                 computer.getGameField().changePlayerTurn();
             }
 
-            if (computer.getGameField().dropCoin(i) >= GameField.DEFAULT_ROWS) {
+            if (computer.getGameField().dropCoin(i) >= GameField$.MODULE$.DEFAULT_ROWS()) {
                 computer.setGameField(previousState);
                 continue;
             }
@@ -76,12 +72,12 @@ public class MiddleSolver implements SolverPlugin {
         int computed = Integer.MAX_VALUE;
         int drawValue;
 
-        for (int i = 0; i < GameField.DEFAULT_COLUMNS; i++) {
+        for (int i = 0; i < GameField$.MODULE$.DEFAULT_COLUMNS(); i++) {
             GameField previousState = computer.saveState();
             if (computer.getGameField().getPlayerOnTurn().equals(this)) {
                 computer.getGameField().changePlayerTurn();
             }
-            if (computer.getGameField().dropCoin(i) >= GameField.DEFAULT_ROWS) {
+            if (computer.getGameField().dropCoin(i) >= GameField$.MODULE$.DEFAULT_ROWS()) {
                 computer.setGameField(previousState);
                 continue;
 

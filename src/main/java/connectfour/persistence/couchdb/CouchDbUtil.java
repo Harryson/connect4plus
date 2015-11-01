@@ -1,10 +1,6 @@
 package connectfour.persistence.couchdb;
 
-import connectfour.model.Computer;
-import connectfour.model.GameField;
-import connectfour.model.Human;
-import connectfour.model.Player;
-import connectfour.model.SaveGame;
+import connectfour.model.*;
 import connectfour.util.observer.IObserverWithArguments;
 
 /**
@@ -62,14 +58,14 @@ public class CouchDbUtil {
     }
 
     public static GameFieldCouchDb convertGameField(GameField gameField) throws CloneNotSupportedException {
-        return new GameFieldCouchDb(gameField.getPlayer(), gameField.getOpponent(), gameField.getCopyOfGamefield(), gameField.getPlayerOnTurn(), gameField.getModCount(), gameField.getWinner(), gameField.isGameWon());
+        return new GameFieldCouchDb(gameField.player(), gameField.opponent(), gameField.getCopyOfGamefield(), gameField.getPlayerOnTurn(), gameField.getModCount(), gameField.getWinner(), gameField.isGameWon());
     }
 
 
     public static PlayerCouchDb[][] convertGameFieldMatrix(Player[][] gameField, Player player, Player opponent, PlayerCouchDb playerCouchDb, PlayerCouchDb opponentCouchDb) {
-        PlayerCouchDb[][] gameFieldCouchDb = new PlayerCouchDb[GameField.DEFAULT_ROWS][GameField.DEFAULT_COLUMNS];
-        for (int i = 0; i < GameField.DEFAULT_ROWS; i++) {
-            for (int j = 0; j < GameField.DEFAULT_COLUMNS; j++) {
+        PlayerCouchDb[][] gameFieldCouchDb = new PlayerCouchDb[GameField$.MODULE$.DEFAULT_COLUMNS()][GameField$.MODULE$.DEFAULT_COLUMNS()];
+        for (int i = 0; i < GameField$.MODULE$.DEFAULT_ROWS(); i++) {
+            for (int j = 0; j < GameField$.MODULE$.DEFAULT_COLUMNS(); j++) {
 
                 if (player.equals(gameField[i][j])) {
                     gameFieldCouchDb[i][j] = playerCouchDb;
@@ -87,9 +83,9 @@ public class CouchDbUtil {
     }
 
     public static Player[][] convertGameFieldMatrix(PlayerCouchDb[][] gameField, Player player, Player opponent, PlayerCouchDb playerCouchDb, PlayerCouchDb opponentCouchDb) {
-        Player[][] gf = new Player[GameField.DEFAULT_ROWS][GameField.DEFAULT_COLUMNS];
-        for (int i = 0; i < GameField.DEFAULT_ROWS; i++) {
-            for (int j = 0; j < GameField.DEFAULT_COLUMNS; j++) {
+        Player[][] gf = new Player[GameField$.MODULE$.DEFAULT_ROWS()][GameField$.MODULE$.DEFAULT_COLUMNS()];
+        for (int i = 0; i < GameField$.MODULE$.DEFAULT_ROWS(); i++) {
+            for (int j = 0; j < GameField$.MODULE$.DEFAULT_COLUMNS(); j++) {
 
                 if (playerCouchDb.equals(gameField[i][j])) {
                     gf[i][j] = player;
@@ -105,6 +101,4 @@ public class CouchDbUtil {
         }
         return gf;
     }
-
-
 }

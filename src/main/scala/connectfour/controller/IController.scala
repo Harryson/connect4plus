@@ -3,7 +3,6 @@ package connectfour.controller
 import java.util
 
 import connectfour.model.{GameField, Player}
-import java.util.List;
 
 /**
  * Created by maharr on 19.10.15.
@@ -53,6 +52,7 @@ trait IController {
    */
   def saveGame(name: String)
 
+  //TODO: util.List[String]
   def getAllSaveGameNames: util.List[String]
 
   def loadSaveGame(saveGameName: String)
