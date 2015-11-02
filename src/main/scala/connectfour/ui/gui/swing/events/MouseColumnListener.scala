@@ -7,7 +7,7 @@ import connectfour.util.observer.IObserverWithArguments
 import connectfour.util.observer.ObservableWithArguments
 
 class MouseColumnObserver(observer: IObserverWithArguments, column: Int) extends ObservableWithArguments with MouseListener {
-  addObserver(observer)
+  this.addObserver(observer)
 
   override def mouseEntered(e: MouseEvent) {
     notifyObservers(column)
