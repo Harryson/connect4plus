@@ -2,9 +2,6 @@ package connectfour.model
 
 import modelinterfaces.Player
 
-import com.typesafe.scalalogging.Logger
-import org.slf4j.LoggerFactory
-
 object Connect4GameField {
   val FIELD_ROWS = 6
   val FIELD_COLUMNS = 7
@@ -20,8 +17,6 @@ class Connect4GameField(player1: Player, player2: Player) {
     else
       player2
   }
-  
-  val logger = Logger(LoggerFactory.getLogger("name"))
 
   val gameField = Array.ofDim[Player](Connect4GameField.FIELD_COLUMNS, Connect4GameField.FIELD_ROWS)
 
