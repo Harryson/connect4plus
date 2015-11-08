@@ -1,15 +1,17 @@
-package connectfour.Controller
+package connectfour.controller
 
-import modelinterfaces.{Move, Player}
-import undomanager.{Command, UndoManager}
-import controller.GameController
-import connect4.model._
-import observer.Observable
-import connectfour.model.Connect4MoveEvaluator
-import connectfour.model.Connect4GameField
 import connectfour.model.Connect4Computer
-import connectfour.model.Connect4Player
+import connectfour.model.Connect4GameField
 import connectfour.model.Connect4Move
+import connectfour.model.Connect4MoveEvaluator
+import connectfour.model.Connect4Player
+import connectfour.util.observer.IObserverWithArguments
+import connectfour.util.observer.ObservableWithArguments
+import controller.GameController
+import modelinterfaces.Move
+import modelinterfaces.Player
+import undomanager.Command
+import undomanager.UndoManager
 
 /**
  * User: Stefano Di Martino
@@ -21,7 +23,7 @@ object Connect4GameController {
   private val computerName = "Computer"
 }
 
-class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends Observable with GameController {
+class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends ObservableWithArguments with GameController with IObserverWithArguments {
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = {
     if (player2Name == Connect4GameController.computerName)
@@ -32,13 +34,18 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
 
+  override def getPlayers: (Player, Player) = (player1, player2)
+  
+  def getPlayerAt(currentRow: Int, currentColumn: Int) = {
+    gameField.gameField(currentColumn)(currentRow)
+  }
 
   override def getPlayerOnTurn: Player = gameField.getPlayerOnTurn
-  
+
   override def getWinner: String = {
     if (Connect4MoveEvaluator.playerHasWon(gameField, player1)) {
       player1.toString
-    } else if (Connect4MoveEvaluator.playerHasWon(gameField, player2)){
+    } else if (Connect4MoveEvaluator.playerHasWon(gameField, player2)) {
       player2.toString
     } else {
       ""
@@ -52,9 +59,11 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
       override def execute = gameField = oldGameField
     })
 
-    gameField.dropCoin(column)
+    val success = gameField.dropCoin(column)
 
     notifyObservers()
+    
+    success
   }
 
   override def undoLastMove = undoManager.undoCommand
@@ -83,4 +92,9 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
 
     controller
   }
+  
+	override def update(arg: Any) {
+        val columnToDrop = arg.asInstanceOf[Int]
+        dropCoin(columnToDrop);
+    }
 }

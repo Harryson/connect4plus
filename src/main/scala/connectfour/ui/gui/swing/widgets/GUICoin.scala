@@ -5,14 +5,14 @@ import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.RenderingHints
 import javax.swing.JPanel
-import connectfour.controller.IController
 import connectfour.ui.gui.swing.events.GUICoinMouseListener
 import connectfour.ui.gui.swing.events.MouseColumnObserver
 import connectfour.util.observer.IObserver
-import connectfour.util.observer.IObserverWithArguments;
+import connectfour.util.observer.IObserverWithArguments
 import scala.beans.BeanProperty
+import connectfour.controller.Connect4GameController
 
-class GUICoin(controller: IController, column: Int, observer: IObserverWithArguments) extends JPanel with IObserver {
+class GUICoin(controller: Connect4GameController, column: Int, observer: IObserverWithArguments) extends JPanel with IObserver {
   val RADIUS = 40;
   val X_POSITION = 18;
   val Y_POSITION = 20;
@@ -47,6 +47,6 @@ class GUICoin(controller: IController, column: Int, observer: IObserverWithArgum
     
     
     override def update() {
-    	this.controller.dropCoinWithSuccessFeedback(this.column);
+    	controller.dropCoin(column);
     }
 }

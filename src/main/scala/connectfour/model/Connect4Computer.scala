@@ -1,14 +1,15 @@
 package connectfour.model
 
-import controller.GameController
 import ai.MinMax
-import observer.{Observable, Observer}
+import connectfour.util.observer.IObserver
+import connectfour.util.observer.Observable
+import controller.GameController
 import modelinterfaces.Player
 
 /**
  * Created by stefano on 19.02.14.
  */
-class Connect4Computer(override val name: String, controller: GameController, observable: Observable) extends Observer with Player {
+class Connect4Computer(override val name: String, controller: GameController, observable: Observable) extends IObserver with Player {
   observable.addObserver(this)
 
   private def draw = {

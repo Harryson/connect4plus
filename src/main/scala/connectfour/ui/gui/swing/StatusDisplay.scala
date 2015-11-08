@@ -1,13 +1,10 @@
 package connectfour.ui.gui.swing
 
-import connectfour.controller.IController;
-
 import javax.swing._
 import java.awt._
+import connectfour.controller.Connect4GameController
 
-import connectfour.model.Player
-
-class StatusDisplay(controller: IController) extends JPanel {
+class StatusDisplay(controller: Connect4GameController) extends JPanel {
   private val status = new JLabel();
 
   this.add(status)
@@ -15,7 +12,7 @@ class StatusDisplay(controller: IController) extends JPanel {
   this.showPlayerOnTurn()
 
   def update {
-    if (controller.userHasWon) {
+    if (controller.getWinner != "") {
       showWinner()
     } else {
       showPlayerOnTurn()
@@ -23,10 +20,9 @@ class StatusDisplay(controller: IController) extends JPanel {
   }
 
   private def setPlayersColor {
-    val players: Array[Player] = controller.getPlayers;
-    val player1 = players(0)
+    val (user, _) = controller.getPlayers
 
-    if (controller.getPlayerOnTurn == player1) { // Player 1
+    if (controller.getPlayerOnTurn == user) {
       status.setForeground(Color.RED)
     } else {
       status.setForeground(Color.BLUE)
@@ -40,7 +36,7 @@ class StatusDisplay(controller: IController) extends JPanel {
 
   private def showPlayerOnTurn() {
     setPlayersColor
-    val playerOnTurn = String.format("Spieler %s ist dran", controller.getPlayerNameOnTurn)
+    val playerOnTurn = String.format("Spieler %s ist dran", controller.getPlayerOnTurn)
     status.setText(playerOnTurn)
   }
 }

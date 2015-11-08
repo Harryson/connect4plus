@@ -1,13 +1,12 @@
 package connectfour.ui.gui.swing
 
-import connectfour.controller.IController
 import connectfour.ui.gui.swing.events._
 import connectfour.util.observer.IObserver
-
 import javax.swing._
 import java.awt._
+import connectfour.controller.Connect4GameController
 
-class ToolBar(controller: IController, observer: IObserver, frame: Frame) extends JPanel {
+class ToolBar(controller: Connect4GameController, observer: IObserver, frame: Frame) extends JPanel {
   private val toolBar = new JToolBar("Toolbar")
 
   setBackground(Color.WHITE)

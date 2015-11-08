@@ -1,14 +1,13 @@
 package connectfour.ui.gui.swing.events
 
-import connectfour.controller.IController
 import connectfour.util.observer.IObserver
-
 import java.awt.event.MouseEvent
+import connectfour.controller.Connect4GameController
 
-class UndoEvent(controller: IController, observer: IObserver) extends EventAdapter(observer) {
+class UndoEvent(controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer) {
 
   override def mousePressed(e: MouseEvent) {
-        controller.undoStep
+        controller.undoLastMove
         notifyObservers
     }
 }
