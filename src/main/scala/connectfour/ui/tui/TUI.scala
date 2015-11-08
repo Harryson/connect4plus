@@ -1,35 +1,33 @@
 package connectfour.ui.tui
 
 import java.util.Scanner
-
 import com.google.inject.Inject
 import connectfour.controller.IController
-import connectfour.model.{GameField, Computer, Player}
 import connectfour.ui.UI
 import connectfour.util.observer.IObserver
+import modelinterfaces.Player
+import org.junit.runner.Computer
+import connectfour.model.GameField
+import controller.GameController
 
 /**
  * Created by maharr on 01.11.15.
  */
-class TUI extends UI with IObserver{
+class TUI(controller: GameController) extends UI with IObserver{
   private val newline: String = System.getProperty("line.separator")
-  private var controller: IController = null
-  private var players: Array[Player] = null
+  private var (player1, player2) = controller.getPlayers
 
-  @Inject def this(controller: IController) {
-    this()
-    this.controller = controller
-    this.players = controller.getPlayers
-  }
 
   override def drawGameField {
-    this.players = controller.getPlayers
-    if (controller.userHasWon) {
-      System.out.printf("%s hat gewonnen\n\n", controller.getWinner)
+    //(player1, player2) = controller.getPlayers
+    
+    val winner = controller.getWinner 
+    if (winner != "") {
+      System.out.printf("%s hat gewonnen\n\n", winner)
       return
     }
     else {
-      System.out.printf("%s ist dran\n\n", controller.getPlayerNameOnTurn)
+      System.out.printf("%s ist dran\n\n", controller.getPlayerOnTurn)
     }
     System.out.printf(this.renderGameField + "\n")
     if (controller.getPlayerOnTurn.isInstanceOf[Computer]) {
@@ -50,7 +48,7 @@ class TUI extends UI with IObserver{
   private def parseUserInput(userInput: String) {
     if (userInput.isInstanceOf[Int]) {
       val column: Int = userInput.toInt - 1
-      if (!controller.dropCoinWithSuccessFeedback(column)) {
+      if (!controller.dropCoin(column)) {
         System.out.println("Ungueltige Eingabe!\n")
         this.drawGameField
       }
@@ -81,10 +79,10 @@ class TUI extends UI with IObserver{
         if (player == null) {
           playingField.append(empty)
         }
-        else if (player == players(0)) {
+        else if (player == player1) {
           playingField.append(coin1)
         }
-        else if (player == players(1)) {
+        else if (player == player2) {
           playingField.append(coin2)
         }
         else {

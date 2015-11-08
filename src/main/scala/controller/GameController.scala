@@ -8,6 +8,8 @@ import modelinterfaces.{Move, Player}
  * Time: 00:31
  */
 trait GameController {
+  def getPlayers: (Player, Player)
+  
   def undoLastMove
 
   def getPlayerOnTurn: Player
@@ -15,6 +17,8 @@ trait GameController {
   def noMovePossible(player: Player): Boolean
 
   def getScore(player: Player): Int
+  
+  def getWinner: String
 
   /**
    * Generates possibles moves for a player. CAUTION: It is strongly recommended to do this on a cloned controller,

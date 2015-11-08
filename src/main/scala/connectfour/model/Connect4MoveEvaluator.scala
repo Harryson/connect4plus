@@ -1,6 +1,6 @@
 package connectfour.model
 
-import modelinterfaces.{Move, Player}
+import modelinterfaces.{ Move, Player }
 import connectfour.Controller.Connect4GameController
 
 /**
@@ -22,6 +22,13 @@ object Connect4MoveEvaluator {
     }
 
     noMovePossible(0)
+  }
+
+  def playerHasWon(gameField: Connect4GameField, player: Player): Boolean = {
+    horizontalWin(gameField, player) ||
+      verticalWin(gameField, player) ||
+      diagonalUpWin(gameField, player) ||
+      diagonalDownWin(gameField, player)
   }
 
   def getScore(gameField: Connect4GameField, player: Player): Int = {
