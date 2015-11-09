@@ -1,16 +1,40 @@
 package connectfour.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import connectfour.controller.Connect4GameController;
+import connectfour.ui.tui.TUI;
 import modelinterfaces.Player;
 
+class MockGameField extends Connect4GameField {
+
+	public MockGameField(Player player1, Player player2) {
+		super(player1, player2);
+	}
+	
+	public boolean dropCoin(int column, Player p) {
+		playerOnTurn_$eq(p);
+		final boolean success = dropCoin(column);
+		playerOnTurn_$eq(p);
+		return success;
+	}
+	
+}
+
+class MockController extends Connect4GameController {
+	public MockController(String player1Name, String player2Name) {
+		super(player1Name, player2Name);
+		this.gameField_$eq(new MockGameField(player1(), player2()));
+	}
+}
+
 public class GameFieldTest {
-	Connect4GameField gameField;
+	MockGameField gameField;
 	Player player;
 	Player opponent;
 
@@ -18,12 +42,11 @@ public class GameFieldTest {
 
 	@Before
 	public void setUp() throws Exception {
-		controller = new Connect4GameController("Hugo", "Boss");
+		controller = new MockController("Hugo", "Boss");
 		
 		player = controller.player1();
 		opponent = controller.player2();
-		
-		gameField = controller.gameField();
+		gameField = (MockGameField) controller.gameField();
 	}
 
 	@After
@@ -33,56 +56,66 @@ public class GameFieldTest {
 
 	@Test
 	public void dropCointTest() {
-		int row;
+		boolean success;
 
-		row = gameField.dropCoin(3, player);
-		assertEquals(0, row);
-		assertEquals(gameField.getPlayerAt(row, 3), player);
-		row = gameField.dropCoin(3, player);
-		assertEquals(gameField.getPlayerAt(row, 3), player);
-		assertEquals(1, row);
-		row = gameField.dropCoin(1, opponent);
-		assertEquals(gameField.getPlayerAt(row, 1), opponent);
-		assertEquals(0, row);
-		row = gameField.dropCoin(1, opponent);
-		assertEquals(gameField.getPlayerAt(row, 1), opponent);
-		assertEquals(1, row);
-		row = gameField.dropCoin(1, opponent);
-		assertEquals(2, row);
-		assertEquals(gameField.getPlayerAt(row, 1), opponent);
-		row = gameField.dropCoin(1, opponent);
-		assertEquals(3, row);
-		assertEquals(gameField.getPlayerAt(row, 1), opponent);
-		row = gameField.dropCoin(1, opponent);
-		assertEquals(4, row);
-		assertEquals(gameField.getPlayerAt(row, 1), opponent);
-		row = gameField.dropCoin(1, opponent);
-		assertEquals(5, row);
-		assertEquals(gameField.getPlayerAt(row, 1), opponent);
-		assertEquals(gameField.getPlayerAt(1, 1), opponent);
+		success = gameField.dropCoin(3, player);
+		assertTrue(success);
+		assertEquals(controller.getPlayerAt(0, 3), player);
+		
+		success = gameField.dropCoin(3, player);
+		assertEquals(controller.getPlayerAt(1, 3), player);
+		assertTrue(success);
+		
+		success = gameField.dropCoin(1, opponent);
+		assertEquals(controller.getPlayerAt(0, 1), opponent);
+		assertTrue(success);
+		
+		success = gameField.dropCoin(1, opponent);
+		assertEquals(controller.getPlayerAt(1, 1), opponent);
+		assertTrue(success);
+		
+		success = gameField.dropCoin(1, opponent);
+		assertTrue(success);
+		assertEquals(controller.getPlayerAt(2, 1), opponent);
+		
+		success = gameField.dropCoin(1, opponent);
+		assertTrue(success);
+		assertEquals(controller.getPlayerAt(3, 1), opponent);
+		
+		success = gameField.dropCoin(1, opponent);
+		assertTrue(success);
+		assertEquals(controller.getPlayerAt(4, 1), opponent);
+		
+		success = gameField.dropCoin(1, opponent);
+		assertTrue(success);
+		assertEquals(controller.getPlayerAt(5, 1), opponent);
+		assertEquals(controller.getPlayerAt(1, 1), opponent);
 	}
 
 	@Test
-	public void newGameFieldTest() {
+	public void newGameFieldTest() throws Exception {
 		gameField.dropCoin(0, opponent);
 		gameField.dropCoin(0, opponent);
 		gameField.dropCoin(0, opponent);
 		gameField.dropCoin(0, opponent);
-		gameField = new GameField(player, opponent);
-		assertEquals(gameField.getPlayerAt(0, 0), null);
+		setUp();
+		assertEquals(controller.getPlayerAt(0, 0), null);
+	}
+	
+	@Test
+	public void isWonTestVertical() throws Exception {
+		setUp();
+		gameField.dropCoin(0, opponent);
+		gameField.dropCoin(0, opponent);
+		gameField.dropCoin(0, opponent);
+		gameField.dropCoin(0, opponent);
+
+		assertEquals(opponent.toString(), controller.getWinner());
 	}
 
 	@Test
-	public void isWonTest() {
-		System.out.println("isWonTest");
-		gameField.dropCoin(0, opponent);
-		gameField.dropCoin(0, opponent);
-		gameField.dropCoin(0, opponent);
-		gameField.dropCoin(0, opponent);
-
-		assertEquals(gameField.getWinner(), opponent);
-
-		gameField = new GameField(player, opponent);
+	public void isWonTest() throws Exception {
+		setUp();
 
 		gameField.dropCoin(0, opponent);
 		gameField.dropCoin(0, opponent);
@@ -90,12 +123,15 @@ public class GameFieldTest {
 		gameField.dropCoin(0, player);
 		gameField.dropCoin(0, opponent);
 		gameField.dropCoin(0, opponent);
-		assertEquals(gameField.getWinner(), null);
+		assertEquals("", controller.getWinner());
 
-		gameField = new GameField(player, opponent);
+		setUp();
 
 		/*
-		 * o ox oxx oxxxoo
+		 * o
+		 * ox 
+		 * oxx 
+		 * oxxxoo
 		 */
 		gameField.dropCoin(0, opponent);
 		gameField.dropCoin(1, player);
@@ -108,12 +144,17 @@ public class GameFieldTest {
 		gameField.dropCoin(4, opponent);
 		gameField.dropCoin(3, player);
 		gameField.dropCoin(3, opponent);
-		assertEquals(gameField.getWinner(), opponent);
+		assertEquals(opponent.toString(), controller.getWinner());
 
-		gameField = new GameField(player, opponent);
+		setUp();
+		
+		TUI tui = new TUI(controller);
 
 		/*
-		 * x ox xox xoxox
+		 * x
+		 * ox
+		 * xox
+		 * xoxox
 		 */
 		gameField.dropCoin(6, player);
 		gameField.dropCoin(5, opponent);
@@ -126,7 +167,11 @@ public class GameFieldTest {
 		gameField.dropCoin(4, player);
 		gameField.dropCoin(2, opponent);
 		gameField.dropCoin(3, player);
-		assertEquals(gameField.getWinner(), player);
+
+		System.out.println(tui.renderGameField());
+		
+		assertEquals(player, controller.getWinner());
+		
 
 	}
 }

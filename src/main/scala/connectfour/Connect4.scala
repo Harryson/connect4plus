@@ -13,8 +13,7 @@ import connectfour.ui.tui.TUI
 object Connect4new {
 
   def main(args: Array[String]) {
-    val injector: Injector = Guice.createInjector(new GameControllerModule)
-    val controller: Connect4GameController = injector.getInstance(classOf[Connect4GameController])
+    val controller: Connect4GameController = new Connect4GameController("Hugo")
     // TODO
     //controller.newGame
     controller.addObserver(new SwingGUI(controller))

@@ -11,7 +11,7 @@ object Connect4GameField {
  * Created by stefano on 17.02.14.
  */
 class Connect4GameField(player1: Player, player2: Player) {
-  private var playerOnTurn: Player = {
+  protected var playerOnTurn: Player = {
     if (Math.random() < 0.5)
       player1
     else
