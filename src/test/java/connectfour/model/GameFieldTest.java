@@ -6,33 +6,29 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import connectfour.GameControllerModule;
-import connectfour.controller.GameController;
-import connectfour.util.observer.IObserverWithArguments;
+import connectfour.controller.Connect4GameController;
+import modelinterfaces.Player;
 
 public class GameFieldTest {
-	GameField gameField;
+	Connect4GameField gameField;
 	Player player;
 	Player opponent;
 
-	private IObserverWithArguments obsersable;
+	private Connect4GameController controller;
 
 	@Before
 	public void setUp() throws Exception {
-		Injector injector = Guice.createInjector(new GameControllerModule());
-		this.obsersable = injector.getInstance(GameController.class);
-
-		player = new Human("Hugo");
-		opponent = new Human("Boss");
-		gameField = new GameField(player, opponent);
+		controller = new Connect4GameController("Hugo", "Boss");
+		
+		player = controller.player1();
+		opponent = controller.player2();
+		
+		gameField = controller.gameField();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		gameField = new GameField(player, opponent);
+		//gameField = new GameField(player, opponent);
 	}
 
 	@Test
