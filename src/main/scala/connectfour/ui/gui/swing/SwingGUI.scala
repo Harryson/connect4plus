@@ -66,10 +66,10 @@ class SwingGUI @Inject() (controller: IController) extends JFrame with UI with I
     lineAxisPanel.setPreferredSize(DIMENSION_PANEL)
 
     cellWrapper.setPreferredSize(DIMENSION_CELL_WRAPPER)
-    statusDisplay.setPreferredSize(DIMENSION_STATUS_DISPLAY)
+    statusDisplay.preferredSize = DIMENSION_STATUS_DISPLAY
 
     lineAxisPanel.add(cellWrapper)
-    lineAxisPanel.add(statusDisplay)
+    lineAxisPanel.add(statusDisplay.peer)
     pageAxisPanel.add(new ToolBar(controller, this, this))
     pageAxisPanel.add(lineAxisPanel)
 

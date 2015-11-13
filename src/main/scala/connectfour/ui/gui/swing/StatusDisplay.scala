@@ -1,18 +1,21 @@
 package connectfour.ui.gui.swing
 
-import connectfour.controller.IController;
+import java.awt.Color._
 
-import javax.swing._
-import java.awt._
-
+import connectfour.controller.IController
 import connectfour.model.Player
 
-class StatusDisplay(controller: IController) extends JPanel {
-  private val status = new JLabel();
+import scala.swing._
 
-  this.add(status)
-  this.setBackground(Color.WHITE)
-  this.showPlayerOnTurn()
+/**
+ * Created by maharr on 13.11.15.
+ */
+class StatusDisplay(controller: IController) extends FlowPanel {
+
+  val status = new Label
+  contents += status
+
+  showPlayerOnTurn()
 
   def update {
     if (controller.userHasWon) {
@@ -27,20 +30,20 @@ class StatusDisplay(controller: IController) extends JPanel {
     val player1 = players(0)
 
     if (controller.getPlayerOnTurn == player1) { // Player 1
-      status.setForeground(Color.RED)
+      status.foreground = RED
     } else {
-      status.setForeground(Color.BLUE)
+      status.foreground = BLUE
     }
   }
 
   private def showWinner() {
     val winner = String.format("%s hat gewonnen!", controller.getWinner)
-    status.setText(winner)
+    status.text = winner
   }
 
   private def showPlayerOnTurn() {
     setPlayersColor
     val playerOnTurn = String.format("Spieler %s ist dran", controller.getPlayerNameOnTurn)
-    status.setText(playerOnTurn)
+    status.text = playerOnTurn
   }
 }

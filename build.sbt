@@ -22,7 +22,8 @@ libraryDependencies ++= Seq(
   "org.ektorp" % "org.ektorp" % "1.4.1",
   "com.h2database" % "h2" % "1.3.174",
   "org.hsqldb" % "hsqldb" % "2.3.1",
-  "ch.qos.logback" % "logback-classic" % "1.1.3"
+  "ch.qos.logback" % "logback-classic" % "1.1.3",
+  "org.scala-lang" % "scala-swing" % "2.11+"
 )
 
 
