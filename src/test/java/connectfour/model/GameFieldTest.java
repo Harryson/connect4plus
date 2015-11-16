@@ -127,11 +127,11 @@ public class GameFieldTest {
 
 		setUp();
 
-		/*
-		 * o
-		 * ox 
-		 * oxx 
-		 * oxxxoo
+		/**
+		 *    0
+		 *   0X
+		 *  0XX
+		 * 0XX00
 		 */
 		gameField.dropCoin(0, opponent);
 		gameField.dropCoin(1, player);
@@ -149,12 +149,15 @@ public class GameFieldTest {
 		setUp();
 		
 		TUI tui = new TUI(controller);
-
-		/*
-		 * x
-		 * ox
-		 * xox
-		 * xoxox
+		
+		/**
+		 *5 
+		 *4 
+		 *3   x
+		 *2   ox
+		 *1   xox 
+		 *0  ooxox
+		 * 0123456  
 		 */
 		gameField.dropCoin(6, player);
 		gameField.dropCoin(5, opponent);
@@ -170,7 +173,7 @@ public class GameFieldTest {
 
 		System.out.println(tui.renderGameField());
 		
-		assertEquals(player, controller.getWinner());
+		assertEquals(player.toString(), controller.getWinner());
 		
 
 	}

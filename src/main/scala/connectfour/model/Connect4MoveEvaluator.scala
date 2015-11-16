@@ -2,6 +2,8 @@ package connectfour.model
 
 import modelinterfaces.{ Move, Player }
 import connectfour.controller.Connect4GameController
+import org.slf4j.LoggerFactory
+import com.typesafe.scalalogging.Logger
 
 /**
  * User: Stefano Di Martino
@@ -9,6 +11,8 @@ import connectfour.controller.Connect4GameController
  * Time: 17:58
  */
 object Connect4MoveEvaluator {
+
+  val logger = Logger(LoggerFactory.getLogger("Connect4MoveEvaluator"))
 
   def verticalMoveIsPossible(gameField: Connect4GameField, column: Int): Boolean =
     gameField.gameField(column)(Connect4GameField.FIELD_ROWS - 1) == null
@@ -87,7 +91,7 @@ object Connect4MoveEvaluator {
           true
         else
           diagonalUpWin(column, row + 1)
-      } else if (column < Connect4GameField.FIELD_COLUMNS - 5)
+      } else if (column < Connect4GameField.FIELD_COLUMNS - 4)
         diagonalUpWin(column + 1, 0)
       else
         false
@@ -106,7 +110,7 @@ object Connect4MoveEvaluator {
           true
         else
           diagonalDownWin(column, row - 1)
-      } else if (column < Connect4GameField.FIELD_COLUMNS - 5)
+      } else if (column < Connect4GameField.FIELD_COLUMNS - 4)
         diagonalDownWin(column + 1, Connect4GameField.FIELD_ROWS - 1)
       else
         false
