@@ -35,22 +35,14 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   private val undoManager = new UndoManager
 
   override def getPlayers: (Player, Player) = (player1, player2)
-  
+
   def getPlayerAt(currentRow: Int, currentColumn: Int) = {
     gameField.gameField(currentColumn)(currentRow)
   }
 
   override def getPlayerOnTurn: Player = gameField.getPlayerOnTurn
 
-  override def getWinner: String = {
-    if (Connect4MoveEvaluator.playerHasWon(gameField, player1)) {
-      player1.toString
-    } else if (Connect4MoveEvaluator.playerHasWon(gameField, player2)) {
-      player2.toString
-    } else {
-      ""
-    }
-  }
+  override def getWinner: String = gameField.getWinner
 
   def dropCoin(column: Int) = {
     val oldGameField = gameField.cloneGameField
@@ -62,15 +54,24 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
     val success = gameField.dropCoin(column)
 
     notifyObservers()
-    
+
     success
   }
 
   override def undoLastMove = undoManager.undoCommand
 
-  override def noMovePossible(player: Player): Boolean = Connect4MoveEvaluator.noMovePossible(gameField, player)
+  override def noMovePossible(player: Player): Boolean = (getWinner != "") || Connect4MoveEvaluator.noMovePossible(gameField, player)
 
-  override def getScore(player: Player): Int = Connect4MoveEvaluator.getScore(gameField, player)
+  override def getScore(player: Player): Int = {
+    //Connect4MoveEvaluator.getScore(gameField, player)
+    if (getWinner == player.toString) {
+      Int.MaxValue
+    } else if (getWinner != "") {
+      Int.MinValue
+    } else {
+      0
+    }
+  }
 
   override def generatePossibleMoves(player: Player): List[Move] = Connect4MoveEvaluator.generatePossibleMoves(this, gameField, player)
 
@@ -92,9 +93,9 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
 
     controller
   }
-  
-	override def update(arg: Any) {
-        val columnToDrop = arg.asInstanceOf[Int]
-        dropCoin(columnToDrop);
-    }
+
+  override def update(arg: Any) {
+    val columnToDrop = arg.asInstanceOf[Int]
+    dropCoin(columnToDrop);
+  }
 }

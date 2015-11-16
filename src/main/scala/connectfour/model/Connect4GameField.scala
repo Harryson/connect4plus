@@ -11,6 +11,9 @@ object Connect4GameField {
  * Created by stefano on 17.02.14.
  */
 class Connect4GameField(player1: Player, player2: Player) {
+  val gameField = Array.ofDim[Player](Connect4GameField.FIELD_COLUMNS, Connect4GameField.FIELD_ROWS)
+  private var winner: Player = _
+  
   protected var playerOnTurn: Player = {
     if (Math.random() < 0.5)
       player1
@@ -18,9 +21,15 @@ class Connect4GameField(player1: Player, player2: Player) {
       player2
   }
 
-  val gameField = Array.ofDim[Player](Connect4GameField.FIELD_COLUMNS, Connect4GameField.FIELD_ROWS)
-
+  
   def getPlayerOnTurn: Player = playerOnTurn
+  def getWinner = {
+    if (winner == null) {
+      ""
+    } else {
+      winner.toString
+    }
+  }
 
   def changePlayerOnTurn() = {
     if (playerOnTurn == player1)
@@ -45,6 +54,10 @@ class Connect4GameField(player1: Player, player2: Player) {
 
     if (Connect4MoveEvaluator.verticalMoveIsPossible(this, column)) {
       insertPlayerInGameField(0)
+      
+      if (Connect4MoveEvaluator.playerHasWon(this, playerOnTurn))
+        winner = playerOnTurn
+      
       changePlayerOnTurn()
       true
     } else

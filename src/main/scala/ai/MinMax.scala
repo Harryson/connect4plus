@@ -19,11 +19,11 @@ object MinMax {
     val controllerCopy = controller.cloneController
     var savedMove: Move = NoMovePossible
 
-    def miniMax(currentPlayer: Player, depth: Int): Int = {
+    def miniMax(currentPlayer: Player, depth: Int): Double = {
       if (depth == 0 || controllerCopy.noMovePossible(currentPlayer))
-        return controllerCopy.getScore(currentPlayer)
+        return controllerCopy.getScore(currentPlayer).asInstanceOf[Double]
 
-      var maxValue = Int.MinValue
+      var maxValue = Double.NegativeInfinity
       val possibleMoves: List[Move] = controllerCopy.generatePossibleMoves(currentPlayer)
 
       for (move <- possibleMoves) {
