@@ -1,6 +1,6 @@
 package connectfour.model
 
-import ai.MinMax
+import ai.MiniMax
 import connectfour.util.observer.IObserver
 import connectfour.util.observer.Observable
 import controller.GameController
@@ -14,7 +14,7 @@ class Connect4Computer(override val name: String, controller: GameController, ob
 
   private def draw = {
     if (controller.getPlayerOnTurn == this)
-      MinMax.getNextMove(controller).execute
+      MiniMax.getNextMove(controller).execute
   }
 
   override def update = draw

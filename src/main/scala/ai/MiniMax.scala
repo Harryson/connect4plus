@@ -8,7 +8,7 @@ import controller.GameController
  * Date: 25.01.14
  * Time: 00:13
  */
-object MinMax {
+object MiniMax {
   val DIFFICULTY_MIDDLE = 4
   val DIFFICULTY_HEAVY = 6
 
