@@ -32,7 +32,7 @@ class SwingGUI (controller: Connect4GameController) extends JFrame with UI with 
 
   // UI Stuff
   private val cellWrapper = new JPanel()
-  private val coinCells = Array.ofDim[GUICoin](Connect4GameField.FIELD_COLUMNS, Connect4GameField.FIELD_COLUMNS)
+  private val coinCells = Array.ofDim[GUICoin](Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS)
   private val listArrowCells = new ArrayBuffer[ArrowCell](Connect4GameField.FIELD_COLUMNS)
 
   private val statusDisplay = new StatusDisplay(controller)
@@ -98,7 +98,7 @@ class SwingGUI (controller: Connect4GameController) extends JFrame with UI with 
       cellWrapper.add(listArrowCells(col))
     }
 
-    for (row <- (Connect4GameField.FIELD_COLUMNS - 1) to 0 by -1) {
+    for (row <- (Connect4GameField.FIELD_ROWS - 1) to 0 by -1) {
       for (col <- 0 until Connect4GameField.FIELD_COLUMNS) {
         cellWrapper.add(coinCells(row)(col))
       }
