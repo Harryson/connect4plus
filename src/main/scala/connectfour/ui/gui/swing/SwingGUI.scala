@@ -109,7 +109,7 @@ class SwingGUI (controller: Connect4GameController) extends JFrame with UI with 
     val (user, computer) = controller.getPlayers
     statusDisplay.update
 
-    for (currentRow <- 0 until Connect4GameField.FIELD_COLUMNS) {
+    for (currentRow <- 0 until Connect4GameField.FIELD_ROWS) {
       for (currentColumn <- 0 until Connect4GameField.FIELD_COLUMNS) {
         val player = this.controller.getPlayerAt(currentRow, currentColumn)
 
