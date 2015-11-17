@@ -5,6 +5,7 @@ import javax.swing.undo.UndoManager
 
 import com.google.inject.{Singleton, Inject}
 import connectfour.model._
+import connectfour.persistence.ISaveGameDAO
 import connectfour.util.observer.{IObserverWithArguments, ObservableWithArguments}
 import org.slf4j.LoggerFactory
 
@@ -14,10 +15,8 @@ import scala.swing.event.Event
 /**
   * Created by maharr on 31.10.15.
  */
-case class DropCoinScalaSwingEvent() extends Event
-case class NewGameScalaSwingEvent() extends Event
-case class UndoScalaSwingEvent() extends Event
-case class RedoScalaSwingEvent() extends Event
+case class DropCoin(col: Int) extends Event
+case class NewGame() extends Event
 
 @Singleton
 class GameController extends ObservableWithArguments with IObserverWithArguments with IController with Publisher {
@@ -28,6 +27,7 @@ class GameController extends ObservableWithArguments with IObserverWithArguments
   private var bGameHasStarted: Boolean = false
   @Inject private var scoreController: IHighScoreController = null
   private var undoManager: UndoManager = new UndoManager
+  @Inject private var saveGameDAO: ISaveGameDAO = null
 
 
   // constructor
@@ -48,7 +48,7 @@ class GameController extends ObservableWithArguments with IObserverWithArguments
 
     this.notifyObservers()
     this.notifyObservers(gameField)
-    publish(new NewGameScalaSwingEvent)
+    publish(new NewGame)
     logger.debug("End newGame() without parameter")
   }
 
@@ -61,8 +61,39 @@ class GameController extends ObservableWithArguments with IObserverWithArguments
 
     this.notifyObservers()
     this.notifyObservers(gameField)
-    publish(new NewGameScalaSwingEvent)
+    publish(new NewGame)
     logger.debug("End newGame() with parameter")
+  }
+
+  /**
+   * @param name Name must be unique, otherwise it will be overwritten.
+   */
+  override def saveGame(name: String) {
+    logger.debug("Start saveGame()")
+    var sg: SaveGame = null
+    sg = new SaveGame(name, getGameField.clone, getPlayer, getOpponend)
+    saveGameDAO.saveGame(sg)
+    logger.debug("End saveGame()")
+  }
+
+  //TODO: util.List[String]
+  override def getAllSaveGameNames: util.List[String] = {
+    logger.debug("Start & End getAllSaveGameNames()")
+    saveGameDAO.getAllSaveGames
+  }
+
+  override def loadSaveGame(saveGameName: String) {
+    logger.debug("Start loadSaveGame()")
+    val sg: SaveGame = saveGameDAO.loadSaveGame(saveGameName)
+    this.setGameField(sg.gameField)
+    this.setPlayer(sg.player1)
+    this.setOpponend(sg.player2)
+    this.undoManager = new UndoManager
+    this.bGameHasStarted = true
+    this.addObserver(gameField.opponent)
+    this.notifyObservers()
+    this.notifyObservers(gameField)
+    logger.debug("End loadSaveGame()")
   }
 
   override def getWinner: String = {
@@ -108,10 +139,8 @@ class GameController extends ObservableWithArguments with IObserverWithArguments
       val undoInfo: String = String.format("Undoing %s Player Move", getPlayerOnTurn.name)
       val edit: GameFieldEdit = new GameFieldEdit(this, previousState, newState, undoInfo)
       undoManager.addEdit(edit)
-
       this.notifyObservers()
       this.notifyObservers(gameField)
-      publish(new DropCoinScalaSwingEvent)
     }
     logger.debug("End dropCoinWithSuccessFeedback() return with true")
     success
@@ -148,9 +177,6 @@ class GameController extends ObservableWithArguments with IObserverWithArguments
     logger.debug("Start & End undoStep()")
     if (undoManager.canUndo) {
       undoManager.undo
-
-      //TODO: Funktioniert nicht
-      publish(new UndoScalaSwingEvent)
     }
   }
 
@@ -158,9 +184,6 @@ class GameController extends ObservableWithArguments with IObserverWithArguments
     logger.debug("Start & End redoStep()")
     if (undoManager.canRedo) {
       undoManager.redo
-
-      //TODO: Funktioniert nicht
-      publish(new RedoScalaSwingEvent)
     }
   }
 

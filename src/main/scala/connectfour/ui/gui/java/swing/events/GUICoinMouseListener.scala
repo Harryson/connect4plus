@@ -1,4 +1,4 @@
-package connectfour.ui.gui.swing.events
+package connectfour.ui.gui.java.swing.events
 
 import connectfour.util.observer.IObserver
 import connectfour.util.observer.Observable

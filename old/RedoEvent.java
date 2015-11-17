@@ -4,6 +4,7 @@
 package connectfour.ui.gui.swing.events;
 
 import connectfour.controller.IController;
+import connectfour.ui.gui.java.swing.events.EventAdapter;
 import connectfour.util.observer.IObserver;
 
 import java.awt.event.MouseEvent;

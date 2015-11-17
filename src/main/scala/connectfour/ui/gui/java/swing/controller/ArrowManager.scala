@@ -1,6 +1,6 @@
-package connectfour.ui.gui.swing.controller
+package connectfour.ui.gui.java.swing.controller
 
-import connectfour.ui.gui.swing.widgets.ArrowCell
+import connectfour.ui.gui.java.swing.widgets.ArrowCell
 import connectfour.util.observer.IObserverWithArguments
 import scala.collection.mutable.ArrayBuffer
 

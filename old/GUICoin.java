@@ -8,8 +8,8 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import connectfour.controller.IController;
-import connectfour.ui.gui.swing.events.GUICoinMouseListener;
-import connectfour.ui.gui.swing.events.MouseColumnObserver;
+import connectfour.ui.gui.java.swing.events.GUICoinMouseListener;
+import connectfour.ui.gui.java.swing.events.MouseColumnObserver;
 import connectfour.util.observer.IObserver;
 import connectfour.util.observer.IObserverWithArguments;
 

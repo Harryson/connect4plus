@@ -1,4 +1,4 @@
-package connectfour.ui.gui.swing.widgets
+package connectfour.ui.gui.java.swing.widgets
 
 import javax.swing._
 import java.awt._

@@ -1,9 +1,10 @@
-package connectfour.ui.gui.swing
+package connectfour.ui.gui.scala.swing.widgets
 
 import java.awt.Color._
 
 import connectfour.controller.IController
 import connectfour.model.Player
+import connectfour.util.observer.IObserver
 
 import scala.swing._
 

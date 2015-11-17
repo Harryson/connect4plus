@@ -1,4 +1,4 @@
-package connectfour.ui.gui.swing.events
+package connectfour.ui.gui.java.swing.events
 
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener

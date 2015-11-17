@@ -46,4 +46,14 @@ trait IController {
   def getPlayer: Player
 
   def useState(state: GameField)
+
+  /**
+   * @param name Name must be unique, otherwise it will be overwritten.
+   */
+  def saveGame(name: String)
+
+  //TODO: util.List[String]
+  def getAllSaveGameNames: util.List[String]
+
+  def loadSaveGame(saveGameName: String)
 }

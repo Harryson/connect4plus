@@ -1,7 +1,7 @@
-package connectfour.ui.gui.swing
+package connectfour.ui.gui.java.swing
 
 import connectfour.controller.IController
-import connectfour.ui.gui.swing.events._
+import connectfour.ui.gui.java.swing.events.{RedoEvent, UndoEvent, NewGameEvent}
 import connectfour.util.observer.IObserver
 
 import javax.swing._
@@ -30,16 +30,6 @@ class ToolBar(controller: IController, observer: IObserver, frame: Frame) extend
     val redo = "next"
     button = makeNavigationButton(redo, "Redo", "Redo")
     button.addMouseListener(new RedoEvent(controller, observer))
-    toolBar.add(button)
-
-    val save = "save"
-    button = makeNavigationButton(save, "Save", "Save")
-    button.addMouseListener(new SaveEvent(this.frame, this.controller))
-    toolBar.add(button)
-
-    val load = "load"
-    button = makeNavigationButton(load, "Load", "Load")
-    button.addMouseListener(new LoadSaveGameEvent(this.frame, this.controller, observer))
     toolBar.add(button)
   }
 

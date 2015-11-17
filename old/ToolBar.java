@@ -47,16 +47,6 @@ final class ToolBar extends JPanel {
         button = makeNavigationButton(redo, "Redo", "Redo");
         button.addMouseListener(new RedoEvent(controller, observer));
         toolBar.add(button);
-
-        String save = "save";
-        button = makeNavigationButton(save, "Save", "Save");
-        button.addMouseListener(new SaveEvent(this.frame, this.controller));
-        toolBar.add(button);
-
-        String load = "load";
-        button = makeNavigationButton(load, "Load", "Load");
-        button.addMouseListener(new LoadSaveGameEvent(this.frame, this.controller, observer));
-        toolBar.add(button);
     }
     
     private JButton makeNavigationButton(final String actionCommand, final String toolTipText,

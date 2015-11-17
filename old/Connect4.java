@@ -3,7 +3,7 @@ package connectfour;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import connectfour.controller.GameController;
-import connectfour.ui.gui.swing.SwingGUI;
+import connectfour.ui.gui.java.swing.SwingGUI;
 import connectfour.ui.tui.TUI;
 
 /**

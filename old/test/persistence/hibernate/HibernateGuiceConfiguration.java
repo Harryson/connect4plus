@@ -1,15 +1,10 @@
 package connectfour.persistence.hibernate;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.name.Names;
 import connectfour.controller.GameController;
 import connectfour.controller.HighScoreController;
 import connectfour.controller.IController;
 import connectfour.controller.IHighScoreController;
-import connectfour.persistence.ISaveGameDAO;
-import connectfour.ui.gui.swing.SwingGUI;
-import connectfour.ui.tui.TUI;
-import connectfour.util.observer.IObserver;
 import connectfour.util.observer.IObserverWithArguments;
 
 /**

@@ -1,28 +1,22 @@
-package connectfour.ui.gui.swing
+package connectfour.ui.gui.java.swing
 
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.GridLayout
-import java.util.ArrayList
-import java.util.List
 
 import javax.swing.BorderFactory
 import javax.swing.BoxLayout
 import javax.swing.JFrame
 import javax.swing.JOptionPane
 import javax.swing.JPanel
-import javax.swing.border.Border
 
 import com.google.inject.Inject
-import com.google.inject.Singleton
 
 import connectfour.controller.IController
 import connectfour.model.GameField
-import connectfour.model.Player
 import connectfour.ui.UI
-import connectfour.ui.gui.swing.controller.ArrowManager
-import connectfour.ui.gui.swing.widgets.ArrowCell
-import connectfour.ui.gui.swing.widgets.GUICoin
+import connectfour.ui.gui.java.swing.controller.ArrowManager
+import connectfour.ui.gui.java.swing.widgets.{ArrowCell, GUICoin}
 import connectfour.util.observer.IObserver
 
 import scala.collection.mutable.ArrayBuffer
