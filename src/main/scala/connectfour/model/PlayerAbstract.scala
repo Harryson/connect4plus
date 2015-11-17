@@ -21,23 +21,20 @@ abstract class PlayerAbstract(var name: String) extends ObservableWithArguments 
     }
   }
   
-    override def equals(o: Any): Boolean = {
-        if (this eq o.asInstanceOf[AnyRef]) {
-          return true
-        }
-        
-        if (o == null || getClass() != o.getClass()) {
-          return false
-        }
-
-        val that = o.asInstanceOf[PlayerAbstract];
-
-        return !(if (name != null) !name.equals(that.name) else that.name != null);
-
+  override def equals(o: Any): Boolean = {
+    if (this eq o.asInstanceOf[AnyRef]) {
+      return true
     }
 
-    override def hashCode(): Int = {
-        if (name != null) name.hashCode() else 0
+    if (o == null || getClass() != o.getClass()) {
+      return false
     }
 
+    val that = o.asInstanceOf[PlayerAbstract]
+    !(if (name != null) !name.equals(that.name) else that.name != null)
+  }
+
+  override def hashCode(): Int = {
+    if (name != null) name.hashCode() else 0
+  }
 }

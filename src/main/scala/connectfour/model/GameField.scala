@@ -134,7 +134,7 @@ class GameField(var player: Player, var opponent: Player) extends Cloneable{
   }
 
   private def lastLineFull: Boolean = {
-    var result: Boolean = true
+    var result = true
     for (element <- gameField(0)) {
       result &= element != null
     }

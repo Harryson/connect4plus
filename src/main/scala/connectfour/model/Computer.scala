@@ -1,16 +1,20 @@
 package connectfour.model
 
+import java.awt.Color
+
 import com.google.inject.Guice
 import com.google.inject.Inject
 import connectfour.util.observer.IObserverWithArguments
 
 class Computer(controllerObserver: IObserverWithArguments, playerName: String) extends PlayerAbstract(playerName) {
 
-		this.addObserver(controllerObserver)
-    val injector = Guice.createInjector(new SolverModule)
-    
-    @Inject
-     val solver = injector.getInstance(classOf[SolverPlugin])
+  override var color = Color.YELLOW
+
+  this.addObserver(controllerObserver)
+  val injector = Guice.createInjector(new SolverModule)
+
+  @Inject
+  val solver = injector.getInstance(classOf[SolverPlugin])
 
 	def saveState: GameField = {
 		try {

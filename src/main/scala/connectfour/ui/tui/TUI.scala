@@ -11,6 +11,8 @@ import connectfour.util.observer.IObserver
 /**
  * Created by maharr on 01.11.15.
  */
+
+//TODO: Klasse komplett ueberarbeiten
 class TUI extends UI with IObserver{
   private val newline: String = System.getProperty("line.separator")
   private var controller: IController = null

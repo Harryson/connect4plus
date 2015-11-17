@@ -40,15 +40,12 @@ class SwingGUI @Inject() (controller: GameController) extends Frame with UI with
     case e: RedoScalaSwingEvent => drawGameField
   }
 
-  // Old listener
-
   override def update {
     drawGameField
   }
 
   override def drawGameField {
     players = controller.getPlayers
-    //TODO: Update über Publisher machen
     statusDisplay.update
 
     //TODO: Nicht mehr Default Row und Col verwenden (soll skalierbar sein)
@@ -59,9 +56,9 @@ class SwingGUI @Inject() (controller: GameController) extends Frame with UI with
         if (player == null) {
           coinField.CELLS(currentRow)(currentColumn).foreground = Color.WHITE
         } else if (player == players(0)) {
-          coinField.CELLS(currentRow)(currentColumn).foreground = Color.RED
+          coinField.CELLS(currentRow)(currentColumn).foreground = players(0).color
         } else if (player == players(1)) {
-          coinField.CELLS(currentRow)(currentColumn).foreground = Color.YELLOW
+          coinField.CELLS(currentRow)(currentColumn).foreground = players(1).color
         } else {
           //TODO: Noch machen bei Fehlerfall
 //          JOptionPane.showMessageDialog(this,
@@ -70,6 +67,7 @@ class SwingGUI @Inject() (controller: GameController) extends Frame with UI with
 //              + " und Spalte "
 //              + currentColumn
 //              + "!")
+          throw new RuntimeException("Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!");
         }
       }
     }

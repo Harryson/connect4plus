@@ -22,5 +22,4 @@ class ToolBar (controller: IController) extends MenuBar {
     contents += new MenuItem(Action("Undo") {controller.undoStep})
     contents += new MenuItem(Action("Redo") {controller.redoStep})
   }
-
 }
