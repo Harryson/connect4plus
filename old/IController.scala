@@ -1,8 +1,9 @@
 package connectfour.controller
 
 import java.util
+import connectfour.model.GameField
+import modelinterfaces.Player
 
-import connectfour.model.{GameField, Player}
 
 /**
  * Created by maharr on 19.10.15.

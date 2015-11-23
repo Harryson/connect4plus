@@ -1,5 +1,7 @@
 package connectfour.util.observer
 
+import controller.GameController
+
 /**
  * Created by maharr on 19.10.15.
  */
