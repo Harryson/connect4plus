@@ -10,7 +10,6 @@ import connectfour.util.observer.ObservableWithArguments
 import controller.GameController
 import modelinterfaces.Move
 import modelinterfaces.Player
-import undomanager.Command
 import undomanager.UndoManager
 
 /**
