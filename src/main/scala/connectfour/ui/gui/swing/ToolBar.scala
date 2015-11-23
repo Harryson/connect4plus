@@ -25,12 +25,12 @@ class ToolBar(observer: IObserver, frame: Frame) extends JPanel {
 
     val undo = "previous"
     button = makeNavigationButton(undo, "Undo", "Undo")
-    button.addMouseListener(new UndoEvent(controller, observer))
+    button.addMouseListener(new UndoEvent(observer))
     toolBar.add(button)
 
     val redo = "next"
     button = makeNavigationButton(redo, "Redo", "Redo")
-    button.addMouseListener(new RedoEvent(controller, observer))
+    button.addMouseListener(new RedoEvent(observer))
     toolBar.add(button)
 
     val save = "save"

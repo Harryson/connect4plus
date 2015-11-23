@@ -5,10 +5,11 @@ import java.awt.event.MouseEvent
 import connectfour.controller.Connect4GameController
 import connectfour.util.observer.IObserver
 
-class RedoEvent(controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer) {
+class RedoEvent(observer: IObserver) extends EventAdapter(observer) {
 
-  override def  mousePressed(e: MouseEvent) {
-        //controller.redoStep
-        //notifyObservers
-    }
+  override def mousePressed(e: MouseEvent) {
+    val controller = Connect4GameController.getCurrentInstance
+    //controller.redoStep
+    //notifyObservers
+  }
 }
