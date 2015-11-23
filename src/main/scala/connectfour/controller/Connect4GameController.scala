@@ -20,6 +20,38 @@ import undomanager.UndoManager
 
 object Connect4GameController {
   private val computerName = "Computer"
+  private val defaultUserName = "Hugo"
+  
+  private var controller = new Connect4GameController(defaultUserName)
+  
+  /**
+   * Call always getCurrentInstance() to get the latest instance!
+   * Don't hold instances in classes,  because they could be outdated!
+   */
+  def reset = {
+    getNewInstance(controller.player1.name, controller.player2.name)
+  }
+  
+  /**
+   * Call always getCurrentInstance() to get the latest instance!
+   * Don't hold instances in classes,  because they could be outdated!
+   */
+  def getNewInstance( player1Name: String, player2Name: String = computerName) = {
+    // Alte Subscribers sichern
+    val subscribers = controller.subscribers
+    
+    controller = new Connect4GameController(player1Name, player2Name)
+    
+    // Alte Subscribers hinzufügen
+    controller.addAllObservers(subscribers)
+    controller
+  }
+  
+  /**
+   * Call always this method to get the latest instance!
+   * Don't hold instances in classes,  because they could be outdated!
+   */
+  def getCurrentInstance = controller
 }
 
 class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends ObservableWithArguments with GameController with IObserverWithArguments {
@@ -32,7 +64,7 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   }
   protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
-
+  
   override def getPlayers: (Player, Player) = (player1, player2)
 
   def getPlayerAt(currentRow: Int, currentColumn: Int) = {

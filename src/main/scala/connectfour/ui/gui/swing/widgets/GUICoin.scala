@@ -12,7 +12,7 @@ import connectfour.util.observer.IObserverWithArguments
 import scala.beans.BeanProperty
 import connectfour.controller.Connect4GameController
 
-class GUICoin(controller: Connect4GameController, column: Int, observer: IObserverWithArguments) extends JPanel with IObserver {
+class GUICoin(column: Int, observer: IObserverWithArguments) extends JPanel with IObserver {
   val RADIUS = 40;
   val X_POSITION = 18;
   val Y_POSITION = 20;
@@ -47,6 +47,7 @@ class GUICoin(controller: Connect4GameController, column: Int, observer: IObserv
     
     
     override def update() {
+      val controller = Connect4GameController.getCurrentInstance
     	controller.dropCoin(column);
     }
 }

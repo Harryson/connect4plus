@@ -12,10 +12,12 @@ import connectfour.model.Connect4GameField
 /**
  * Created by maharr on 01.11.15.
  */
-class TUI(controller: Connect4GameController) extends UI with IObserver{
+class TUI extends UI with IObserver{
   private val newline: String = System.getProperty("line.separator")
 
   override def drawGameField {
+    val controller = Connect4GameController.getCurrentInstance
+    
     val (user, computer) = controller.getPlayers
     
     val winner = controller.getWinner 
@@ -43,6 +45,8 @@ class TUI(controller: Connect4GameController) extends UI with IObserver{
   }
 
   private def parseUserInput(userInput: String) {
+    val controller = Connect4GameController.getCurrentInstance
+    
     if (userInput.isInstanceOf[Int]) {
       val column: Int = userInput.toInt - 1
       if (!controller.dropCoin(column)) {
@@ -57,6 +61,7 @@ class TUI(controller: Connect4GameController) extends UI with IObserver{
   }
 
   def renderGameField: String = {
+    val controller = Connect4GameController.getCurrentInstance
     val (user, computer) = controller.getPlayers
     
     val row: Int = Connect4GameField.FIELD_ROWS - 1

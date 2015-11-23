@@ -148,7 +148,7 @@ public class GameFieldTest {
 
 		setUp();
 		
-		TUI tui = new TUI(controller);
+		TUI tui = new TUI();
 		
 		/**
 		 *5 

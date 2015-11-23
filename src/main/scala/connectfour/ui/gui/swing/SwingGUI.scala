@@ -22,7 +22,7 @@ import scala.collection.mutable.ArrayBuffer
 import connectfour.controller.Connect4GameController
 import connectfour.model.Connect4GameField
 
-class SwingGUI (controller: Connect4GameController) extends JFrame with UI with IObserver {
+class SwingGUI extends JFrame with UI with IObserver {
   val DIMENSION_PANEL = new Dimension(800, 600)
   val DIMENSION_CELL_WRAPPER = new Dimension(400, 300)
   val DIMENSION_STATUS_DISPLAY = new Dimension(100, 100)
@@ -35,7 +35,7 @@ class SwingGUI (controller: Connect4GameController) extends JFrame with UI with 
   private val coinCells = Array.ofDim[GUICoin](Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS)
   private val listArrowCells = new ArrayBuffer[ArrowCell](Connect4GameField.FIELD_COLUMNS)
 
-  private val statusDisplay = new StatusDisplay(controller)
+  private val statusDisplay = new StatusDisplay
 
   {
     initGameField
@@ -64,7 +64,7 @@ class SwingGUI (controller: Connect4GameController) extends JFrame with UI with 
 
     lineAxisPanel.add(cellWrapper)
     lineAxisPanel.add(statusDisplay)
-    pageAxisPanel.add(new ToolBar(controller, this, this))
+    pageAxisPanel.add(new ToolBar(this, this))
     pageAxisPanel.add(lineAxisPanel)
 
     contentPane.add(pageAxisPanel)
@@ -82,7 +82,7 @@ class SwingGUI (controller: Connect4GameController) extends JFrame with UI with 
   private def initGameField {
     for (row <- 0 until Connect4GameField.FIELD_ROWS) {
       for (col <- 0 until Connect4GameField.FIELD_COLUMNS) {
-        coinCells(row)(col) = new GUICoin(controller, col, ArrowManager)
+        coinCells(row)(col) = new GUICoin(col, ArrowManager)
       }
     }
 
@@ -106,12 +106,13 @@ class SwingGUI (controller: Connect4GameController) extends JFrame with UI with 
   }
 
   override def drawGameField {
+    val controller = Connect4GameController.getCurrentInstance
     val (user, computer) = controller.getPlayers
     statusDisplay.update
 
     for (currentRow <- 0 until Connect4GameField.FIELD_ROWS) {
       for (currentColumn <- 0 until Connect4GameField.FIELD_COLUMNS) {
-        val player = this.controller.getPlayerAt(currentRow, currentColumn)
+        val player = controller.getPlayerAt(currentRow, currentColumn)
 
         if (player == null) {
           coinCells(currentRow)(currentColumn).setColor(Color.WHITE)

@@ -6,9 +6,10 @@ import java.awt.event.MouseEvent
 import connectfour.controller.Connect4GameController
 import connectfour.util.observer.IObserver
 
-class LoadSaveGameEvent(frame: Frame, controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer) {
+class LoadSaveGameEvent(frame: Frame, observer: IObserver) extends EventAdapter(observer) {
 
   override def  mousePressed(e: MouseEvent) {
+    val controller = Connect4GameController.getCurrentInstance
 		/*val allSaveGameNames = controller.getAllSaveGameNames.toArray();
 		val selection = if (allSaveGameNames.length > 0) allSaveGameNames(0) else ""
 

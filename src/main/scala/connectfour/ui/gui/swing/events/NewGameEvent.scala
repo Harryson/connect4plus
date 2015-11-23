@@ -9,8 +9,7 @@ import connectfour.util.observer.IObserver
 class NewGameEvent(controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer) {
 
   override def mousePressed(e: MouseEvent) {
-    // TODO
-    //controller.newGame
+    Connect4GameController.reset
     notifyObservers
   }
 }

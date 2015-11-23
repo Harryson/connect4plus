@@ -6,7 +6,7 @@ import javax.swing._
 import java.awt._
 import connectfour.controller.Connect4GameController
 
-class ToolBar(controller: Connect4GameController, observer: IObserver, frame: Frame) extends JPanel {
+class ToolBar(observer: IObserver, frame: Frame) extends JPanel {
   private val toolBar = new JToolBar("Toolbar")
 
   setBackground(Color.WHITE)
@@ -16,6 +16,8 @@ class ToolBar(controller: Connect4GameController, observer: IObserver, frame: Fr
   addButtons
 
   def addButtons() {
+    val controller = Connect4GameController.getCurrentInstance
+    
     val newGame = "new game"
     var button = makeNavigationButton(newGame, "New Game", "New Game")
     button.addMouseListener(new NewGameEvent(controller, observer))
@@ -33,12 +35,12 @@ class ToolBar(controller: Connect4GameController, observer: IObserver, frame: Fr
 
     val save = "save"
     button = makeNavigationButton(save, "Save", "Save")
-    button.addMouseListener(new SaveEvent(this.frame, this.controller))
+    button.addMouseListener(new SaveEvent(this.frame))
     toolBar.add(button)
 
     val load = "load"
     button = makeNavigationButton(load, "Load", "Load")
-    button.addMouseListener(new LoadSaveGameEvent(this.frame, this.controller, observer))
+    button.addMouseListener(new LoadSaveGameEvent(this.frame, observer))
     toolBar.add(button)
   }
 
