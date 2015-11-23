@@ -47,9 +47,9 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   def dropCoin(column: Int) = {
     val oldGameField = gameField.cloneGameField
 
-    undoManager.addCommand(new Command {
-      override def execute = gameField = oldGameField
-    })
+    undoManager.addCommand(
+      () => gameField = oldGameField
+    )
 
     val success = gameField.dropCoin(column)
 
@@ -60,7 +60,15 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
 
   override def undoLastMove = undoManager.undoCommand
 
-  override def noMovePossible(player: Player): Boolean = (getWinner != "") || Connect4MoveEvaluator.noMovePossible(gameField, player)
+  override def noMovePossible(player: Player): Boolean = {
+    if (getWinner != "") {
+      return true
+    }
+    if (Connect4MoveEvaluator.noMovePossible(gameField, player)) {
+      return true
+    }
+    false
+  }
 
   override def getScore(player: Player): Int = {
     //Connect4MoveEvaluator.getScore(gameField, player)
