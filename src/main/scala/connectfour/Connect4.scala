@@ -13,8 +13,6 @@ import connectfour.ui.tui.TUI
 object Connect4new {
 
   def main(args: Array[String]) {
-    // TODO
-    //controller.newGame
     val controller = Connect4GameController.getCurrentInstance
     controller.addObserver(new SwingGUI)
     controller.addObserver(new TUI)
