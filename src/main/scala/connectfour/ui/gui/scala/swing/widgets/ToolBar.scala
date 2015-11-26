@@ -1,6 +1,7 @@
 package connectfour.ui.gui.scala.swing.widgets
 
-import connectfour.controller.IController
+import connectfour.controller.Connect4GameController
+import connectfour.ui.gui.java.swing.events.{RedoEvent, UndoEvent}
 
 import scala.swing._
 import scala.swing.event._
@@ -8,18 +9,20 @@ import scala.swing.event._
 /**
  * Created by maharr on 13.11.15.
  */
-class ToolBar (controller: IController) extends MenuBar {
+class ToolBar extends MenuBar {
+  val controller = Connect4GameController.getCurrentInstance
 
   contents += new Menu("File") {
     mnemonic = Key.F
-    contents += new MenuItem(Action("New Game") {controller.newGame})
+    //TODO newGame implementieren
+    contents += new MenuItem(Action("New Game") { Connect4GameController.reset })
     contents += new MenuItem(Action("Quit") { System.exit(0) })
   }
 
   contents += new Menu("Edit") {
-    import scala.swing.MenuItem
     mnemonic = Key.E
-    contents += new MenuItem(Action("Undo") {controller.undoStep})
-    contents += new MenuItem(Action("Redo") {controller.redoStep})
+    //TODO: undo und redo implementieren
+//    contents += new MenuItem(Action("Undo") { new UndoEvent})
+//    contents += new MenuItem(Action("Redo") { new RedoEvent})
   }
 }

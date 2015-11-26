@@ -11,6 +11,8 @@ import controller.GameController
 import modelinterfaces.Move
 import modelinterfaces.Player
 import undomanager.UndoManager
+import scala.swing.Publisher
+import scala.swing.event.Event
 
 /**
  * User: Stefano Di Martino
@@ -18,7 +20,10 @@ import undomanager.UndoManager
  * Time: 15:54
  */
 
-object Connect4GameController {
+case class DropCoinScalaSwingEvent() extends Event
+case class NewGameScalaSwingEvent() extends Event
+
+object Connect4GameController extends Publisher{
   private val computerName = "Computer"
   private val defaultUserName = "Hugo"
   
@@ -30,6 +35,7 @@ object Connect4GameController {
    */
   def reset = {
     getNewInstance(controller.player1.name, controller.player2.name)
+    publish(new NewGameScalaSwingEvent)
   }
   
   /**
@@ -54,7 +60,7 @@ object Connect4GameController {
   def getCurrentInstance = controller
 }
 
-class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends ObservableWithArguments with GameController with IObserverWithArguments {
+class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends ObservableWithArguments with GameController with IObserverWithArguments with Publisher{
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = {
     if (player2Name == Connect4GameController.computerName)
@@ -85,6 +91,7 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
     val success = gameField.dropCoin(column)
 
     notifyObservers()
+    publish(new DropCoinScalaSwingEvent)
 
     success
   }

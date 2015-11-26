@@ -1,12 +1,10 @@
-package connectfour.ui.gui.swing.widgets
+package connectfour.ui.gui.java.swing.widgets
 
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.RenderingHints
 import javax.swing.JPanel
-import connectfour.ui.gui.swing.events.GUICoinMouseListener
-import connectfour.ui.gui.swing.events.MouseColumnObserver
 import connectfour.ui.gui.java.swing.events.GUICoinMouseListener
 import connectfour.ui.gui.java.swing.events.MouseColumnObserver
 import connectfour.util.observer.IObserver

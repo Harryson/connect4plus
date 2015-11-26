@@ -3,22 +3,22 @@ package connectfour.ui.gui.scala.swing.widgets
 import java.awt.Color
 import javax.swing.ImageIcon
 
-import connectfour.controller.IController
-import connectfour.model.GameField
+import connectfour.controller.Connect4GameController
+import connectfour.model.Connect4GameField
 
-import scala.swing.{FlowPanel, Button}
+import scala.swing._
 
 /**
  * Created by maharr on 16.11.15.
  *
  * Top row of playing field. Selected column shows a red arrow.
  */
-class ArrowField(iController: IController) extends FlowPanel with Field{
+class ArrowField extends FlowPanel with Field{
 
   // constructor
   background = Color.LIGHT_GRAY
-  val CELLS = new Array[Button](GameField.DEFAULT_COLUMNS)
-  for (col <- 0 until GameField.DEFAULT_COLUMNS) {
+  val CELLS = new Array[Button](Connect4GameField.FIELD_COLUMNS)
+  for (col <- 0 until Connect4GameField.FIELD_COLUMNS) {
     val CELL = new ButtonCell(this) {
       background = Color.LIGHT_GRAY
     }
@@ -45,7 +45,9 @@ class ArrowField(iController: IController) extends FlowPanel with Field{
   }
 
   // Drop a coin form arrow field (top row)
-  override def mouseReleased(buttonCell: ButtonCell): Unit = {
-    iController.dropCoinWithSuccessFeedback(CELLS.indexOf(buttonCell))
+  override def mouseReleased(buttonCell: ButtonCell) {
+    val controller = Connect4GameController.getCurrentInstance
+
+    controller.dropCoin(CELLS.indexOf(buttonCell))
   }
 }

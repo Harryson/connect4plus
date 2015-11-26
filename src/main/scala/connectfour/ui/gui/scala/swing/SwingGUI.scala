@@ -2,30 +2,26 @@ package connectfour.ui.gui.scala.swing
 
 
 import java.awt.Color
-import javax.swing.JOptionPane
-
-import com.google.inject.Inject
-import connectfour.controller._
-import connectfour.model.GameField
+import connectfour.controller.{NewGameScalaSwingEvent, DropCoinScalaSwingEvent, Connect4GameController}
+import connectfour.model.Connect4GameField
 import connectfour.ui.UI
+import connectfour.ui.gui.java.swing.events.{RedoScalaSwingEvent, UndoScalaSwingEvent}
 import connectfour.ui.gui.scala.swing.widgets.{StatusDisplay, ArrowField, CoinField, ToolBar}
-import connectfour.util.observer.{IObserver, Observable}
+import connectfour.util.observer.IObserver
 import scala.swing._
 
 /**
  * Created by maharr on 13.11.15.
  */
-class SwingGUI @Inject() (controller: GameController) extends Frame with UI with IObserver {
-
-  private var players = controller.getPlayers
+class SwingGUI extends Frame with UI with IObserver {
 
   visible = true
   title = "Connect 4 in Scala"
-  menuBar = new ToolBar(controller)
+  menuBar = new ToolBar
 
-  val arrowField = new ArrowField(controller)
-  val coinField = new CoinField(controller, arrowField)
-  val statusDisplay = new StatusDisplay(controller)
+  val arrowField = new ArrowField
+  val coinField = new CoinField(arrowField)
+  val statusDisplay = new StatusDisplay()
 
   contents = new BorderPanel {
     add(statusDisplay, BorderPanel.Position.South)
@@ -34,6 +30,7 @@ class SwingGUI @Inject() (controller: GameController) extends Frame with UI with
   }
 
   reactions += {
+    //TODO: Reactons machen
     case e: NewGameScalaSwingEvent => drawGameField
     case e: DropCoinScalaSwingEvent => drawGameField
     case e: UndoScalaSwingEvent => drawGameField
@@ -45,20 +42,22 @@ class SwingGUI @Inject() (controller: GameController) extends Frame with UI with
   }
 
   override def drawGameField {
-    players = controller.getPlayers
+    val controller = Connect4GameController.getCurrentInstance
+    val (user, computer) = controller.getPlayers
     statusDisplay.update
 
     //TODO: Nicht mehr Default Row und Col verwenden (soll skalierbar sein)
-    for (currentRow <- 0 until GameField.DEFAULT_ROWS) {
-      for (currentColumn <- 0 until GameField.DEFAULT_COLUMNS) {
-        val player = this.controller.getPlayerAt(currentRow, currentColumn)
+    for (currentRow <- 0 until Connect4GameField.FIELD_ROWS) {
+      for (currentColumn <- 0 until Connect4GameField.FIELD_COLUMNS) {
+        val player = controller.getPlayerAt(currentRow, currentColumn)
 
         if (player == null) {
           coinField.CELLS(currentRow)(currentColumn).foreground = Color.WHITE
-        } else if (player == players(0)) {
-          coinField.CELLS(currentRow)(currentColumn).foreground = players(0).color
-        } else if (player == players(1)) {
-          coinField.CELLS(currentRow)(currentColumn).foreground = players(1).color
+        } else if (player == user) {
+          //TODO: Farben Zentral setzen
+          coinField.CELLS(currentRow)(currentColumn).foreground = Color.RED
+        } else if (player == computer) {
+          coinField.CELLS(currentRow)(currentColumn).foreground = Color.YELLOW
         } else {
           //TODO: Noch machen bei Fehlerfall
 //          JOptionPane.showMessageDialog(this,

@@ -3,8 +3,8 @@ package connectfour.ui.gui.scala.swing.widgets
 
 import java.awt.Color
 
-import connectfour.controller.IController
-import connectfour.model.Player
+import connectfour.controller.Connect4GameController
+import java.awt.Color._
 import scala.swing._
 
 /**
@@ -12,42 +12,47 @@ import scala.swing._
  *
  * Status display shows player on turn or winner
  */
-class StatusDisplay(controller: IController) extends FlowPanel {
+class StatusDisplay() extends FlowPanel {
 
   // constructor
   background = Color.LIGHT_GRAY
   val status = new Label
   contents += status
-  showPlayerOnTurn()
+  showPlayerOnTurn
 
   def update {
-    if (controller.userHasWon) {
-      showWinner()
+    val controller = Connect4GameController.getCurrentInstance
+
+    if (controller.getWinner != "") {
+      showWinner
     } else {
-      showPlayerOnTurn()
+      showPlayerOnTurn
     }
   }
 
   private def setPlayersColor {
-    val players: Array[Player] = controller.getPlayers
-    val player1 = players(0) // Human
-    val player2 = players(1) // Computer
+    val controller = Connect4GameController.getCurrentInstance
+    val (user, computer) = controller.getPlayers
 
-    if (controller.getPlayerOnTurn == player1) { // Player 1
-      status.foreground = player1.color
+
+    if (controller.getPlayerOnTurn == user) {
+      //TODO: Farben überprüfen
+      status.foreground = RED
     } else {
-      status.foreground = player2.color
+      status.foreground = YELLOW
     }
   }
 
   private def showWinner() {
-    val winner = String.format("%s hat gewonnen!", controller.getWinner)
-    status.text = winner
+    val controller = Connect4GameController.getCurrentInstance
+
+    status.text = String.format("%s hat gewonnen!", controller.getWinner)
   }
 
   private def showPlayerOnTurn() {
+    val controller = Connect4GameController.getCurrentInstance
+
     setPlayersColor
-    val playerOnTurn = String.format("Spieler %s ist dran", controller.getPlayerNameOnTurn)
-    status.text = playerOnTurn
+    status.text = String.format("Spieler %s ist dran", controller.getPlayerOnTurn)
   }
 }
