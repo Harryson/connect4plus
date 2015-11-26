@@ -1,14 +1,15 @@
 package connectfour.ui.gui.java.swing.events
 
-import connectfour.controller.IController
-import connectfour.util.observer.IObserver
-
 import java.awt.event.MouseEvent
 
-class RedoEvent(controller: IController, observer: IObserver) extends EventAdapter(observer) {
+import connectfour.controller.Connect4GameController
+import connectfour.util.observer.IObserver
 
-  override def  mousePressed(e: MouseEvent) {
-        controller.redoStep
-        notifyObservers
-    }
+class RedoEvent(observer: IObserver) extends EventAdapter(observer) {
+
+  override def mousePressed(e: MouseEvent) {
+    val controller = Connect4GameController.getCurrentInstance
+    //controller.redoStep
+    //notifyObservers
+  }
 }

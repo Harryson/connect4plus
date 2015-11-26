@@ -1,20 +1,16 @@
 package connectfour.ui.gui.swing.events
 
-import connectfour.controller.IController
-import connectfour.ui.gui.java.swing.events.EventAdapter
-;
-import connectfour.util.observer.IObserver;
-import connectfour.util.observer.IObserverWithArguments;
-import connectfour.util.observer.ObservableWithArguments;
+import java.awt.Frame
+import java.awt.event.MouseEvent
 
-import javax.swing._
-import java.awt._
-import java.awt.event.MouseEvent;
+import connectfour.controller.Connect4GameController
+import connectfour.util.observer.IObserver
 
-class LoadSaveGameEvent(frame: Frame, controller: IController, observer: IObserver) extends EventAdapter(observer) {
+class LoadSaveGameEvent(frame: Frame, observer: IObserver) extends EventAdapter(observer) {
 
   override def  mousePressed(e: MouseEvent) {
-		val allSaveGameNames = controller.getAllSaveGameNames.toArray();
+    val controller = Connect4GameController.getCurrentInstance
+		/*val allSaveGameNames = controller.getAllSaveGameNames.toArray();
 		val selection = if (allSaveGameNames.length > 0) allSaveGameNames(0) else ""
 
 		val selectedSaveGameName = JOptionPane.showInputDialog(frame, "Pick a Name:", "ComboBox Dialog",
@@ -24,6 +20,6 @@ class LoadSaveGameEvent(frame: Frame, controller: IController, observer: IObserv
 		if (selectedSaveGameName != null) {
 			controller.loadSaveGame(selectedSaveGameName)
 			notifyObservers
-		}
+		}*/
 	}
 }

@@ -1,12 +1,13 @@
 package connectfour.ui.tui
 
 import java.util.Scanner
-
 import com.google.inject.Inject
-import connectfour.controller.IController
-import connectfour.model.{GameField, Computer, Player}
 import connectfour.ui.UI
 import connectfour.util.observer.IObserver
+import modelinterfaces.Player
+import connectfour.model.Connect4Computer
+import connectfour.controller.Connect4GameController
+import connectfour.model.Connect4GameField
 
 /**
  * Created by maharr on 01.11.15.
@@ -15,26 +16,22 @@ import connectfour.util.observer.IObserver
 //TODO: Klasse komplett ueberarbeiten
 class TUI extends UI with IObserver{
   private val newline: String = System.getProperty("line.separator")
-  private var controller: IController = null
-  private var players: Array[Player] = null
-
-  @Inject def this(controller: IController) {
-    this()
-    this.controller = controller
-    this.players = controller.getPlayers
-  }
 
   override def drawGameField {
-    this.players = controller.getPlayers
-    if (controller.userHasWon) {
-      System.out.printf("%s hat gewonnen\n\n", controller.getWinner)
+    val controller = Connect4GameController.getCurrentInstance
+    
+    val (user, computer) = controller.getPlayers
+    
+    val winner = controller.getWinner 
+    if (winner != "") {
+      System.out.printf("%s hat gewonnen\n\n", winner)
       return
     }
     else {
-      System.out.printf("%s ist dran\n\n", controller.getPlayerNameOnTurn)
+      System.out.printf("%s ist dran\n\n", controller.getPlayerOnTurn)
     }
     System.out.printf(this.renderGameField + "\n")
-    if (controller.getPlayerOnTurn.isInstanceOf[Computer]) {
+    if (controller.getPlayerOnTurn.isInstanceOf[Connect4Computer]) {
       return
     }
     val scanner: Scanner = new Scanner(System.in)
@@ -50,22 +47,27 @@ class TUI extends UI with IObserver{
   }
 
   private def parseUserInput(userInput: String) {
+    val controller = Connect4GameController.getCurrentInstance
+    
     if (userInput.isInstanceOf[Int]) {
       val column: Int = userInput.toInt - 1
-      if (!controller.dropCoinWithSuccessFeedback(column)) {
+      if (!controller.dropCoin(column)) {
         System.out.println("Ungueltige Eingabe!\n")
-        this.drawGameField
+        drawGameField
       }
     }
     else {
       System.out.println("Ungueltige Eingabe!\n")
-      this.drawGameField
+      drawGameField
     }
   }
 
   def renderGameField: String = {
-    val row: Int = GameField.DEFAULT_ROWS - 1
-    val col: Int = GameField.DEFAULT_COLUMNS
+    val controller = Connect4GameController.getCurrentInstance
+    val (user, computer) = controller.getPlayers
+    
+    val row: Int = Connect4GameField.FIELD_ROWS - 1
+    val col: Int = Connect4GameField.FIELD_COLUMNS
     val playingField: StringBuilder = new StringBuilder
     val begin: String = "|"
     val empty: String = "_"
@@ -79,14 +81,14 @@ class TUI extends UI with IObserver{
       var currentColumn: Int = 0
       while (currentColumn < col) {
         playingField.append(empty)
-        val player: Player = this.controller.getPlayerAt(currentRow, currentColumn)
+        val player: Player = controller.getPlayerAt(currentRow, currentColumn)
         if (player == null) {
           playingField.append(empty)
         }
-        else if (player == players(0)) {
+        else if (player == user) {
           playingField.append(coin1)
         }
-        else if (player == players(1)) {
+        else if (player == computer) {
           playingField.append(coin2)
         }
         else {
@@ -102,6 +104,6 @@ class TUI extends UI with IObserver{
   }
 
   override def update {
-    System.out.println(this.renderGameField)
+    System.out.println(renderGameField)
   }
 }

@@ -1,13 +1,12 @@
-package connectfour.ui.gui.java.swing
+package connectfour.ui.gui.swing
 
-import connectfour.controller.IController
 import connectfour.ui.gui.java.swing.events.{RedoEvent, UndoEvent, NewGameEvent}
 import connectfour.util.observer.IObserver
-
 import javax.swing._
 import java.awt._
+import connectfour.controller.Connect4GameController
 
-class ToolBar(controller: IController, observer: IObserver, frame: Frame) extends JPanel {
+class ToolBar(observer: IObserver, frame: Frame) extends JPanel {
   private val toolBar = new JToolBar("Toolbar")
 
   setBackground(Color.WHITE)
@@ -17,6 +16,8 @@ class ToolBar(controller: IController, observer: IObserver, frame: Frame) extend
   addButtons
 
   def addButtons() {
+    val controller = Connect4GameController.getCurrentInstance
+    
     val newGame = "new game"
     var button = makeNavigationButton(newGame, "New Game", "New Game")
     button.addMouseListener(new NewGameEvent(controller, observer))
@@ -24,7 +25,7 @@ class ToolBar(controller: IController, observer: IObserver, frame: Frame) extend
 
     val undo = "previous"
     button = makeNavigationButton(undo, "Undo", "Undo")
-    button.addMouseListener(new UndoEvent(controller, observer))
+    button.addMouseListener(new UndoEvent(observer))
     toolBar.add(button)
 
     val redo = "next"

@@ -1,18 +1,17 @@
 package connectfour.ui.gui.java.swing.events
 
-import connectfour.controller.IController
 import connectfour.util.observer.IObserver
 import connectfour.util.observer.Observable
-
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
+import connectfour.controller.Connect4GameController
 
-class ArrowMouseListener(controller: IController, observer: IObserver, column: Int) extends Observable with MouseListener {
+class ArrowMouseListener(controller: Connect4GameController, observer: IObserver, column: Int) extends Observable with MouseListener {
   
   addObserver(observer)
 
   override def mouseReleased(e: MouseEvent) {
-    controller.dropCoinWithSuccessFeedback(this.column)
+    controller.dropCoin(this.column)
   }
 
   override def mouseClicked(e: MouseEvent) {

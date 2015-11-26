@@ -7,6 +7,7 @@ import com.google.inject.AbstractModule
  */
 class SolverModule extends AbstractModule {
   protected def configure() = {
-    bind(classOf[SolverPlugin]).to(classOf[MiddleSolver])
+    // TODO
+    //bind(classOf[SolverPlugin]).to(classOf[MiddleSolver])
   }
 }

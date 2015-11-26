@@ -12,6 +12,7 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 
 resolvers += "Scala sbt" at "http://repo.scala-sbt.org/scalasbt/plugins-releases"
 
+scalaVersion := "2.11.7"
 
 // general project dependencies
 libraryDependencies ++= Seq(
@@ -23,9 +24,10 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.3.174",
   "org.hsqldb" % "hsqldb" % "2.3.1",
   "ch.qos.logback" % "logback-classic" % "1.1.3",
-  "org.scala-lang" % "scala-swing" % "2.11+"
+  "org.scala-lang" % "scala-swing" % "2.11+",
+  "com.typesafe.scala-logging" % "scala-logging_2.11" % "3.1.0",
+  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
 )
-
 
 javacOptions in (Compile, compile) ++= Seq("-source", "1.8", "-target", "1.8")
 

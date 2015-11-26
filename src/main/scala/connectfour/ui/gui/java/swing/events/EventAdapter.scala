@@ -1,11 +1,10 @@
 package connectfour.ui.gui.java.swing.events
 
-import connectfour.controller.IController
-import connectfour.util.observer.IObserver
-import connectfour.util.observer.Observable
-
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
+
+import connectfour.util.observer.IObserver
+import connectfour.util.observer.Observable
 
 class EventAdapter(observer: IObserver) extends Observable with MouseListener {
 

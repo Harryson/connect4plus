@@ -1,62 +1,65 @@
 package connectfour.controller;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import connectfour.model.Human;
-import connectfour.model.Player;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import modelinterfaces.Player;
 
 public class GameControllerTest {
-	private final Human player1 = new Human("Hugo");
-	private final Player player2 = new Human("Boss");
+	private Player player1;
+	private Player player2;
 	
-	private IController gc;
+	private Connect4GameController gc;
 	
 	@Before
 	public void setUp() throws Exception {
-		Injector injector = Guice.createInjector(new GameControllerModuleTest());
-
-    	gc = injector.getInstance(GameController.class);
-    	
-		gc.newGame();
-		gc.setOpponend(player1);
-		gc.setOpponend(player2);
+		gc = new Connect4GameController("Hugo", "Boss");
+		
+		player1 = gc.player1();
+		player2 = gc.player2();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		gc.newGame();
+		/*gc.newGame();
 		gc.setOpponend(player1);
-		gc.setOpponend(player2);
+		gc.setOpponend(player2);*/
 	}
 
 	@Test
 	public void getPlayerAtTest() {
 		Player p = gc.getPlayerOnTurn();
-		gc.dropCoinWithSuccessFeedback(0);
+		gc.dropCoin(0);
 		Player test = gc.getPlayerAt(0, 0);
 		assertSame(p, test);
 
 		p = null;
 		test = null;
 		p = gc.getPlayerOnTurn();
-		gc.dropCoinWithSuccessFeedback(0);
+		gc.dropCoin(0);
 		test = gc.getPlayerAt(1, 0);
 		assertSame(p, test);
 
 	}
 
 	@Test
-	public void dropCoinWithSuccessFeedbackTest() {
-		gc.dropCoinWithSuccessFeedback(0);
-		gc.dropCoinWithSuccessFeedback(0);
-		gc.dropCoinWithSuccessFeedback(0);
-		gc.dropCoinWithSuccessFeedback(0);
-		Player p = gc.getPlayerAt(0, 0);
+	public void dropCoinTest() {
+		Player p;
+		
+		p = gc.getPlayerAt(0, 0);
+		assertNull(p);
+		
+		gc.dropCoin(0);
+		gc.dropCoin(0);
+		gc.dropCoin(0);
+		gc.dropCoin(0);
+		p = gc.getPlayerAt(0, 0);
 		assertNotNull(p);
 		p = null;
 		p = gc.getPlayerAt(1, 0);
@@ -75,11 +78,13 @@ public class GameControllerTest {
 
 	@Test
 	public void newGameTest() throws Exception {
-		gc.dropCoinWithSuccessFeedback(0);
-		gc.dropCoinWithSuccessFeedback(0);
-		gc.dropCoinWithSuccessFeedback(0);
-		gc.dropCoinWithSuccessFeedback(0);
-		gc.newGame();
+		gc.dropCoin(0);
+		gc.dropCoin(0);
+		gc.dropCoin(0);
+		gc.dropCoin(0);
+		
+		setUp();
+		
 		Player p = gc.getPlayerAt(0, 0);
 		assertNull(p);
 	}
@@ -87,41 +92,43 @@ public class GameControllerTest {
 	@Test
 	public void undoStepTest() {
 		boolean success = true;
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		Player p = gc.getGameField().getPlayerAt(4, 0);
+		success &= gc.dropCoin(0);
+		success &= gc.dropCoin(0);
+		success &= gc.dropCoin(0);
+		success &= gc.dropCoin(0);
+		Player p = gc.getPlayerAt(4, 0);
 		assertNull(p);
-		success &= gc.dropCoinWithSuccessFeedback(0);
+		success &= gc.dropCoin(0);
 		assertTrue(success);
-		p = gc.getGameField().getPlayerAt(4, 0);
+		p = gc.getPlayerAt(4, 0);
 		assertNotNull(p);
-		gc.undoStep();
+		gc.undoLastMove();
 		p = null;
-		p = gc.getGameField().getPlayerAt(4, 0);
+		p = gc.getPlayerAt(4, 0);
 		assertNull(p);
 	}
 
 	@Test
 	public void redoStepTest() {
 		boolean success = true;
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		success &= gc.dropCoinWithSuccessFeedback(0);
-		success &= gc.dropCoinWithSuccessFeedback(0);
+		success &= gc.dropCoin(0);
+		success &= gc.dropCoin(0);
+		success &= gc.dropCoin(0);
+		success &= gc.dropCoin(0);
+		success &= gc.dropCoin(0);
 		assertTrue(success);
-		Player p = gc.getGameField().getPlayerAt(4, 0);
+		Player p = gc.getPlayerAt(4, 0);
 		assertNotNull(p);
-		gc.undoStep();
+		gc.undoLastMove();
 		p = null;
-		p = gc.getGameField().getPlayerAt(4, 0);
+		p = gc.getPlayerAt(4, 0);
 		assertNull(p);
+		
+		// TODO Redo
+		/*
 		gc.redoStep();
 		p = null;
-		p = gc.getGameField().getPlayerAt(4, 0);
-		assertNotNull(p);
+		p = gc.getPlayerAt(4, 0);
+		assertNotNull(p);*/
 	}
-
 }

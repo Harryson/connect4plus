@@ -1,16 +1,13 @@
 package connectfour.ui.gui.java.swing
 
 import java.awt.Color._
-
-import connectfour.controller.IController
-import connectfour.model.Player
-
+import connectfour.controller.Connect4GameController
 import scala.swing._
 
 /**
  * Created by maharr on 13.11.15.
  */
-class StatusDisplay(controller: IController) extends FlowPanel {
+class StatusDisplay extends FlowPanel {
 
   val status = new Label
   contents += status
@@ -18,18 +15,20 @@ class StatusDisplay(controller: IController) extends FlowPanel {
   showPlayerOnTurn()
 
   def update {
-    if (controller.userHasWon) {
-      showWinner()
+    val controller = Connect4GameController.getCurrentInstance
+    
+    if (controller.getWinner != "") {
+      showWinner
     } else {
-      showPlayerOnTurn()
+      showPlayerOnTurn
     }
   }
 
   private def setPlayersColor {
-    val players: Array[Player] = controller.getPlayers;
-    val player1 = players(0)
+    val controller = Connect4GameController.getCurrentInstance
+    val (user, _) = controller.getPlayers
 
-    if (controller.getPlayerOnTurn == player1) { // Player 1
+    if (controller.getPlayerOnTurn == user) {
       status.foreground = RED
     } else {
       status.foreground = BLUE
@@ -37,13 +36,15 @@ class StatusDisplay(controller: IController) extends FlowPanel {
   }
 
   private def showWinner() {
-    val winner = String.format("%s hat gewonnen!", controller.getWinner)
-    status.text = winner
+    val controller = Connect4GameController.getCurrentInstance
+    
+    status.text = String.format("%s hat gewonnen!", controller.getWinner)
   }
 
   private def showPlayerOnTurn() {
+    val controller = Connect4GameController.getCurrentInstance
+    
     setPlayersColor
-    val playerOnTurn = String.format("Spieler %s ist dran", controller.getPlayerNameOnTurn)
-    status.text = playerOnTurn
+    status.text = String.format("Spieler %s ist dran", controller.getPlayerOnTurn)
   }
 }
