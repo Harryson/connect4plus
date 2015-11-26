@@ -16,6 +16,7 @@ class ButtonCell(row: Field) extends Button {
   val Y_SIZE_BUTTON = RADIUS + 2 * Y_POSITION
 
   preferredSize = new Dimension(X_SIZE_BUTTON, Y_SIZE_BUTTON)
+  borderPainted = false
   listenTo(mouse.moves, mouse.clicks)
 
   reactions += {
