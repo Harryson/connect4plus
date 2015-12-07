@@ -6,6 +6,7 @@ import javax.swing._
 import java.awt._
 import connectfour.controller.Connect4GameController
 
+//TODO: Für was braucht man das Frame?
 class ToolBar(observer: IObserver, frame: Frame) extends JPanel {
   private val toolBar = new JToolBar("Toolbar")
 

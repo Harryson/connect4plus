@@ -1,15 +1,16 @@
 package connectfour.ui.gui.java.swing.events
 
-import connectfour.util.observer.Observable
 import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
-import connectfour.controller.Connect4GameController
+import connectfour.controller.{NewGameScalaSwingEvent, Connect4GameController}
 import connectfour.util.observer.IObserver
 
-class NewGameEvent(controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer) {
+import scala.swing.Publisher
+
+class NewGameEvent(controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer) with Publisher {
 
   override def mousePressed(e: MouseEvent) {
     Connect4GameController.reset
     notifyObservers
+    publish(new NewGameScalaSwingEvent)
   }
 }

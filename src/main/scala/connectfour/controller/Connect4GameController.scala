@@ -23,7 +23,7 @@ import scala.swing.event.Event
 case class DropCoinScalaSwingEvent() extends Event
 case class NewGameScalaSwingEvent() extends Event
 
-object Connect4GameController extends Publisher{
+object Connect4GameController extends {
   private val computerName = "Computer"
   private val defaultUserName = "Hugo"
   
@@ -34,8 +34,7 @@ object Connect4GameController extends Publisher{
    * Don't hold instances in classes,  because they could be outdated!
    */
   def reset = {
-    getNewInstance(controller.player1.name, controller.player2.name)
-    publish(new NewGameScalaSwingEvent)
+    getNewInstance(controller.player1.name, controller.player2.name).newGame
   }
   
   /**
@@ -61,6 +60,10 @@ object Connect4GameController extends Publisher{
 }
 
 class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends ObservableWithArguments with GameController with IObserverWithArguments with Publisher{
+  def newGame {
+    publish(new NewGameScalaSwingEvent)
+  }
+
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = {
     if (player2Name == Connect4GameController.computerName)

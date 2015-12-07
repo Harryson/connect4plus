@@ -31,7 +31,7 @@ class StatusDisplay extends FlowPanel {
     if (controller.getPlayerOnTurn == user) {
       status.foreground = RED
     } else {
-      status.foreground = BLUE
+      status.foreground = YELLOW
     }
   }
 

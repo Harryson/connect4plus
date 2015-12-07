@@ -17,11 +17,11 @@ class SwingGUI extends Frame with UI with IObserver {
 
   visible = true
   title = "Connect 4 in Scala"
-  menuBar = new ToolBar
+  menuBar = new ToolBar(this)
 
   val arrowField = new ArrowField
   val coinField = new CoinField(arrowField)
-  val statusDisplay = new StatusDisplay()
+  val statusDisplay = new StatusDisplay
 
   contents = new BorderPanel {
     add(statusDisplay, BorderPanel.Position.South)
