@@ -41,14 +41,14 @@ class GameFieldWinTest extends FlatSpec with Matchers {
   reset
 
   /**
-    * 0
-    * 0X
-    * 0XX
+    *    0
+    *   0X
+    *  0XX
     * 0XX00
     */
 
   "The gamefield" should
-    "return opponent as winner" in {
+    "return 'Boss' (KI) as winner" in {
     gameField.dropCoin(0, opponent)
     gameField.dropCoin(1, player)
     gameField.dropCoin(1, opponent)
