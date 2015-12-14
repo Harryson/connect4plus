@@ -48,7 +48,7 @@ class GameFieldWinTest extends FlatSpec with Matchers {
     */
 
   "The gamefield" should
-    "return 'Boss' (KI) as winner" in {
+    "return 'Boss' (KI) as winner, because he won vertically from bottom to top" in {
     gameField.dropCoin(0, opponent)
     gameField.dropCoin(1, player)
     gameField.dropCoin(1, opponent)
@@ -60,6 +60,25 @@ class GameFieldWinTest extends FlatSpec with Matchers {
     gameField.dropCoin(4, opponent)
     gameField.dropCoin(3, player)
     gameField.dropCoin(3, opponent)
+
+    gameField.getWinner should be("Boss")
+  }
+
+  reset
+
+  "The gamefield" should
+    "return 'Boss' (KI) as winner, because he won horizontically" in {
+    gameField.dropCoin(0, opponent)
+    gameField.dropCoin(1, player)
+    gameField.dropCoin(1, opponent)
+    gameField.dropCoin(2, player)
+    gameField.dropCoin(2, opponent)
+    gameField.dropCoin(2, player)
+    gameField.dropCoin(4, opponent)
+    gameField.dropCoin(3, player)
+    gameField.dropCoin(3, opponent)
+    gameField.dropCoin(5, player)
+    gameField.dropCoin(4, opponent)
 
     gameField.getWinner should be("Boss")
   }
