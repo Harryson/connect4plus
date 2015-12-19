@@ -5,20 +5,17 @@ import java.awt.Color
 import connectfour.controller.{NewGameScalaSwingEvent, DropCoinScalaSwingEvent, Connect4GameController}
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
-import connectfour.ui.gui.java.swing.events.{RedoScalaSwingEvent, UndoScalaSwingEvent}
-import connectfour.ui.gui.scala.swing.events.NewGameEventScala
 import connectfour.ui.gui.scala.swing.widgets.{StatusDisplay, ArrowField, CoinField, ToolBar}
-import connectfour.util.observer.IObserver
 import scala.swing._
 
 /**
  * Created by maharr on 13.11.15.
  */
-class SwingGUI extends Frame with UI with IObserver {
+class SwingGUI extends Frame with UI {
 
   visible = true
   title = "Connect 4 in Scala"
-  menuBar = new ToolBar(this)
+  menuBar = new ToolBar
 
   val arrowField = new ArrowField
   val coinField = new CoinField(arrowField)
@@ -30,20 +27,19 @@ class SwingGUI extends Frame with UI with IObserver {
     add(arrowField, BorderPanel.Position.North)
   }
 
-  listenTo(NewGameEventScala)
+  listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+  listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
 
   reactions += {
     case e: NewGameScalaSwingEvent => drawGameField
+      listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+      listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
     case e: DropCoinScalaSwingEvent => drawGameField
-    case e: UndoScalaSwingEvent => drawGameField
-    case e: RedoScalaSwingEvent => drawGameField
+//    case e: UndoScalaSwingEvent => drawGameField      //TODO
+//    case e: RedoScalaSwingEvent => drawGameField      //TODO
   }
 
   drawGameField
-
-  override def update {
-    drawGameField
-  }
 
   override def drawGameField {
     val controller = Connect4GameController.getCurrentInstance
@@ -70,10 +66,10 @@ class SwingGUI extends Frame with UI with IObserver {
 //              + " und Spalte "
 //              + currentColumn
 //              + "!")
-          throw new RuntimeException("Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!");
+          throw new RuntimeException("Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!")
         }
       }
     }
-    repaint
+    repaint()
   }
 }

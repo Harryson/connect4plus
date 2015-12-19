@@ -1,70 +1,74 @@
 package connectfour.ui.tui
 
-import java.util.Scanner
-import connectfour.ui.UI
-import connectfour.util.observer.IObserver
-import modelinterfaces.Player
-import connectfour.model.Connect4Computer
-import connectfour.controller.Connect4GameController
+import connectfour.controller.{Connect4GameController, DropCoinScalaSwingEvent, NewGameScalaSwingEvent}
 import connectfour.model.Connect4GameField
+import connectfour.ui.UI
+import modelinterfaces.Player
+
+import scala.swing.Reactor
 
 /**
- * Created by maharr on 01.11.15.
+ * Created by maharr on 19.12.15.
  */
-
-//TODO: Klasse komplett ueberarbeiten
-class TUI extends UI with IObserver{
+class TUI extends UI with Reactor {
   private val newline: String = System.getProperty("line.separator")
 
-  override def drawGameField {
-    val controller = Connect4GameController.getCurrentInstance
-    
-    val (user, computer) = controller.getPlayers
-    
-    val winner = controller.getWinner 
-    if (winner != "") {
-      System.out.printf("%s hat gewonnen\n\n", winner)
-      return
-    }
-    else {
-      System.out.printf("%s ist dran\n\n", controller.getPlayerOnTurn)
-    }
-    System.out.printf(this.renderGameField + "\n")
-    if (controller.getPlayerOnTurn.isInstanceOf[Connect4Computer]) {
-      return
-    }
-    val scanner: Scanner = new Scanner(System.in)
-    System.out.print("Eingabe: ")
-    val userInput: String = scanner.next
-    System.out.println("\n\n")
-    scanner.close
-    val exit: String = "quit"
-    if (userInput == exit) {
-      System.exit(0)
-    }
-    this.parseUserInput(userInput)
+  listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+  listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
+
+  reactions += {
+    case e: NewGameScalaSwingEvent => drawGameField
+      listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+      listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
+    case e: DropCoinScalaSwingEvent => drawGameField
+//    case e: UndoScalaSwingEvent => drawGameField        //TODO
+//    case e: RedoScalaSwingEvent => drawGameField        //TODO
   }
 
-  private def parseUserInput(userInput: String) {
+  drawGameField
+
+  def update() = drawGameField
+
+  def printInformation(): Unit = {
     val controller = Connect4GameController.getCurrentInstance
-    
-    if (userInput.isInstanceOf[Int]) {
-      val column: Int = userInput.toInt - 1
-      if (!controller.dropCoin(column)) {
-        System.out.println("Ungueltige Eingabe!\n")
-        drawGameField
-      }
+
+    val winner = controller.getWinner
+    if (winner != "") {
+      System.out.printf("%s has won\n\n", winner)
     }
     else {
-      System.out.println("Ungueltige Eingabe!\n")
-      drawGameField
+      System.out.printf("%s on turn\n\n", controller.getPlayerOnTurn)
+    }
+
+    println("Enter command: q-Quit; n-New; int-Drop_Coin; u-Undo, r-Redo")
+  }
+
+  override def drawGameField {
+    println(renderGameField)
+    printInformation()
+  }
+
+  def processInputLine(input: String): Unit = {
+    input match {
+      case "q" => System.exit(0)
+      case "n" => Connect4GameController.reset()
+      case "u" => //TODO undo
+      case "r" => //TODO redo
+      case _ =>
+        if (isAllDigits(input) && input.compareTo("") != 0) {
+          if (!Connect4GameController.getCurrentInstance.dropCoin(input.toInt)) {
+            System.out.println("False Input, not a correct number !!!")
+          }
+        } else {
+          System.out.println("False Input, not a number!!!")
+        }
     }
   }
 
   def renderGameField: String = {
     val controller = Connect4GameController.getCurrentInstance
     val (user, computer) = controller.getPlayers
-    
+
     val row: Int = Connect4GameField.FIELD_ROWS - 1
     val col: Int = Connect4GameField.FIELD_COLUMNS
     val playingField: StringBuilder = new StringBuilder
@@ -75,6 +79,7 @@ class TUI extends UI with IObserver{
     val coin2: String = "X"
     System.out.println("  1   2   3   4   5   6   7")
     var currentRow: Int = row
+
     while (currentRow >= 0) {
       playingField.append(begin)
       var currentColumn: Int = 0
@@ -91,7 +96,7 @@ class TUI extends UI with IObserver{
           playingField.append(coin2)
         }
         else {
-          playingField.append("FEHLER!")
+          playingField.append("ERROR!!!")
         }
         playingField.append(end)
         currentColumn += 1
@@ -99,10 +104,9 @@ class TUI extends UI with IObserver{
       playingField.append(newline)
       currentRow -= 1; currentRow + 1
     }
-    return playingField.toString
+
+    playingField.toString()
   }
 
-  override def update {
-    System.out.println(renderGameField)
-  }
+  def isAllDigits(input: String) = input forall Character.isDigit
 }

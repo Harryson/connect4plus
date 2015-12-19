@@ -1,15 +1,13 @@
 package connectfour.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import connectfour.controller.Connect4GameController;
+import modelinterfaces.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import connectfour.controller.Connect4GameController;
-import connectfour.ui.tui.TUI;
-import modelinterfaces.Player;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 class MockGameField extends Connect4GameField {
 
@@ -147,8 +145,7 @@ public class GameFieldTest {
 		assertEquals(opponent.toString(), controller.getWinner());
 
 		setUp();
-		
-		TUI tui = new TUI();
+
 		
 		/**
 		 *5 
@@ -171,7 +168,6 @@ public class GameFieldTest {
 		gameField.dropCoin(2, opponent);
 		gameField.dropCoin(3, player);
 
-		System.out.println(tui.renderGameField());
 		
 		assertEquals(player.toString(), controller.getWinner());
 		
