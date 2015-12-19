@@ -32,7 +32,9 @@ class SwingGUI extends Frame with UI with IObserver {
   reactions += {
     //TODO: Reactons machen
     case e: NewGameScalaSwingEvent => drawGameField
+      System.out.println("New game clicked")
     case e: DropCoinScalaSwingEvent => drawGameField
+      System.out.println("Drop coin clicked")
     case e: UndoScalaSwingEvent => drawGameField
     case e: RedoScalaSwingEvent => drawGameField
   }
