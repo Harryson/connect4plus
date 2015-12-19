@@ -72,7 +72,7 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
 
-  // computer open this game
+  // Game has started and computer is on turn
   if (gameField.getPlayerOnTurn == player2) {
     dropCoinEventScala.dropCoin()
   }
