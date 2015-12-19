@@ -52,7 +52,7 @@ class Connect4GameField(player1: Player, player2: Player) {
     if (column >= Connect4GameField.FIELD_COLUMNS)
       throw new ArrayIndexOutOfBoundsException("Move in column %d is not possible!".format(column))
 
-    if (Connect4MoveEvaluator.verticalMoveIsPossible(this, column)) {
+    if (Connect4MoveEvaluator.verticalMoveIsPossible(this, column) && winner == null) {
       insertPlayerInGameField(0)
       
       if (Connect4MoveEvaluator.playerHasWon(this, playerOnTurn))

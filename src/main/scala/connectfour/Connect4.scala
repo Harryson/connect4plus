@@ -1,8 +1,5 @@
 package connectfour
 
-import com.google.inject.Guice
-import com.google.inject.Injector
-
 import connectfour.controller.Connect4GameController
 import connectfour.ui.tui.TUI
 

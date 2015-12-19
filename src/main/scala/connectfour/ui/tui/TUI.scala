@@ -1,7 +1,6 @@
 package connectfour.ui.tui
 
 import java.util.Scanner
-import com.google.inject.Inject
 import connectfour.ui.UI
 import connectfour.util.observer.IObserver
 import modelinterfaces.Player

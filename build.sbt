@@ -17,12 +17,6 @@ scalaVersion := "2.11.7"
 // general project dependencies
 libraryDependencies ++= Seq(
   "com.novocode" % "junit-interface" % "0.9" % "test",
-  "com.google.inject" % "guice" % "4.0-beta",
-  "org.hibernate" % "hibernate-core" % "4.2.8.Final",
-  "mysql" % "mysql-connector-java" % "5.1.9",
-  "org.ektorp" % "org.ektorp" % "1.4.1",
-  "com.h2database" % "h2" % "1.3.174",
-  "org.hsqldb" % "hsqldb" % "2.3.1",
   "ch.qos.logback" % "logback-classic" % "1.1.3",
   "org.scala-lang" % "scala-swing" % "2.11+",
   "com.typesafe.scala-logging" % "scala-logging_2.11" % "3.1.0",
@@ -50,8 +44,8 @@ pomExtra :=
         <version>3.1</version>
         <configuration>
           <fork>true</fork>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>

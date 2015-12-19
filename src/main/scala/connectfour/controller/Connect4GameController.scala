@@ -73,7 +73,11 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   }
   protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
-  
+
+  if (gameField.getPlayerOnTurn == player2) {
+    notifyObservers()
+  }
+
   override def getPlayers: (Player, Player) = (player1, player2)
 
   def getPlayerAt(currentRow: Int, currentColumn: Int) = {
