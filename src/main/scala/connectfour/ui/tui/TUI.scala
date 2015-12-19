@@ -54,6 +54,7 @@ class TUI extends UI with Reactor {
       case "n" => Connect4GameController.reset()
       case "u" => {
         Connect4GameController.getCurrentInstance.undoLastMove
+        // TODO Statt drawGameField aufzurufen, braucht es ein UndoEvent
         drawGameField
       }
       case "r" => //TODO redo
