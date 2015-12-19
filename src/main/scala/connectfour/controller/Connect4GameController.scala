@@ -1,15 +1,11 @@
 package connectfour.controller
 
-import connectfour.model.Connect4Computer
-import connectfour.model.Connect4GameField
-import connectfour.model.Connect4Move
-import connectfour.model.Connect4MoveEvaluator
-import connectfour.model.Connect4Player
-import connectfour.ui.gui.scala.swing.events.{NewGameEventScala, DropCoinEventScala}
+import connectfour.model.{Connect4Computer, Connect4GameField, Connect4Move, Connect4MoveEvaluator, Connect4Player}
+import connectfour.ui.gui.scala.swing.events.{DropCoinEvent, NewGameEvent}
 import controller.GameController
-import modelinterfaces.Move
-import modelinterfaces.Player
+import modelinterfaces.{Move, Player}
 import undomanager.UndoManager
+
 import scala.swing.event.Event
 
 /**
@@ -63,8 +59,8 @@ object Connect4GameController {
 }
 
 class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends GameController {
-  var dropCoinEventScala = new DropCoinEventScala
-  var newGameEventScala = new NewGameEventScala
+  var dropCoinEventScala = new DropCoinEvent
+  var newGameEventScala = new NewGameEvent
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = {
@@ -78,7 +74,7 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
 
   // computer open this game
   if (gameField.getPlayerOnTurn == player2) {
-    dropCoinEventScala.dropCoin
+    dropCoinEventScala.dropCoin()
   }
 
   override def getPlayers: (Player, Player) = (player1, player2)
@@ -101,7 +97,7 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
     )
 
     val success = gameField.dropCoin(column)
-    dropCoinEventScala.dropCoin
+    dropCoinEventScala.dropCoin()
     success
   }
 

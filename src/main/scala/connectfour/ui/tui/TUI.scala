@@ -1,15 +1,16 @@
 package connectfour.ui.tui
 
-import connectfour.controller.{DropCoinScalaSwingEvent, NewGameScalaSwingEvent, Connect4GameController}
+import connectfour.controller.{Connect4GameController, DropCoinScalaSwingEvent, NewGameScalaSwingEvent}
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
 import modelinterfaces.Player
+
 import scala.swing.Reactor
 
 /**
  * Created by maharr on 19.12.15.
  */
-class TUIScala extends UI with Reactor {
+class TUI extends UI with Reactor {
   private val newline: String = System.getProperty("line.separator")
 
   listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
@@ -50,7 +51,7 @@ class TUIScala extends UI with Reactor {
   def processInputLine(input: String): Unit = {
     input match {
       case "q" => System.exit(0)
-      case "n" => Connect4GameController.reset
+      case "n" => Connect4GameController.reset()
       case "u" => //TODO undo
       case "r" => //TODO redo
       case _ =>

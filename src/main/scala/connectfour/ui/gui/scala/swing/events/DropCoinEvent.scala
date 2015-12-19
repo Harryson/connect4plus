@@ -7,8 +7,8 @@ import scala.swing.Publisher
 /**
  * Created by maharr on 19.12.15.
  */
-class DropCoinEventScala extends Publisher{
-  def dropCoin: Unit = {
+class DropCoinEvent extends Publisher {
+  def dropCoin(): Unit = {
     publish(new DropCoinScalaSwingEvent)
   }
 }
