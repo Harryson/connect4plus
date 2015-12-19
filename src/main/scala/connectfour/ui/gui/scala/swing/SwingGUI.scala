@@ -6,6 +6,7 @@ import connectfour.controller.{NewGameScalaSwingEvent, DropCoinScalaSwingEvent, 
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
 import connectfour.ui.gui.java.swing.events.{RedoScalaSwingEvent, UndoScalaSwingEvent}
+import connectfour.ui.gui.scala.swing.events.NewGameEventScala
 import connectfour.ui.gui.scala.swing.widgets.{StatusDisplay, ArrowField, CoinField, ToolBar}
 import connectfour.util.observer.IObserver
 import scala.swing._
@@ -29,15 +30,16 @@ class SwingGUI extends Frame with UI with IObserver {
     add(arrowField, BorderPanel.Position.North)
   }
 
+  listenTo(NewGameEventScala)
+
   reactions += {
-    //TODO: Reactons machen
     case e: NewGameScalaSwingEvent => drawGameField
-      System.out.println("New game clicked")
     case e: DropCoinScalaSwingEvent => drawGameField
-      System.out.println("Drop coin clicked")
     case e: UndoScalaSwingEvent => drawGameField
     case e: RedoScalaSwingEvent => drawGameField
   }
+
+  drawGameField
 
   override def update {
     drawGameField

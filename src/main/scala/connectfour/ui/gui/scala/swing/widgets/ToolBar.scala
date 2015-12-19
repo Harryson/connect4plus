@@ -2,6 +2,7 @@ package connectfour.ui.gui.scala.swing.widgets
 
 import connectfour.controller.Connect4GameController
 import connectfour.ui.gui.java.swing.events.{NewGameEvent, RedoEvent, UndoEvent}
+import connectfour.ui.gui.scala.swing.events.NewGameEventScala
 import connectfour.util.observer.IObserver
 
 import scala.swing._
@@ -18,8 +19,7 @@ class ToolBar(observer: IObserver) extends MenuBar {
     //TODO newGame implementieren
     contents += new MenuItem(Action("New Game") {
       Connect4GameController.reset
-      val controller = Connect4GameController.getCurrentInstance
-      new NewGameEvent(controller, observer)
+      NewGameEventScala.newGame;
     })
     contents += new MenuItem(Action("Quit") { System.exit(0) })
   }

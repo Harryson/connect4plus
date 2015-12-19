@@ -6,11 +6,10 @@ import connectfour.util.observer.IObserver
 
 import scala.swing.Publisher
 
-class NewGameEvent(controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer) with Publisher {
+class NewGameEvent(controller: Connect4GameController, observer: IObserver) extends EventAdapter(observer){
 
   override def mousePressed(e: MouseEvent) {
     Connect4GameController.reset
     notifyObservers
-    publish(new NewGameScalaSwingEvent)
   }
 }
