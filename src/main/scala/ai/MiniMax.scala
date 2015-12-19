@@ -21,7 +21,7 @@ object MiniMax {
     var savedMove: Move = NoMovePossible
 
     def miniMax(currentPlayer: Player, depth: Int): Double = {
-      if (depth == 0 || controllerCopy.noMovePossible(currentPlayer))
+      if (depth == 0 || controllerCopy.gameIsOver || controllerCopy.noMovePossible(currentPlayer))
         return controllerCopy.getScore(currentPlayer).asInstanceOf[Double]
 
       var maxValue = Double.NegativeInfinity

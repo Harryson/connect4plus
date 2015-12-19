@@ -102,9 +102,6 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   override def undoLastMove = undoManager.undoCommand
 
   override def noMovePossible(player: Player): Boolean = {
-    if (getWinner != "") {
-      return true
-    }
     if (Connect4MoveEvaluator.noMovePossible(gameField, player)) {
       return true
     }
