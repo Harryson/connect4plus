@@ -74,6 +74,8 @@ class SwingGUI extends JFrame with UI with IObserver {
     createBufferStrategy(2)
   }
 
+  drawGameField
+
   private def initGameField {
     for (row <- 0 until Connect4GameField.FIELD_ROWS) {
       for (col <- 0 until Connect4GameField.FIELD_COLUMNS) {
