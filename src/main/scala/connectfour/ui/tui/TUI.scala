@@ -52,7 +52,8 @@ class TUI extends UI with Reactor {
     input match {
       case "q" => System.exit(0)
       case "n" => Connect4GameController.reset()
-      case "u" => //TODO undo
+      case "u" => Connect4GameController.getCurrentInstance.undoLastMove
+        drawGameField
       case "r" => //TODO redo
       case _ =>
         if (isAllDigits(input) && input.compareTo("") != 0) {
