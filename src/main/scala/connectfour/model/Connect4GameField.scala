@@ -21,8 +21,8 @@ class Connect4GameField(player1: Player, player2: Player) {
       player2
   }
 
-  
   def getPlayerOnTurn: Player = playerOnTurn
+
   def getWinner = {
     if (winner == null) {
       ""
