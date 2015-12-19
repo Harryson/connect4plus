@@ -15,8 +15,6 @@ import scala.swing._
  */
 class SwingGUI extends Frame with UI with IObserver {
 
-  val controller = Connect4GameController.getCurrentInstance
-
   visible = true
   title = "Connect 4 in Scala"
   menuBar = new ToolBar(this)
@@ -31,11 +29,14 @@ class SwingGUI extends Frame with UI with IObserver {
     add(arrowField, BorderPanel.Position.North)
   }
 
-  listenTo(controller.dropCoinEventScala)
-  listenTo(controller.newGameEventScala)
+  listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+  listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
 
   reactions += {
     case e: NewGameScalaSwingEvent => drawGameField
+      listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+      listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
+
       System.out.println("New game clicked GUI")      //TODO remove line later
     case e: DropCoinScalaSwingEvent => drawGameField
       System.out.println("Drop coin clicked GUI")     //TODO remove line later

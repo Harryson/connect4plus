@@ -15,7 +15,7 @@ class ToolBar(observer: IObserver) extends MenuBar {
     mnemonic = Key.F
     contents += new MenuItem(Action("New Game") {
       Connect4GameController.reset
-      controller.newGameEventScala.newGame
+      Connect4GameController.reset
     })
     contents += new MenuItem(Action("Quit") { System.exit(0) })
   }

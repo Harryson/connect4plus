@@ -35,6 +35,7 @@ object Connect4GameController {
    */
   def reset = {
     getNewInstance(controller.player1.name, controller.player2.name)
+    controller.newGameEventScala.newGame()
   }
   
   /**

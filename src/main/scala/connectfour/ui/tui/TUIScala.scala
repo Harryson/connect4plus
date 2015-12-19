@@ -11,14 +11,15 @@ import scala.swing.Reactor
  * Created by maharr on 19.12.15.
  */
 class TUIScala extends UI with Reactor {
-  private val controller = Connect4GameController.getCurrentInstance
   private val newline: String = System.getProperty("line.separator")
 
-  listenTo(controller.dropCoinEventScala)
-  listenTo(controller.newGameEventScala)
+  listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+  listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
 
   reactions += {
     case e: NewGameScalaSwingEvent => drawGameField
+      listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
+      listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
       System.out.println("New game clicked TUI")        //TODO remove line later
     case e: DropCoinScalaSwingEvent => drawGameField    //TODO remove line later
       System.out.println("Drop coin clicked TUI")
@@ -30,20 +31,34 @@ class TUIScala extends UI with Reactor {
 
   def update() = drawGameField
 
+  def printInformation(): Unit = {
+    val controller = Connect4GameController.getCurrentInstance
+
+    val winner = controller.getWinner
+    if (winner != "") {
+      System.out.printf("%s has won\n\n", winner)
+    }
+    else {
+      System.out.printf("%s on turn\n\n", controller.getPlayerOnTurn)
+    }
+
+    println("Enter command: q-Quit; n-New; int-Drop_Coin; u-Undo, r-Redo")
+  }
+
   override def drawGameField {
     println(renderGameField)
-    println("Enter command: q-Quit; n-New; int-Drop_Coin; u-Undo, r-Redo")
+    printInformation()
   }
 
   def processInputLine(input: String): Unit = {
     input match {
       case "q" => System.exit(0)
-      case "n" => controller.newGameEventScala.newGame
+      case "n" => Connect4GameController.reset
       case "u" => //TODO undo
       case "r" => //TODO redo
       case _ =>
         if (isAllDigits(input) && input.compareTo("") != 0) {
-          if (!controller.dropCoin(input.toInt)) {
+          if (!Connect4GameController.getCurrentInstance.dropCoin(input.toInt)) {
             System.out.println("False Input, not a correct number !!!")
           }
         } else {
