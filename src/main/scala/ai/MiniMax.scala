@@ -41,6 +41,6 @@ object MiniMax {
     }
 
     miniMax(controllerCopy.getPlayerOnTurn, maxDepth)
-    controller.transformMoveFromClonedControllerForCurrentController(savedMove)
+    controller.transferMoveToCurrentController(savedMove)
   }
 }
