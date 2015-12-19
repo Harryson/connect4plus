@@ -2,9 +2,6 @@ package connectfour.model
 
 import ai.MiniMax
 import connectfour.controller.{NewGameScalaSwingEvent, Connect4GameController, DropCoinScalaSwingEvent}
-import connectfour.util.observer.IObserver
-import connectfour.util.observer.Observable
-import controller.GameController
 import modelinterfaces.Player
 
 import scala.swing.Reactor

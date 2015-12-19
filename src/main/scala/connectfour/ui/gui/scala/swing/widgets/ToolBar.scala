@@ -1,7 +1,6 @@
 package connectfour.ui.gui.scala.swing.widgets
 
 import connectfour.controller.Connect4GameController
-import connectfour.util.observer.IObserver
 
 import scala.swing._
 import scala.swing.event._
