@@ -56,7 +56,8 @@ class TUI extends UI with Reactor {
       case "r" => //TODO redo
       case _ =>
         if (isAllDigits(input) && input.compareTo("") != 0) {
-          if (!Connect4GameController.getCurrentInstance.dropCoin(input.toInt)) {
+          val col = input.toInt - 1
+          if (!Connect4GameController.getCurrentInstance.dropCoin(col)) {
             System.out.println("False Input, not a correct number !!!")
           }
         } else {
