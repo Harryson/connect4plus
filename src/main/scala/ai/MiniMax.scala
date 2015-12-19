@@ -2,7 +2,6 @@ package ai
 
 import modelinterfaces._
 import controller.GameController
-import scala.concurrent._
 
 /**
  * User: Stefano Di Martino
