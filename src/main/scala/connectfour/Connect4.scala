@@ -1,20 +1,24 @@
 package connectfour
 
-import connectfour.controller.Connect4GameController
-import connectfour.ui.tui.TUI
+import connectfour.ui.gui.scala.swing.SwingGUI
+import connectfour.ui.tui.TUIScala
 
 /**
  * Created by maharr on 19.10.15.
  */
-object Connect4new {
+object Connect4 {
 
   def main(args: Array[String]) {
-    val controller = Connect4GameController.getCurrentInstance
-    //TODO: noch newGame implementieren
-    //controller.newGame
-    controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
-    controller.addObserver(new TUI)
-    controller.addObserver(new connectfour.ui.gui.scala.swing.SwingGUI)
+    val tui= new TUIScala
+    new SwingGUI
+//        val controller = Connect4GameController.getCurrentInstance
+//        controller.addObserver(new TUI)
+//        controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
+//    controller.addObserver(new connectfour.ui.gui.scala.swing.SwingGUI)
+
+    while(true){
+      tui.processInputLine(readLine())
+    }
     
     //TODO: Mit Injections arbeiten
 //    val injector: Injector = Guice.createInjector(new GameControllerModule)

@@ -6,7 +6,6 @@ import connectfour.controller.{NewGameScalaSwingEvent, DropCoinScalaSwingEvent, 
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
 import connectfour.ui.gui.java.swing.events.{RedoScalaSwingEvent, UndoScalaSwingEvent}
-import connectfour.ui.gui.scala.swing.events.NewGameEventScala
 import connectfour.ui.gui.scala.swing.widgets.{StatusDisplay, ArrowField, CoinField, ToolBar}
 import connectfour.util.observer.IObserver
 import scala.swing._
@@ -15,6 +14,8 @@ import scala.swing._
  * Created by maharr on 13.11.15.
  */
 class SwingGUI extends Frame with UI with IObserver {
+
+  val controller = Connect4GameController.getCurrentInstance
 
   visible = true
   title = "Connect 4 in Scala"
@@ -30,19 +31,23 @@ class SwingGUI extends Frame with UI with IObserver {
     add(arrowField, BorderPanel.Position.North)
   }
 
-  listenTo(NewGameEventScala)
+  listenTo(controller.dropCoinEventScala)
+  listenTo(controller.newGameEventScala)
 
   reactions += {
     case e: NewGameScalaSwingEvent => drawGameField
+      System.out.println("New game clicked GUI")      //TODO remove line later
     case e: DropCoinScalaSwingEvent => drawGameField
-    case e: UndoScalaSwingEvent => drawGameField
-    case e: RedoScalaSwingEvent => drawGameField
+      System.out.println("Drop coin clicked GUI")     //TODO remove line later
+    case e: UndoScalaSwingEvent => drawGameField      //TODO
+    case e: RedoScalaSwingEvent => drawGameField      //TODO
   }
 
   drawGameField
 
   override def update {
     drawGameField
+    System.out.println("Update GUI")
   }
 
   override def drawGameField {
@@ -70,10 +75,10 @@ class SwingGUI extends Frame with UI with IObserver {
 //              + " und Spalte "
 //              + currentColumn
 //              + "!")
-          throw new RuntimeException("Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!");
+          throw new RuntimeException("Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!")
         }
       }
     }
-    repaint
+    repaint()
   }
 }
