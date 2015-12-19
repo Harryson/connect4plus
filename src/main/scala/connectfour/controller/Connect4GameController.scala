@@ -59,8 +59,8 @@ object Connect4GameController {
 }
 
 class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends GameController {
-  var dropCoinEventScala = new DropCoinEvent
-  var newGameEventScala = new NewGameEvent
+  protected var dropCoinEventScala = new DropCoinEvent
+  protected var newGameEventScala = new NewGameEvent
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = {
