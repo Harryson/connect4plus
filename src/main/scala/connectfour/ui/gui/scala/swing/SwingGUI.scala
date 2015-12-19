@@ -5,19 +5,17 @@ import java.awt.Color
 import connectfour.controller.{NewGameScalaSwingEvent, DropCoinScalaSwingEvent, Connect4GameController}
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
-import connectfour.ui.gui.java.swing.events.{RedoScalaSwingEvent, UndoScalaSwingEvent}
 import connectfour.ui.gui.scala.swing.widgets.{StatusDisplay, ArrowField, CoinField, ToolBar}
-import connectfour.util.observer.IObserver
 import scala.swing._
 
 /**
  * Created by maharr on 13.11.15.
  */
-class SwingGUI extends Frame with UI with IObserver {
+class SwingGUI extends Frame with UI {
 
   visible = true
   title = "Connect 4 in Scala"
-  menuBar = new ToolBar(this)
+  menuBar = new ToolBar
 
   val arrowField = new ArrowField
   val coinField = new CoinField(arrowField)
@@ -36,20 +34,12 @@ class SwingGUI extends Frame with UI with IObserver {
     case e: NewGameScalaSwingEvent => drawGameField
       listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
       listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
-
-      System.out.println("New game clicked GUI")      //TODO remove line later
     case e: DropCoinScalaSwingEvent => drawGameField
-      System.out.println("Drop coin clicked GUI")     //TODO remove line later
-    case e: UndoScalaSwingEvent => drawGameField      //TODO
-    case e: RedoScalaSwingEvent => drawGameField      //TODO
+//    case e: UndoScalaSwingEvent => drawGameField      //TODO
+//    case e: RedoScalaSwingEvent => drawGameField      //TODO
   }
 
   drawGameField
-
-  override def update {
-    drawGameField
-    System.out.println("Update GUI")
-  }
 
   override def drawGameField {
     val controller = Connect4GameController.getCurrentInstance

@@ -3,7 +3,6 @@ package connectfour.ui.tui
 import connectfour.controller.{DropCoinScalaSwingEvent, NewGameScalaSwingEvent, Connect4GameController}
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
-import connectfour.ui.gui.java.swing.events.{RedoScalaSwingEvent, UndoScalaSwingEvent}
 import modelinterfaces.Player
 import scala.swing.Reactor
 
@@ -20,11 +19,9 @@ class TUIScala extends UI with Reactor {
     case e: NewGameScalaSwingEvent => drawGameField
       listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
       listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
-      System.out.println("New game clicked TUI")        //TODO remove line later
-    case e: DropCoinScalaSwingEvent => drawGameField    //TODO remove line later
-      System.out.println("Drop coin clicked TUI")
-    case e: UndoScalaSwingEvent => drawGameField        //TODO
-    case e: RedoScalaSwingEvent => drawGameField        //TODO
+    case e: DropCoinScalaSwingEvent => drawGameField
+//    case e: UndoScalaSwingEvent => drawGameField        //TODO
+//    case e: RedoScalaSwingEvent => drawGameField        //TODO
   }
 
   drawGameField
