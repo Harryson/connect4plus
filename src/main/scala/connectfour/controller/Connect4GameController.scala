@@ -112,9 +112,9 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   override def getScore(player: Player): Int = {
     //Connect4MoveEvaluator.getScore(gameField, player)
     if (getWinner == player.toString) {
-      Int.MaxValue
+      1000000
     } else if (getWinner != "") {
-      Int.MinValue
+      -1000000
     } else {
       0
     }
