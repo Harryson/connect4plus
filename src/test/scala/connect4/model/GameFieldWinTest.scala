@@ -8,7 +8,7 @@ import connectfour.controller.Connect4GameController
 class MockGameField(player1: Player, player2: Player) extends Connect4GameField(player1, player2) {
 
   def dropCoin(column: Int, p: Player): Boolean = {
-    playerOnTurn = p;
+    playerOnTurn = p
     val success = dropCoin(column)
     playerOnTurn = p
 
@@ -49,6 +49,7 @@ class GameFieldWinTest extends FlatSpec with Matchers {
 
   "The gamefield" should
     "return 'Boss' (KI) as winner, because he won vertically from bottom to top" in {
+    reset
     gameField.dropCoin(0, opponent)
     gameField.dropCoin(1, player)
     gameField.dropCoin(1, opponent)
@@ -64,10 +65,11 @@ class GameFieldWinTest extends FlatSpec with Matchers {
     gameField.getWinner should be("Boss")
   }
 
-  reset
+
 
   "The gamefield" should
     "return 'Boss' (KI) as winner, because he won horizontically" in {
+    reset
     gameField.dropCoin(0, opponent)
     gameField.dropCoin(1, player)
     gameField.dropCoin(1, opponent)
