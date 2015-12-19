@@ -16,7 +16,7 @@ object MiniMax {
   /**
    * @return NoMovePossible, if no move is possible, else the best possible move
    */
-  def getNextMove(controller: GameController, maxDepth: Int = DIFFICULTY_HEAVY): Move = {
+  def getNextMove(controller: GameController, maxDepth: Int = DIFFICULTY_MIDDLE): Move = {
     val controllerCopy = controller.cloneController
     var savedMove: Move = NoMovePossible
 
