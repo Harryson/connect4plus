@@ -20,6 +20,8 @@ trait GameController {
   
   def getWinner: String
 
+  def gameIsOver: Boolean
+
   /**
    * Generates possibles moves for a player. CAUTION: It is strongly recommended to do this on a cloned controller,
    * because it could have side effects on the current GameController, if the moves gets executed!

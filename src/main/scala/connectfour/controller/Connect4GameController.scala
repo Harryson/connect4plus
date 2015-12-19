@@ -84,6 +84,8 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
 
   override def getWinner: String = gameField.getWinner
 
+  override def gameIsOver = getWinner != ""
+
   def dropCoin(column: Int) = {
     val oldGameField = gameField.cloneGameField
 

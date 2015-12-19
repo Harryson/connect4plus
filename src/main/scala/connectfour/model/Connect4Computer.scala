@@ -13,7 +13,7 @@ class Connect4Computer(override val name: String, controller: GameController, ob
   observable.addObserver(this)
 
   private def draw = {
-    if (controller.getPlayerOnTurn == this)
+    if (controller.getPlayerOnTurn == this && !controller.gameIsOver)
       MiniMax.getNextMove(controller).execute
   }
 
