@@ -17,7 +17,7 @@ object Connect4 {
 //    controller.addObserver(new connectfour.ui.gui.scala.swing.SwingGUI)
 
     while(true){
-      tui.processInputLine(readLine())
+      tui.processInputLine(scala.io.StdIn.readLine())
     }
     
     //TODO: Mit Injections arbeiten
