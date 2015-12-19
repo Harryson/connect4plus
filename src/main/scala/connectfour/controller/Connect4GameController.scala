@@ -5,13 +5,13 @@ import connectfour.model.Connect4GameField
 import connectfour.model.Connect4Move
 import connectfour.model.Connect4MoveEvaluator
 import connectfour.model.Connect4Player
+import connectfour.ui.gui.scala.swing.events.{NewGameEventScala, DropCoinEventScala}
 import connectfour.util.observer.IObserverWithArguments
 import connectfour.util.observer.ObservableWithArguments
 import controller.GameController
 import modelinterfaces.Move
 import modelinterfaces.Player
 import undomanager.UndoManager
-import scala.swing.Publisher
 import scala.swing.event.Event
 
 /**
@@ -23,12 +23,12 @@ import scala.swing.event.Event
 case class DropCoinScalaSwingEvent() extends Event
 case class NewGameScalaSwingEvent() extends Event
 
-object Connect4GameController extends {
+object Connect4GameController {
   private val computerName = "Computer"
   private val defaultUserName = "Hugo"
   
   private var controller = new Connect4GameController(defaultUserName)
-  
+
   /**
    * Call always getCurrentInstance() to get the latest instance!
    * Don't hold instances in classes,  because they could be outdated!
@@ -41,14 +41,20 @@ object Connect4GameController extends {
    * Call always getCurrentInstance() to get the latest instance!
    * Don't hold instances in classes,  because they could be outdated!
    */
-  def getNewInstance( player1Name: String, player2Name: String = computerName) = {
-    // Alte Subscribers sichern
+  def getNewInstance( player1Name: String, player2Name: String = computerName):Connect4GameController = {
+
+    // Save old fields
     val subscribers = controller.subscribers
+    val dropCoinEventScala = controller.dropCoinEventScala
+    val newGameEventScala = controller.newGameEventScala
     
     controller = new Connect4GameController(player1Name, player2Name)
-    
-    // Alte Subscribers hinzufügen
+
+    // add old fields to new instance
     controller.addAllObservers(subscribers)
+    controller.dropCoinEventScala = dropCoinEventScala
+    controller.newGameEventScala = newGameEventScala
+
     controller
   }
   
@@ -60,6 +66,9 @@ object Connect4GameController extends {
 }
 
 class Connect4GameController(player1Name: String, player2Name: String = Connect4GameController.computerName) extends ObservableWithArguments with GameController with IObserverWithArguments {
+  var dropCoinEventScala = new DropCoinEventScala
+  var newGameEventScala = new NewGameEventScala
+
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = {
     if (player2Name == Connect4GameController.computerName)
@@ -84,15 +93,15 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
 
   override def getWinner: String = gameField.getWinner
 
-  def dropCoin(column: Int) = {
-    val oldGameField = gameField.cloneGameField
+  def dropCoin(column: Int): Boolean = {
+    val oldGameField = gameField.cloneGameField()
 
     undoManager.addCommand(
       () => gameField = oldGameField
     )
 
     val success = gameField.dropCoin(column)
-
+    dropCoinEventScala.dropCoin
     notifyObservers()
     success
   }
@@ -136,13 +145,13 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
    */
   override def cloneController: GameController = {
     val controller = new Connect4GameController(player1.name, player2.name)
-    controller.gameField = gameField.cloneGameField
+    controller.gameField = gameField.cloneGameField()
 
     controller
   }
 
   override def update(arg: Any) {
     val columnToDrop = arg.asInstanceOf[Int]
-    dropCoin(columnToDrop);
+    dropCoin(columnToDrop)
   }
 }

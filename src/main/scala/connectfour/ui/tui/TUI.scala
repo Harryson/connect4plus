@@ -99,7 +99,8 @@ class TUI extends UI with IObserver{
       playingField.append(newline)
       currentRow -= 1; currentRow + 1
     }
-    return playingField.toString
+
+    playingField.toString()
   }
 
   override def update {
