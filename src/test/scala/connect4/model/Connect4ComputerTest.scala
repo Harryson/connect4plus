@@ -14,8 +14,8 @@ class Connect4ComputerTest extends MockBase{
     *
     */
 
-  "The gamefield" should
-    "return 'Hugo' as winner in this complex match" in {
+  "Computer" should
+    "should prevent 'Hugo' from winning in column 3" in {
     reset
     gameField.dropCoin(0, opponent)
     gameField.dropCoin(0, opponent)
