@@ -142,10 +142,13 @@ object Connect4MoveEvaluator {
       possibleMove(from, Connect4GameField.FIELD_COLUMNS, Nil)
     }
 
-    val futureFullMoveList = Future.sequence(Seq(futureMoveList1, futureMoveList2))
+    val futureFullMoveList = for {
+      one <- futureMoveList1
+      two <- futureMoveList2
+    } yield one ++ two
 
     val fullMoveList = Await.result(futureFullMoveList, 10 seconds)
 
-    return fullMoveList.toList.flatten
+    return fullMoveList
   }
 }
