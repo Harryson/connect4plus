@@ -1,31 +1,13 @@
 package connect4.model
 
-import connect4.model.mocks.{MockController, MockGameField}
-import org.scalatest._
-import modelinterfaces.Player
+import connect4.model.mocks.MockBase
 
-
-
-
-
-class GameFieldWinTest extends FlatSpec with Matchers {
-
-  private var controller: MockController = _
-  private var gameField: MockGameField = _
-  private var player: Player = _
-  private var opponent: Player = _
-
-  def reset {
-    controller = new MockController("Hugo", "Boss")
-    gameField = controller.getGameField
-    player = controller.player1
-    opponent = controller.player2
-  }
+class GameFieldWinTest extends MockBase {
 
   /**
-    *    0
-    *   0X
-    *  0XX
+    * 0
+    * 0X
+    * 0XX
     * 0XX00
     */
 
