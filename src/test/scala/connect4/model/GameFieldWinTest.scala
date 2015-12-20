@@ -1,28 +1,12 @@
 package connect4.model
 
+import connect4.model.mocks.{MockController, MockGameField}
 import org.scalatest._
-import connectfour.model.Connect4GameField
 import modelinterfaces.Player
-import connectfour.controller.Connect4GameController
 
-class MockGameField(player1: Player, player2: Player) extends Connect4GameField(player1, player2) {
 
-  def dropCoin(column: Int, p: Player): Boolean = {
-    playerOnTurn = p
-    val success = dropCoin(column)
-    playerOnTurn = p
 
-    success
-  }
-}
 
-class MockController(player1Name: String, player2Name: String) extends Connect4GameController(player1Name, player2Name) {
-  gameField = new MockGameField(player1, player2)
-
-  def getGameField: MockGameField = {
-    gameField.asInstanceOf[MockGameField]
-  }
-}
 
 class GameFieldWinTest extends FlatSpec with Matchers {
 
@@ -64,8 +48,6 @@ class GameFieldWinTest extends FlatSpec with Matchers {
 
     gameField.getWinner should be("Boss")
   }
-
-
 
   "The gamefield" should
     "return 'Boss' (KI) as winner, because he won horizontically" in {
