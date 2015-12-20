@@ -22,8 +22,6 @@ class GameFieldWinTest extends FlatSpec with Matchers {
     opponent = controller.player2
   }
 
-  reset
-
   /**
     *    0
     *   0X
