@@ -3,11 +3,16 @@ package connectfour.model
 import modelinterfaces.{ Move, Player }
 import connectfour.controller.Connect4GameController
 
+import scala.concurrent._
+import scala.concurrent.duration._
+import ExecutionContext.Implicits.global
+import scala.util.{Failure, Success}
+
 /**
- * User: Stefano Di Martino
- * Date: 25.01.14
- * Time: 17:58
- */
+  * User: Stefano Di Martino
+  * Date: 25.01.14
+  * Time: 17:58
+  */
 object Connect4MoveEvaluator {
 
   def verticalMoveIsPossible(gameField: Connect4GameField, column: Int): Boolean =
@@ -116,16 +121,31 @@ object Connect4MoveEvaluator {
   }
 
   def generatePossibleMoves(controller: Connect4GameController, gameField: Connect4GameField, player: Player): List[Move] = {
-    def possibleMove(column: Int, moveList: List[Move]): List[Move] = {
-      if (column < Connect4GameField.FIELD_COLUMNS)
-        if (verticalMoveIsPossible(gameField, column))
-          possibleMove(column + 1, moveList :+ new Connect4Move(controller, column))
+
+    def possibleMove(colFrom: Int, colTo: Int,  moveList: List[Move]): List[Move] = {
+      if (colFrom < colTo)
+        if (verticalMoveIsPossible(gameField, colFrom))
+          possibleMove(colFrom + 1, colTo, moveList :+ new Connect4Move(controller, colFrom))
         else
-          possibleMove(column + 1, moveList)
+          possibleMove(colFrom + 1, colTo, moveList)
       else
         moveList
     }
 
-    possibleMove(0, Nil)
+    val futureMoveList1 = Future {
+      val to =  Connect4GameField.FIELD_COLUMNS / 2
+      possibleMove(0, to, Nil)
+    }
+
+    val futureMoveList2 = Future {
+      val from =  (Connect4GameField.FIELD_COLUMNS / 2)
+      possibleMove(from, Connect4GameField.FIELD_COLUMNS, Nil)
+    }
+
+    val futureFullMoveList = Future.sequence(Seq(futureMoveList1, futureMoveList2))
+
+    val fullMoveList = Await.result(futureFullMoveList, 10 seconds)
+
+    return fullMoveList.toList.flatten
   }
 }
