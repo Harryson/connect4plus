@@ -1,13 +1,24 @@
 package controller
 
+import connectfour.ui.gui.scala.swing.events.{DropCoinEventScala, NewGameEventScala}
 import modelinterfaces.{Move, Player}
+
+import scala.swing.event.Event
 
 /**
  * User: Stefano Di Martino
  * Date: 25.01.14
  * Time: 00:31
  */
+
+case class DropCoinScalaSwingEvent() extends Event
+
+case class NewGameScalaSwingEvent() extends Event
+
 trait GameController {
+  var dropCoinEventScala: DropCoinEventScala
+  var newGameEventScala: NewGameEventScala
+
   def getPlayers: (Player, Player)
   
   def undoLastMove

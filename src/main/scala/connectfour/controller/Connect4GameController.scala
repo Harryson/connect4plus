@@ -1,27 +1,17 @@
 package connectfour.controller
 
-import connectfour.model.Connect4Computer
-import connectfour.model.Connect4GameField
-import connectfour.model.Connect4Move
-import connectfour.model.Connect4MoveEvaluator
-import connectfour.model.Connect4Player
-import connectfour.ui.gui.scala.swing.events.{NewGameEventScala, DropCoinEventScala}
-import connectfour.util.observer.IObserverWithArguments
-import connectfour.util.observer.ObservableWithArguments
+import connectfour.model.{Connect4Computer, Connect4GameField, Connect4Move, Connect4MoveEvaluator, Connect4Player}
+import connectfour.ui.gui.scala.swing.events.{DropCoinEventScala, NewGameEventScala}
+import connectfour.util.observer.{IObserverWithArguments, ObservableWithArguments}
 import controller.GameController
-import modelinterfaces.Move
-import modelinterfaces.Player
+import modelinterfaces.{Move, Player}
 import undomanager.UndoManager
-import scala.swing.event.Event
 
 /**
  * User: Stefano Di Martino
  * Date: 25.01.14
  * Time: 15:54
  */
-
-case class DropCoinScalaSwingEvent() extends Event
-case class NewGameScalaSwingEvent() extends Event
 
 object Connect4GameController {
   private val computerName = "Computer"
@@ -80,8 +70,10 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
 
+  // computer open this game
   if (gameField.getPlayerOnTurn == player2) {
     notifyObservers()
+    dropCoinEventScala.dropCoin
   }
 
   override def getPlayers: (Player, Player) = (player1, player2)

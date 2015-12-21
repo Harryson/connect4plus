@@ -9,7 +9,7 @@ import connectfour.ui.tui.TUIScala
 object Connect4 {
 
   def main(args: Array[String]) {
-    val tui= new TUIScala
+    val tui = new TUIScala
     new SwingGUI
 //        val controller = Connect4GameController.getCurrentInstance
 //        controller.addObserver(new TUI)

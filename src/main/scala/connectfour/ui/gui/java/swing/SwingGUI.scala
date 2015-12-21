@@ -1,20 +1,16 @@
 package connectfour.ui.gui.java.swing
 
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.GridLayout
-import javax.swing.BorderFactory
-import javax.swing.BoxLayout
-import javax.swing.JFrame
-import javax.swing.JOptionPane
-import javax.swing.JPanel
-import connectfour.ui.UI
-import connectfour.ui.gui.java.swing.controller.ArrowManager
-import connectfour.ui.gui.java.swing.widgets.{GUICoin, ArrowCell}
-import connectfour.util.observer.IObserver
-import scala.collection.mutable.ArrayBuffer
+import java.awt.{Color, Dimension, GridLayout}
+import javax.swing.{BorderFactory, BoxLayout, JFrame, JOptionPane, JPanel}
+
 import connectfour.controller.Connect4GameController
 import connectfour.model.Connect4GameField
+import connectfour.ui.UI
+import connectfour.ui.gui.java.swing.controller.ArrowManager
+import connectfour.ui.gui.java.swing.widgets.{ArrowCell, GUICoin}
+import connectfour.util.observer.IObserver
+
+import scala.collection.mutable.ArrayBuffer
 
 class SwingGUI extends JFrame with UI with IObserver {
   val DIMENSION_PANEL = new Dimension(800, 600)
@@ -54,10 +50,10 @@ class SwingGUI extends JFrame with UI with IObserver {
     lineAxisPanel.setPreferredSize(DIMENSION_PANEL)
 
     cellWrapper.setPreferredSize(DIMENSION_CELL_WRAPPER)
-    statusDisplay.preferredSize = DIMENSION_STATUS_DISPLAY
+    statusDisplay.setPreferredSize(DIMENSION_STATUS_DISPLAY)
 
     lineAxisPanel.add(cellWrapper)
-    lineAxisPanel.add(statusDisplay.peer)
+    lineAxisPanel.add(statusDisplay)
     pageAxisPanel.add(new ToolBar(this, this))
     pageAxisPanel.add(lineAxisPanel)
 

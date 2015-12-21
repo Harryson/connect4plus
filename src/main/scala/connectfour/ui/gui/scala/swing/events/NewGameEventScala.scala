@@ -1,6 +1,6 @@
 package connectfour.ui.gui.scala.swing.events
 
-import connectfour.controller.NewGameScalaSwingEvent
+import controller.NewGameScalaSwingEvent
 
 import scala.swing.Publisher
 
