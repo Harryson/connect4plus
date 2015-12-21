@@ -2,17 +2,17 @@ package connectfour.model
 
 import ai.MiniMax
 import connectfour.controller.Connect4GameController
-import connectfour.util.observer.{IObserver, Observable}
+import connectfour.util.observer.IObserver
 import controller.{DropCoinScalaSwingEvent, GameController, NewGameScalaSwingEvent}
 import modelinterfaces.Player
 
 import scala.swing.Reactor
 
+
 /**
  * Created by stefano on 19.02.14.
  */
-class Connect4Computer(override val name: String, controller: GameController, observable: Observable) extends IObserver with Player with Reactor {
-  observable.addObserver(this)
+class Connect4Computer(override val name: String, controller: GameController) extends IObserver with Player with Reactor {
 
   listenTo(controller.dropCoinEventScala)
   listenTo(controller.newGameEventScala)
@@ -26,12 +26,13 @@ class Connect4Computer(override val name: String, controller: GameController, ob
       draw
   }
 
-  private def draw = {
+  private def draw {
+
     if (controller.getPlayerOnTurn == this && !controller.gameIsOver)
       MiniMax.getNextMove(controller).execute
   }
 
-  override def update = draw
-
   override def toString: String = name
+
+  override def update = draw
 }

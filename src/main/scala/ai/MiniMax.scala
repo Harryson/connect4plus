@@ -1,8 +1,7 @@
 package ai
 
-import modelinterfaces._
 import controller.GameController
-import scala.concurrent._
+import modelinterfaces._
 
 /**
  * User: Stefano Di Martino
@@ -16,12 +15,12 @@ object MiniMax {
   /**
    * @return NoMovePossible, if no move is possible, else the best possible move
    */
-  def getNextMove(controller: GameController, maxDepth: Int = DIFFICULTY_HEAVY): Move = {
+  def getNextMove(controller: GameController, maxDepth: Int = DIFFICULTY_MIDDLE): Move = {
     val controllerCopy = controller.cloneController
     var savedMove: Move = NoMovePossible
 
     def miniMax(currentPlayer: Player, depth: Int): Double = {
-      if (depth == 0 || controllerCopy.noMovePossible(currentPlayer))
+      if (depth == 0 || controllerCopy.gameIsOver || controllerCopy.noMovePossible(currentPlayer))
         return controllerCopy.getScore(currentPlayer).asInstanceOf[Double]
 
       var maxValue = Double.NegativeInfinity
@@ -42,6 +41,6 @@ object MiniMax {
     }
 
     miniMax(controllerCopy.getPlayerOnTurn, maxDepth)
-    controller.transformMoveFromClonedControllerForCurrentController(savedMove)
+    controller.transferMoveToCurrentController(savedMove)
   }
 }

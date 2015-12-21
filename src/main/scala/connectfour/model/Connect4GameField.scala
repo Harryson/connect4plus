@@ -21,8 +21,8 @@ class Connect4GameField(player1: Player, player2: Player) {
       player2
   }
 
-  
   def getPlayerOnTurn: Player = playerOnTurn
+
   def getWinner = {
     if (winner == null) {
       ""
@@ -73,29 +73,5 @@ class Connect4GameField(player1: Player, player2: Player) {
         newGameField.gameField(col)(row) = gameField(col)(row)
 
     newGameField
-  }
-
-
-  def canEqual(other: Any): Boolean = other.isInstanceOf[Connect4GameField]
-
-  override def equals(other: Any): Boolean = other match {
-    case that: Connect4GameField =>
-      var isEqual = true
-      if ((that canEqual this) && playerOnTurn == that.playerOnTurn) {
-        for (col <- 0 until Connect4GameField.FIELD_COLUMNS) {
-          for (row <- 0 until Connect4GameField.FIELD_ROWS) {
-            isEqual = isEqual && that.gameField(col)(row) == gameField(col)(row)
-          }
-        }
-        isEqual
-      }
-      else
-        false
-    case _ => false
-  }
-
-  override def hashCode(): Int = {
-    val state = Seq(playerOnTurn, gameField)
-    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
   }
 }

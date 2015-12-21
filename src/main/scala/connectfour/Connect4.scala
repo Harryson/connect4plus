@@ -10,6 +10,7 @@ object Connect4 {
 
   def main(args: Array[String]) {
     val tui = new TUIScala
+
     new SwingGUI
 //        val controller = Connect4GameController.getCurrentInstance
 //        controller.addObserver(new TUI)
@@ -17,7 +18,7 @@ object Connect4 {
 //    controller.addObserver(new connectfour.ui.gui.scala.swing.SwingGUI)
 
     while(true){
-      tui.processInputLine(readLine())
+      tui.processInputLine(scala.io.StdIn.readLine())
     }
     
     //TODO: Mit Injections arbeiten
