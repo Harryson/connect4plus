@@ -1,5 +1,5 @@
 // group ID
-organization := "de.stejack"
+organization := "com.github.connect4plus"
 
 // artifact ID                                                                                                                          
 name := "connect4plus"
