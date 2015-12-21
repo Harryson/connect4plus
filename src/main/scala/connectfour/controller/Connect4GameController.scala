@@ -63,12 +63,8 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
   var newGameEventScala = new NewGameEvent
 
   val player1: Player = new Connect4Player(player1Name)
-  val player2: Player = {
-    if (player2Name == Connect4GameController.computerName)
-      new Connect4Computer(Connect4GameController.computerName, this)
-    else
-      new Connect4Player(player2Name)
-  }
+  val player2: Player = new Connect4Computer(player2Name, this)
+
   protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
 
