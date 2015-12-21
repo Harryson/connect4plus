@@ -6,7 +6,7 @@ import javax.swing.{JLabel, JPanel}
 import connectfour.controller.Connect4GameController
 
 /**
- * Created by maharr on 13.11.15.
+ * Created by maharr on 19.12.15.
  */
 class StatusDisplay() extends JPanel {
   private val status = new JLabel();
@@ -40,7 +40,7 @@ class StatusDisplay() extends JPanel {
   private def showWinner() {
     val controller = Connect4GameController.getCurrentInstance
 
-    val winner = String.format("%s hat gewonnen!", controller.getWinner)
+    val winner = String.format("%s has won!", controller.getWinner)
     status.setText(winner)
   }
 
@@ -48,7 +48,7 @@ class StatusDisplay() extends JPanel {
     val controller = Connect4GameController.getCurrentInstance
 
     setPlayersColor
-    val playerOnTurn = String.format("Spieler %s ist dran", controller.getPlayerOnTurn)
+    val playerOnTurn = String.format("%s is next", controller.getPlayerOnTurn)
     status.setText(playerOnTurn)
   }
 }

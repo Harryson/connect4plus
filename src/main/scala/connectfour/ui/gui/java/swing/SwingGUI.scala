@@ -12,6 +12,9 @@ import connectfour.util.observer.IObserver
 
 import scala.collection.mutable.ArrayBuffer
 
+/**
+ * Created by maharr on 19.12.15.
+ */
 class SwingGUI extends JFrame with UI with IObserver {
   val DIMENSION_PANEL = new Dimension(800, 600)
   val DIMENSION_CELL_WRAPPER = new Dimension(400, 300)

@@ -1,8 +1,11 @@
 package connectfour.ui.gui.java.swing.widgets
 
-import javax.swing._
 import java.awt._
+import javax.swing._
 
+/**
+ * Created by maharr on 19.12.15.
+ */
 class ArrowCell(column: Int) extends JPanel {
 
   private val ARROW_WIDTH = 10

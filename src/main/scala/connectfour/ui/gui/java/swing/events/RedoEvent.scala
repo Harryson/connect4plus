@@ -8,6 +8,9 @@ import connectfour.util.observer.IObserver
 import scala.swing.Publisher
 import scala.swing.event.Event
 
+/**
+ * Created by maharr on 19.12.15.
+ */
 //TODO: Aus java.swing herauslösen
 case class RedoScalaSwingEvent() extends Event
 

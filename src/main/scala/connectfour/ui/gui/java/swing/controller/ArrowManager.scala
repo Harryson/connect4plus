@@ -2,9 +2,12 @@ package connectfour.ui.gui.java.swing.controller
 
 import connectfour.ui.gui.java.swing.widgets.ArrowCell
 import connectfour.util.observer.IObserverWithArguments
+
 import scala.collection.mutable.ArrayBuffer
 
-
+/**
+ * Created by maharr on 19.12.15.
+ */
 object ArrowManager extends IObserverWithArguments {
    private var currentColumn = 0
    var arrowCells : ArrayBuffer[ArrowCell] = _

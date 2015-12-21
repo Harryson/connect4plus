@@ -1,17 +1,17 @@
 package connectfour.ui.gui.java.swing.widgets
 
-import java.awt.Color
-import java.awt.Graphics
-import java.awt.Graphics2D
-import java.awt.RenderingHints
+import java.awt.{Color, Graphics, Graphics2D, RenderingHints}
 import javax.swing.JPanel
-import connectfour.ui.gui.java.swing.events.GUICoinMouseListener
-import connectfour.ui.gui.java.swing.events.MouseColumnObserver
-import connectfour.util.observer.IObserver
-import connectfour.util.observer.IObserverWithArguments
-import scala.beans.BeanProperty
-import connectfour.controller.Connect4GameController
 
+import connectfour.controller.Connect4GameController
+import connectfour.ui.gui.java.swing.events.{GUICoinMouseListener, MouseColumnObserver}
+import connectfour.util.observer.{IObserver, IObserverWithArguments}
+
+import scala.beans.BeanProperty
+
+/**
+ * Created by maharr on 19.12.15.
+ */
 class GUICoin(column: Int, observer: IObserverWithArguments) extends JPanel with IObserver {
   val RADIUS = 40;
   val X_POSITION = 18;

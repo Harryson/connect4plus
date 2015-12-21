@@ -1,11 +1,15 @@
 package connectfour.ui.gui.java.swing
 
-import connectfour.ui.gui.java.swing.events.{RedoEvent, UndoEvent, NewGameEvent}
-import connectfour.util.observer.IObserver
-import javax.swing._
 import java.awt._
-import connectfour.controller.Connect4GameController
+import javax.swing._
 
+import connectfour.controller.Connect4GameController
+import connectfour.ui.gui.java.swing.events.{NewGameEvent, RedoEvent, UndoEvent}
+import connectfour.util.observer.IObserver
+
+/**
+ * Created by maharr on 19.12.15.
+ */
 //TODO: Für was braucht man das Frame?
 class ToolBar(observer: IObserver, frame: Frame) extends JPanel {
   private val toolBar = new JToolBar("Toolbar")
