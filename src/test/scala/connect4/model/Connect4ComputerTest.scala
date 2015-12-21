@@ -41,9 +41,9 @@ class Connect4ComputerTest extends MockBase{
     gameField.dropCoin(6, opponent)
 
     if (controller.getPlayerOnTurn == player) {
-      controller.dropCoin(6)
+      controller.dropCoinChangePlayerOnTurn(6)
     } else {
-      gameField.dropCoin(6, player)
+      gameField.dropCoin(6, opponent)
       controller.dropCoinEventScala.dropCoin()
     }
 

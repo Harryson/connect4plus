@@ -8,4 +8,10 @@ class MockController(player1Name: String, player2Name: String) extends Connect4G
   def getGameField: MockGameField = {
     gameField.asInstanceOf[MockGameField]
   }
+
+  def dropCoinChangePlayerOnTurn(column: Int): Boolean = {
+    val success = gameField.asInstanceOf[MockGameField].dropCoinChangePlayerOnTurn(column)
+    dropCoinEventScala.dropCoin()
+    success
+  }
 }

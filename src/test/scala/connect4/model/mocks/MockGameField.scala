@@ -12,4 +12,8 @@ class MockGameField(player1: Player, player2: Player) extends Connect4GameField(
 
     success
   }
+
+  def dropCoinChangePlayerOnTurn(column: Int): Boolean = {
+    dropCoin(column)
+  }
 }
