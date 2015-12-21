@@ -25,13 +25,8 @@ libraryDependencies ++= Seq(
 
 javacOptions in (Compile, compile) ++= Seq("-source", "1.8", "-target", "1.8")
 
-// disable using the Scala version in output paths and artifacts
-crossPaths := false
 
 publishArtifact in Test := true
-
-
-
 
 // setup entry points for sonar code analyzer
 pomExtra := 
