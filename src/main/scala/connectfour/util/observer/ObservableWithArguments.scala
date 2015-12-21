@@ -1,7 +1,7 @@
 package connectfour.util.observer
 
 /**
- * Created by maharr on 19.10.15.
+ * Created by maharr on 19.12.15.
  */
 class ObservableWithArguments extends Observable {
   def notifyObservers(arg: Any) = for(subscriber <- subscribers) {

@@ -1,9 +1,7 @@
 package connectfour.util.observer
 
-import controller.GameController
-
 /**
- * Created by maharr on 19.10.15.
+ * Created by maharr on 19.12.15.
  */
 class Observable {
   var subscribers: List[_ <: IObserver] = Nil
