@@ -16,8 +16,8 @@ case class DropCoinScalaSwingEvent() extends Event
 case class NewGameScalaSwingEvent() extends Event
 
 trait GameController {
-  var dropCoinEventScala: DropCoinEventScala
-  var newGameEventScala: NewGameEventScala
+  val dropCoinEventScala: DropCoinEventScala
+  val newGameEventScala: NewGameEventScala
 
   def getPlayers: (Player, Player)
   
