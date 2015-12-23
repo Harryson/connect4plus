@@ -1,9 +1,8 @@
 package connectfour.ui.tui
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller._
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
-import controller.{DropCoinScalaSwingEvent, NewGameScalaSwingEvent}
 import modelinterfaces.Player
 
 import scala.swing.Reactor
@@ -14,16 +13,16 @@ import scala.swing.Reactor
 class TUI extends UI with Reactor {
   private val newline: String = System.getProperty("line.separator")
 
-  listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
-  listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
+  listenTo(Connect4GameControllerImpl.getCurrentInstance.dropCoinEventScala)
+  listenTo(Connect4GameControllerImpl.getCurrentInstance.newGameEventScala)
 
   reactions += {
     case e: NewGameScalaSwingEvent => drawGameField
-      listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
-      listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
+      listenTo(Connect4GameControllerImpl.getCurrentInstance.dropCoinEventScala)
+      listenTo(Connect4GameControllerImpl.getCurrentInstance.newGameEventScala)
     case e: DropCoinScalaSwingEvent => drawGameField
-    //    case e: UndoScalaSwingEvent => drawGameField        //TODO
-    //    case e: RedoScalaSwingEvent => drawGameField        //TODO
+    case e: UndoScalaSwingEvent => drawGameField //TODO
+    case e: RedoScalaSwingEvent => drawGameField //TODO
   }
 
   drawGameField
@@ -31,7 +30,7 @@ class TUI extends UI with Reactor {
   def update() = drawGameField
 
   def printInformation(): Unit = {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
 
     val winner = controller.getWinner
     if (winner != "") {
@@ -52,16 +51,16 @@ class TUI extends UI with Reactor {
   def processInputLine(input: String): Unit = {
     input match {
       case "q" => System.exit(0)
-      case "n" => Connect4GameController.reset()
+      case "n" => Connect4GameControllerImpl.reset()
       case "u" =>
-        Connect4GameController.getCurrentInstance.undoLastMove
+        Connect4GameControllerImpl.getCurrentInstance.undoLastMove
         // TODO Statt drawGameField aufzurufen, braucht es ein UndoEvent
         drawGameField
       case "r" => //TODO redo
       case _ =>
         if (isAllDigits(input) && input.compareTo("") != 0) {
           val col = input.toInt - 1
-          if (!Connect4GameController.getCurrentInstance.dropCoin(col)) {
+          if (!Connect4GameControllerImpl.getCurrentInstance.dropCoin(col)) {
             System.out.println("False Input, not a correct number !!!")
           }
         } else {
@@ -71,7 +70,7 @@ class TUI extends UI with Reactor {
   }
 
   def renderGameField: String = {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
     val (user, computer) = controller.getPlayers
 
     val row: Int = Connect4GameField.FIELD_ROWS - 1

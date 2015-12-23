@@ -3,7 +3,7 @@ package connectfour.ui.gui.java.swing
 import java.awt._
 import javax.swing._
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller.Connect4GameControllerImpl
 import connectfour.ui.gui.java.swing.events.{NewGameEvent, RedoEvent, UndoEvent}
 import connectfour.util.observer.IObserver
 
@@ -21,7 +21,7 @@ class ToolBar(observer: IObserver, frame: Frame) extends JPanel {
   addButtons
 
   def addButtons() {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
     
     val newGame = "new game"
     var button = makeNavigationButton(newGame, "New Game", "New Game")

@@ -4,7 +4,7 @@ package connectfour.ui.gui.scala.swing.widgets
 import java.awt.Color
 import java.awt.Color._
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller.Connect4GameControllerImpl
 
 import scala.swing._
 
@@ -22,7 +22,7 @@ class StatusDisplay() extends FlowPanel {
   showPlayerOnTurn
 
   def update {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
 
     if (controller.getWinner != "") {
       showWinner
@@ -32,7 +32,7 @@ class StatusDisplay() extends FlowPanel {
   }
 
   private def setPlayersColor {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
     val (user, computer) = controller.getPlayers
 
 
@@ -44,13 +44,13 @@ class StatusDisplay() extends FlowPanel {
   }
 
   private def showWinner() {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
 
     status.text = String.format("%s has won!", controller.getWinner)
   }
 
   private def showPlayerOnTurn() {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
 
     setPlayersColor
     status.text = String.format("%s is next", controller.getPlayerOnTurn)

@@ -3,12 +3,10 @@ package connectfour.ui.gui.scala.swing
 
 import java.awt.Color
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller._
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
-import connectfour.ui.gui.java.swing.events.{RedoScalaSwingEvent, UndoScalaSwingEvent}
 import connectfour.ui.gui.scala.swing.widgets.{ArrowField, CoinField, StatusDisplay, ToolBar}
-import controller.{DropCoinScalaSwingEvent, NewGameScalaSwingEvent}
 
 import scala.swing._
 
@@ -31,13 +29,13 @@ class SwingGUI extends Frame with UI {
     add(arrowField, BorderPanel.Position.North)
   }
 
-  listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
-  listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
+  listenTo(Connect4GameControllerImpl.getCurrentInstance.dropCoinEventScala)
+  listenTo(Connect4GameControllerImpl.getCurrentInstance.newGameEventScala)
 
   reactions += {
     case e: NewGameScalaSwingEvent => drawGameField
-      listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
-      listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
+      listenTo(Connect4GameControllerImpl.getCurrentInstance.dropCoinEventScala)
+      listenTo(Connect4GameControllerImpl.getCurrentInstance.newGameEventScala)
     case e: DropCoinScalaSwingEvent => drawGameField
     case e: UndoScalaSwingEvent => drawGameField      //TODO
     case e: RedoScalaSwingEvent => drawGameField      //TODO
@@ -46,7 +44,7 @@ class SwingGUI extends Frame with UI {
   drawGameField
 
   override def drawGameField {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
     val (user, computer) = controller.getPlayers
     statusDisplay.update
 

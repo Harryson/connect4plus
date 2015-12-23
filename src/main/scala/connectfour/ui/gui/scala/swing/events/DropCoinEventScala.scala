@@ -1,6 +1,6 @@
 package connectfour.ui.gui.scala.swing.events
 
-import controller.DropCoinScalaSwingEvent
+import connectfour.controller.DropCoinScalaSwingEvent
 
 import scala.swing.Publisher
 

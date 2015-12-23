@@ -1,7 +1,6 @@
 package connectfour
 
-import connectfour.ui.gui.scala.swing.SwingGUI
-import connectfour.ui.tui.TUIScala
+import connectfour.ui.tui.TUI
 
 /**
  * Created by maharr on 19.10.15.
@@ -9,10 +8,11 @@ import connectfour.ui.tui.TUIScala
 object Connect4 {
 
   def main(args: Array[String]) {
-    val tui = new TUIScala
+    val tui = ScalaSwingRegistry.tui.asInstanceOf[TUI]
+    //    ScalaSwingRegistry.ui
 
-    new SwingGUI
-//        val controller = Connect4GameController.getCurrentInstance
+    //    new SwingGUI
+    //        val controller = Connect4GameControllerImpl.getCurrentInstance
 //        controller.addObserver(new TUI)
 //        controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
 //    controller.addObserver(new connectfour.ui.gui.scala.swing.SwingGUI)

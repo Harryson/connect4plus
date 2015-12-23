@@ -1,6 +1,6 @@
 package connectfour.model
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller._
 import modelinterfaces.{Move, Player}
 
 import scala.concurrent.ExecutionContext.Implicits.global

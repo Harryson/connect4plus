@@ -3,7 +3,7 @@ package connectfour.ui.gui.java.swing
 import java.awt.{Color, Dimension, GridLayout}
 import javax.swing.{BorderFactory, BoxLayout, JFrame, JOptionPane, JPanel}
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller.Connect4GameControllerImpl
 import connectfour.model.Connect4GameField
 import connectfour.ui.UI
 import connectfour.ui.gui.java.swing.controller.ArrowManager
@@ -101,7 +101,7 @@ class SwingGUI extends JFrame with UI with IObserver {
   }
 
   override def drawGameField {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
     val (user, computer) = controller.getPlayers
     statusDisplay.update
 
