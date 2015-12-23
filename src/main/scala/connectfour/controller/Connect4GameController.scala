@@ -134,6 +134,10 @@ class Connect4GameController(player1Name: String, player2Name: String = Connect4
     controller
   }
 
+  def getCopyOfGameField = {
+    this.cloneController.asInstanceOf[Connect4GameController].gameField
+  }
+
   override def update(arg: Any) {
     val columnToDrop = arg.asInstanceOf[Int]
     dropCoin(columnToDrop)
