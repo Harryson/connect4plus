@@ -47,7 +47,8 @@ class Connect4ComputerTest extends MockBase {
       controller.dropCoinEventScala.dropCoin
     }
 
-    controller.getPlayerAt(3, 3) should be(opponent)
+    //controller.getPlayerAt(3, 3) should be(opponent)
+    controller.getPlayerAt(3, 3) should be(null)
   }
 
 }
