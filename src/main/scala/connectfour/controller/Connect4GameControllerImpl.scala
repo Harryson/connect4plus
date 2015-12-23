@@ -19,39 +19,6 @@ case class RedoScalaSwingEvent() extends Event
 object Connect4GameControllerImpl {
   private val defaultUserName = "Hugo"
   private val computerName = "Computer"
-
-  private var controller = new Connect4GameControllerImpl(defaultUserName)
-
-  /**
-   * Call always getCurrentInstance() to get the latest instance!
-   * Don't hold instances in classes,  because they could be outdated!
-   */
-  def reset() = {
-    getNewInstance(defaultUserName, computerName)
-    controller.newGameEventScala.newGame()
-  }
-
-  /**
-   * Call always getCurrentInstance() to get the latest instance!
-   * Don't hold instances in classes,  because they could be outdated!
-   */
-  def getNewInstance(player1Name: String, player2Name: String = computerName): Connect4GameControllerImpl = {
-
-    // Save old fields
-    val dropCoinEventScala = controller.dropCoinEventScala
-    val newGameEventScala = controller.newGameEventScala
-
-    // add old fields to new instance
-    controller = new Connect4GameControllerImpl(player1Name, player2Name)
-
-    controller
-  }
-
-  /**
-   * Call always this method to get the latest instance!
-   * Don't hold instances in classes,  because they could be outdated!
-   */
-  def getCurrentInstance = controller
 }
 
 class Connect4GameControllerImpl(player1Name: String = Connect4GameControllerImpl.defaultUserName,
@@ -71,6 +38,10 @@ class Connect4GameControllerImpl(player1Name: String = Connect4GameControllerImp
   if (gameField.getPlayerOnTurn == player2) {
     notifyObservers()
     dropCoinEventScala.dropCoin
+  }
+
+  override def reset {
+    newGameEventScala.newGame()
   }
 
   override def getPlayers: (Player, Player) = (player1, player2)

@@ -6,7 +6,7 @@ import connectfour.ui.UI
 /**
  * Created by maharr on 23.12.15.
  */
-object JavaSwingRegistry extends Components {
+class JavaSwingRegistry extends Components {
   override val gameController: Connect4GameController = new Connect4GameControllerImpl
 
   override def tui: UI = new TUI

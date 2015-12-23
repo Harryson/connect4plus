@@ -58,7 +58,7 @@ trait UIComponent {
     def processInputLine(input: String): Unit = {
       input match {
         case "q" => System.exit(0)
-        case "n" => Connect4GameControllerImpl.reset()
+        case "n" => gameController.reset
         case "u" =>
           gameController.undoLastMove
           // TODO Statt drawGameField aufzurufen, braucht es ein UndoEvent
@@ -129,11 +129,11 @@ trait UIComponent {
 
     visible = true
     title = "Connect 4 in Scala"
-    menuBar = new ToolBar
+    menuBar = new ToolBar(gameController)
 
-    val arrowField = new ArrowField
-    val coinField = new CoinField(arrowField)
-    val statusDisplay = new StatusDisplay
+    val arrowField = new ArrowField(gameController)
+    val coinField = new CoinField(gameController, arrowField)
+    val statusDisplay = new StatusDisplay(gameController)
 
     contents = new BorderPanel {
       add(statusDisplay, BorderPanel.Position.South)

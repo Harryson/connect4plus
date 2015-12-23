@@ -2,7 +2,7 @@ package connectfour.ui.gui.scala.swing.widgets
 
 import java.awt.{Color, RenderingHints}
 
-import connectfour.controller.Connect4GameControllerImpl
+import connectfour.controller.Connect4GameController
 import connectfour.model.Connect4GameField
 
 import scala.swing._
@@ -10,7 +10,7 @@ import scala.swing._
 /**
  * Created by maharr on 16.11.15.
  */
-class CoinField(arrowField: ArrowField) extends GridPanel(Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS) with Field{
+class CoinField(gameController: Connect4GameController, arrowField: ArrowField) extends GridPanel(Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS) with Field {
 
   // constructor
   background = Color.LIGHT_GRAY
@@ -49,8 +49,6 @@ class CoinField(arrowField: ArrowField) extends GridPanel(Connect4GameField.FIEL
 
   // Drop a coin form coin field (below top row)
   override def mouseReleased(buttonCell: ButtonCell) {
-    val controller = Connect4GameControllerImpl.getCurrentInstance
-
-    controller.dropCoin(CELLS.flatten.indexOf(buttonCell) % Connect4GameField.FIELD_COLUMNS)
+    gameController.dropCoin(CELLS.flatten.indexOf(buttonCell) % Connect4GameField.FIELD_COLUMNS)
   }
 }

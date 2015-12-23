@@ -1,13 +1,30 @@
 package connectfour
 
+import connectfour.controller.NewGameScalaSwingEvent
+
+import scala.swing.Reactor
+
 /**
  * Created by maharr on 19.10.15.
  */
-object Connect4 {
+object Connect4 extends Reactor {
 
   def main(args: Array[String]) {
-    val tui = ScalaSwingRegistry.tui
-    ScalaSwingRegistry.ui // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
+    var registy = new ScalaSwingRegistry
+    var controller = registy.gameController
+    var tui = registy.tui
+
+    listenTo(controller.newGameEventScala)
+
+    reactions += {
+      case e: NewGameScalaSwingEvent =>
+        registy = new ScalaSwingRegistry
+        controller = registy.gameController
+        listenTo(controller.newGameEventScala)
+    }
+
+
+    registy.ui // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
 
     //    new SwingGUI
     //        val controller = Connect4GameControllerImpl.getCurrentInstance

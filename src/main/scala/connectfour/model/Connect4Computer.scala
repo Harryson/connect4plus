@@ -18,8 +18,8 @@ class Connect4Computer(override val name: String, controller: Connect4GameContro
 
   reactions += {
     case e: NewGameScalaSwingEvent =>
-      listenTo(Connect4GameControllerImpl.getCurrentInstance.dropCoinEventScala)
-      listenTo(Connect4GameControllerImpl.getCurrentInstance.newGameEventScala)
+      listenTo(controller.dropCoinEventScala)
+      listenTo(controller.newGameEventScala)
       draw
     case e: DropCoinScalaSwingEvent =>
       draw

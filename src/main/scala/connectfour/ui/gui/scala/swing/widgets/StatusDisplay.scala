@@ -4,7 +4,7 @@ package connectfour.ui.gui.scala.swing.widgets
 import java.awt.Color
 import java.awt.Color._
 
-import connectfour.controller.Connect4GameControllerImpl
+import connectfour.controller.Connect4GameController
 
 import scala.swing._
 
@@ -13,7 +13,7 @@ import scala.swing._
  *
  * Status display shows player on turn or winner
  */
-class StatusDisplay() extends FlowPanel {
+class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
 
   // constructor
   background = Color.LIGHT_GRAY
@@ -22,9 +22,7 @@ class StatusDisplay() extends FlowPanel {
   showPlayerOnTurn
 
   def update {
-    val controller = Connect4GameControllerImpl.getCurrentInstance
-
-    if (controller.getWinner != "") {
+    if (gameController.getWinner != "") {
       showWinner
     } else {
       showPlayerOnTurn
@@ -32,11 +30,10 @@ class StatusDisplay() extends FlowPanel {
   }
 
   private def setPlayersColor {
-    val controller = Connect4GameControllerImpl.getCurrentInstance
-    val (user, computer) = controller.getPlayers
+    val (user, computer) = gameController.getPlayers
 
 
-    if (controller.getPlayerOnTurn == user) {
+    if (gameController.getPlayerOnTurn == user) {
       status.foreground = RED
     } else {
       status.foreground = YELLOW
@@ -44,15 +41,11 @@ class StatusDisplay() extends FlowPanel {
   }
 
   private def showWinner() {
-    val controller = Connect4GameControllerImpl.getCurrentInstance
-
-    status.text = String.format("%s has won!", controller.getWinner)
+    status.text = String.format("%s has won!", gameController.getWinner)
   }
 
   private def showPlayerOnTurn() {
-    val controller = Connect4GameControllerImpl.getCurrentInstance
-
     setPlayersColor
-    status.text = String.format("%s is next", controller.getPlayerOnTurn)
+    status.text = String.format("%s is next", gameController.getPlayerOnTurn)
   }
 }
