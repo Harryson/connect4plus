@@ -1,15 +1,13 @@
 package connectfour
 
-import connectfour.ui.tui.TUI
-
 /**
  * Created by maharr on 19.10.15.
  */
 object Connect4 {
 
   def main(args: Array[String]) {
-    val tui = ScalaSwingRegistry.tui.asInstanceOf[TUI]
-    //    ScalaSwingRegistry.ui
+    val tui = ScalaSwingRegistry.tui
+    ScalaSwingRegistry.ui // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
 
     //    new SwingGUI
     //        val controller = Connect4GameControllerImpl.getCurrentInstance
@@ -29,4 +27,5 @@ object Connect4 {
 //    controller.addObserver(injector.getInstance(classOf[TUI]))
 //    controller.addObserver(injector.getInstance(classOf[connectfour.ui.gui.scala.swing.SwingGUI]))
   }
+
 }

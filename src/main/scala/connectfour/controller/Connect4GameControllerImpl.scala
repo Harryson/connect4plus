@@ -1,7 +1,6 @@
 package connectfour.controller
 
 import connectfour.model._
-import connectfour.ui.gui.scala.swing.events.{DropCoinEventScala, NewGameEventScala}
 import connectfour.util.observer.{IObserverWithArguments, ObservableWithArguments}
 import controller.GameController
 import modelinterfaces.{Move, Player}
@@ -13,16 +12,13 @@ import scala.swing.event.Event
  * Created by maharr on 23.12.15.
  */
 case class DropCoinScalaSwingEvent() extends Event
-
 case class NewGameScalaSwingEvent() extends Event
-
 case class UndoScalaSwingEvent() extends Event
-
 case class RedoScalaSwingEvent() extends Event
 
 object Connect4GameControllerImpl {
-  private val computerName = "Computer"
   private val defaultUserName = "Hugo"
+  private val computerName = "Computer"
 
   private var controller = new Connect4GameControllerImpl(defaultUserName)
 
@@ -31,7 +27,7 @@ object Connect4GameControllerImpl {
    * Don't hold instances in classes,  because they could be outdated!
    */
   def reset() = {
-    getNewInstance(controller.player1.name, controller.player2.name)
+    getNewInstance(defaultUserName, computerName)
     controller.newGameEventScala.newGame()
   }
 
@@ -46,7 +42,7 @@ object Connect4GameControllerImpl {
     val newGameEventScala = controller.newGameEventScala
 
     // add old fields to new instance
-    controller = new Connect4GameControllerImpl(player1Name, player2Name, dropCoinEventScala, newGameEventScala)
+    controller = new Connect4GameControllerImpl(player1Name, player2Name)
 
     controller
   }
@@ -59,12 +55,11 @@ object Connect4GameControllerImpl {
 }
 
 class Connect4GameControllerImpl(player1Name: String = Connect4GameControllerImpl.defaultUserName,
-                                 player2Name: String = Connect4GameControllerImpl.computerName,
-                                 val dropCoinEventScala: DropCoinEventScala = new DropCoinEventScala,
-                                 val newGameEventScala: NewGameEventScala = new NewGameEventScala)
+                                 player2Name: String = Connect4GameControllerImpl.computerName)
   extends ObservableWithArguments
   with Connect4GameController
   with IObserverWithArguments {
+  println("Create Connect4GameControllerImpl")
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = new Connect4Computer(player2Name, this)
@@ -80,7 +75,7 @@ class Connect4GameControllerImpl(player1Name: String = Connect4GameControllerImp
 
   override def getPlayers: (Player, Player) = (player1, player2)
 
-  def getPlayerAt(currentRow: Int, currentColumn: Int) = {
+  override def getPlayerAt(currentRow: Int, currentColumn: Int) = {
     gameField.gameField(currentColumn)(currentRow)
   }
 
