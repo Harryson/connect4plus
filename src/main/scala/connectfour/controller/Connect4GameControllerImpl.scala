@@ -30,18 +30,18 @@ class Connect4GameControllerImpl(player1Name: String = Connect4GameControllerImp
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = new Connect4Computer(player2Name, this)
-
   override protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
 
-  // computer open this game
-  if (gameField.getPlayerOnTurn == player2) {
+  //  // computer open this game
+  //  if (gameField.getPlayerOnTurn == player2) {
     notifyObservers()
     dropCoinEventScala.dropCoin
-  }
+
+  //  }
 
   override def reset {
-    newGameEventScala.newGame()
+    newGameEventScala.newGame
   }
 
   override def getPlayers: (Player, Player) = (player1, player2)

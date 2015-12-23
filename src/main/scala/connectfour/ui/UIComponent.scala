@@ -15,9 +15,9 @@ import scala.swing.{BorderPanel, Frame, Reactor}
 trait UIComponent {
   this: Connect4GameControllerComponent =>
 
-  def ui: UI
+  val ui: UI
 
-  def tui: UI
+  val tui: UI
 
   class TUI extends UI with Reactor {
 

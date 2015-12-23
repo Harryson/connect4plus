@@ -9,7 +9,7 @@ import connectfour.ui.UI
 class ScalaSwingRegistry extends Components {
   override val gameController: Connect4GameController = new Connect4GameControllerImpl
 
-  override def ui: UI = new SwingGUI
+  override val ui: UI = new SwingGUI
 
-  override def tui: TUI = new TUI
+  override val tui: TUI = new TUI
 }

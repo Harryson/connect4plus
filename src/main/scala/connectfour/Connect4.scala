@@ -10,21 +10,22 @@ import scala.swing.Reactor
 object Connect4 extends Reactor {
 
   def main(args: Array[String]) {
-    var registy = new ScalaSwingRegistry
-    var controller = registy.gameController
-    var tui = registy.tui
+    var registry = new ScalaSwingRegistry
+    var controller = registry.gameController
+    var tui = registry.tui
 
     listenTo(controller.newGameEventScala)
 
     reactions += {
       case e: NewGameScalaSwingEvent =>
-        registy = new ScalaSwingRegistry
-        controller = registy.gameController
+        registry = new ScalaSwingRegistry
+        controller = registry.gameController
         listenTo(controller.newGameEventScala)
+        tui = registry.tui
     }
 
 
-    registy.ui // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
+    registry.ui // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
 
     //    new SwingGUI
     //        val controller = Connect4GameControllerImpl.getCurrentInstance
