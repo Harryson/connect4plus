@@ -24,11 +24,7 @@ object Connect4 extends Reactor {
         tui = registry.tui
     }
 
-
-    registry.scalaSwingGUI // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
-
     //    controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
-
     tui.processInputLine("start")
   }
 }

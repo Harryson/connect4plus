@@ -16,64 +16,28 @@ trait TUIComponent {
   val tui: TUI
 
   class TUI extends UI with Reactor {
+    private val newline = System.getProperty("line.separator")
 
-    private val newline: String = System.getProperty("line.separator")
-
-    listenTo(gameController.dropCoinEventScala)
-    listenTo(gameController.newGameEventScala)
+    listonToEvents()
 
     reactions += {
       case e: NewGameScalaSwingEvent => drawGameField
-        listenTo(gameController.dropCoinEventScala)
-        listenTo(gameController.newGameEventScala)
+        listonToEvents()
       case e: DropCoinScalaSwingEvent => drawGameField
       case e: UndoScalaSwingEvent => drawGameField //TODO
       case e: RedoScalaSwingEvent => drawGameField //TODO
     }
 
-    drawGameField
-
-    private def printInformation(): Unit = {
-
-      val winner = gameController.getWinner
-      if (winner != "") {
-        System.out.printf("%s has won\n\n", winner)
-      }
-      else {
-        System.out.printf("%s on turn\n\n", gameController.getPlayerOnTurn)
-      }
-
-      println("Enter command: q-Quit; n-New; int-Drop_Coin; u-Undo, r-Redo")
+    private def listonToEvents() {
+      listenTo(gameController.dropCoinEventScala)
+      listenTo(gameController.newGameEventScala)
     }
+
+    drawGameField
 
     override def drawGameField {
       println(renderGameField)
       printInformation()
-    }
-
-    def processInputLine(input: String): Unit = {
-      input match {
-        case "start" => println("Start game")
-        case "q" => System.exit(0)
-        case "n" => gameController.reset
-        case "u" =>
-          gameController.undoLastMove
-          // TODO Statt drawGameField aufzurufen, braucht es ein UndoEvent
-          drawGameField
-        case "r" => //TODO redo
-        case _ =>
-          if (isAllDigits(input) && input.compareTo("") != 0) {
-            val col = input.toInt - 1
-            if (!gameController.dropCoin(col)) {
-              System.out.println("False Input, not a correct number !!!")
-            }
-          } else {
-            System.out.println("False Input, not a number!!!")
-          }
-      }
-
-      // Infinite loop
-      processInputLine(scala.io.StdIn.readLine());
     }
 
     private def renderGameField: String = {
@@ -119,7 +83,43 @@ trait TUIComponent {
       playingField.toString()
     }
 
+    private def printInformation() {
+      val winner = gameController.getWinner
+      if (winner != "") {
+        println("%s has won\n", winner)
+      }
+      else {
+        println("%s on turn\n", gameController.getPlayerOnTurn)
+      }
+
+      println("Enter command:\n q->Quit; n->New; 1 to 7->Drop_Coin; u->Undo; r->Redo")
+    }
+
+    def processInputLine(input: String) {
+      input match {
+        case "start" => println("Start game")
+        case "q" => System.exit(0)
+        case "n" => gameController.reset
+        case "u" =>
+          gameController.undoLastMove
+          // TODO Statt drawGameField aufzurufen, braucht es ein UndoEvent
+          drawGameField
+        case "r" => //TODO redo
+        case _ =>
+          if (isAllDigits(input) && input.compareTo("") != 0) {
+            val col = input.toInt - 1
+            if (!gameController.dropCoin(col)) {
+              System.out.println("Misentry, not a correct number !!!")
+            }
+          } else {
+            System.out.println("Misentry, not a number!!!")
+          }
+      }
+
+      // Infinite loop
+      processInputLine(scala.io.StdIn.readLine())
+    }
+
     private def isAllDigits(input: String) = input forall Character.isDigit
   }
-
 }
