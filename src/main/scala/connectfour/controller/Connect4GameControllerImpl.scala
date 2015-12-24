@@ -3,8 +3,8 @@ package connectfour.controller
 import connectfour.model._
 import connectfour.util.observer.{IObserverWithArguments, ObservableWithArguments}
 import controller.GameController
+import manager.{RedoManager, UndoManager}
 import modelinterfaces.{Move, Player}
-import undomanager.UndoManager
 
 import scala.swing.event.Event
 
@@ -25,28 +25,39 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   val player2: Player = new Connect4Computer(player2Name, this)
   override protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
+  private val redoManager = new RedoManager
 
   // TODO: mal schauen ob man es noch braucht
   //  // computer open this game
   //  if (gameField.getPlayerOnTurn == player2) {
     notifyObservers()
-    dropCoinEventScala.dropCoin
+  dropCoinEventScala.dropCoin()
 
   //  }
 
-  override def reset {
-    newGameEventScala.newGame
+  override def reset() {
+    newGameEventScala.newGame()
+  }
+
+  override def undo() {
+    undoManager.undoCommand()
+    undoEventScala.undo()
+  }
+
+  override def redo() {
+    redoManager.redoCommand()
+    redoEventScala.redo()
   }
 
   override def getPlayers: (Player, Player) = (player1, player2)
 
-  override def getPlayerAt(currentRow: Int, currentColumn: Int) = {
+  override def getPlayerAt(currentRow: Int, currentColumn: Int): Player = {
     gameField.gameField(currentColumn)(currentRow)
   }
 
-  override def getPlayerOnTurn: Player = gameField.getPlayerOnTurn
+  override def getPlayerOnTurn = gameField.getPlayerOnTurn
 
-  override def getWinner: String = gameField.getWinner
+  override def getWinner = gameField.getWinner
 
   override def gameIsOver = getWinner != ""
 
@@ -58,7 +69,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
     )
 
     val success = gameField.dropCoin(column)
-    dropCoinEventScala.dropCoin
+    dropCoinEventScala.dropCoin()
     success
   }
 
@@ -107,4 +118,5 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
     val columnToDrop = arg.asInstanceOf[Int]
     dropCoin(columnToDrop)
   }
+
 }

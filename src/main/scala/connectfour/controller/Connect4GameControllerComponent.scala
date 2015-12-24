@@ -5,5 +5,4 @@ package connectfour.controller
  */
 trait Connect4GameControllerComponent {
   val gameController: Connect4GameController
-  //  var gameController: Connect4GameController
 }

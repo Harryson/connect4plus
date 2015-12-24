@@ -14,9 +14,11 @@ class Observable {
 
   def removeObserver[B <: IObserver](s: B) = subscribers = subscribers.filter(_ != s)
 
-  def removeAllObservers = subscribers = Nil
+  def removeAllObservers() = subscribers = Nil
 
-  def notifyObservers() = for(subscriber <- subscribers) {
-    subscriber.update
+  def notifyObservers() {
+    for (subscriber <- subscribers) {
+      subscriber.update()
+    }
   }
 }

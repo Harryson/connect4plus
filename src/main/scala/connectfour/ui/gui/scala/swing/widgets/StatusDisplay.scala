@@ -19,19 +19,19 @@ class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
   background = Color.LIGHT_GRAY
   val status = new Label
   contents += status
-  showPlayerOnTurn
+  showPlayerOnTurn()
 
-  def update {
+  def update() {
     if (gameController.getWinner != "") {
-      showWinner
+      showWinner()
     } else {
-      showPlayerOnTurn
+      setPlayersColor()
+      showPlayerOnTurn()
     }
   }
 
-  private def setPlayersColor {
-    val (user, computer) = gameController.getPlayers
-
+  private def setPlayersColor() {
+    val (user, _) = gameController.getPlayers
 
     if (gameController.getPlayerOnTurn == user) {
       status.foreground = RED
@@ -45,7 +45,7 @@ class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
   }
 
   private def showPlayerOnTurn() {
-    setPlayersColor
+    setPlayersColor()
     status.text = String.format("%s is next", gameController.getPlayerOnTurn)
   }
 }

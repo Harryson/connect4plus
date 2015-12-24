@@ -18,8 +18,6 @@ trait ScalaSwingGUIComponent {
   val scalaSwingGUI: ScalaSwingGUI
 
   class ScalaSwingGUI extends Frame with UI {
-    println("Create SwingGUI")
-
     visible = true
     title = "Connect 4 in Scala"
     menuBar = new ToolBar(gameController)
@@ -34,21 +32,26 @@ trait ScalaSwingGUIComponent {
       add(arrowField, BorderPanel.Position.North)
     }
 
-    listenTo(gameController.dropCoinEventScala)
-    listenTo(gameController.newGameEventScala)
+    listenToEvents()
 
     reactions += {
-      case e: NewGameScalaSwingEvent => drawGameField
-        listenTo(gameController.dropCoinEventScala)
-        listenTo(gameController.newGameEventScala)
-      case e: DropCoinScalaSwingEvent => drawGameField
-      case e: UndoScalaSwingEvent => drawGameField //TODO
-      case e: RedoScalaSwingEvent => drawGameField //TODO
+      case e: NewGameScalaSwingEvent => drawGameField()
+        listenToEvents()
+      case e: DropCoinScalaSwingEvent => drawGameField()
+      case e: UndoScalaSwingEvent => drawGameField()
+      case e: RedoScalaSwingEvent => drawGameField()
     }
 
-    drawGameField
+    private def listenToEvents() {
+      listenTo(gameController.dropCoinEventScala)
+      listenTo(gameController.newGameEventScala)
+      listenTo(gameController.undoEventScala)
+      listenTo(gameController.redoEventScala)
+    }
 
-    override def drawGameField {
+    drawGameField()
+
+    override def drawGameField() {
       val (user, computer) = gameController.getPlayers
       statusDisplay.update
 

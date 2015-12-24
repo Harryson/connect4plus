@@ -18,24 +18,26 @@ trait TUIComponent {
   class TUI extends UI with Reactor {
     private val newline = System.getProperty("line.separator")
 
-    listonToEvents()
+    listenToEvents()
 
     reactions += {
-      case e: NewGameScalaSwingEvent => drawGameField
-        listonToEvents()
-      case e: DropCoinScalaSwingEvent => drawGameField
-      case e: UndoScalaSwingEvent => drawGameField //TODO
-      case e: RedoScalaSwingEvent => drawGameField //TODO
+      case e: NewGameScalaSwingEvent => drawGameField()
+        listenToEvents()
+      case e: DropCoinScalaSwingEvent => drawGameField()
+      case e: UndoScalaSwingEvent => drawGameField()
+      case e: RedoScalaSwingEvent => drawGameField()
     }
 
-    private def listonToEvents() {
+    private def listenToEvents() {
       listenTo(gameController.dropCoinEventScala)
       listenTo(gameController.newGameEventScala)
+      listenTo(gameController.undoEventScala)
+      listenTo(gameController.redoEventScala)
     }
 
-    drawGameField
+    drawGameField()
 
-    override def drawGameField {
+    override def drawGameField() {
       println(renderGameField)
       printInformation()
     }
@@ -99,12 +101,9 @@ trait TUIComponent {
       input match {
         case "start" => println("Start game")
         case "q" => System.exit(0)
-        case "n" => gameController.reset
-        case "u" =>
-          gameController.undoLastMove
-          // TODO Statt drawGameField aufzurufen, braucht es ein UndoEvent
-          drawGameField
-        case "r" => //TODO redo
+        case "n" => gameController.reset()
+        case "u" => gameController.undo()
+        case "r" => gameController.redo()
         case _ =>
           if (isAllDigits(input) && input.compareTo("") != 0) {
             val col = input.toInt - 1
