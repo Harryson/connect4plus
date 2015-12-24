@@ -25,25 +25,10 @@ object Connect4 extends Reactor {
     }
 
 
-    registry.ui // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
+    registry.scalaSwingGUI // Müsste man nicht machen, wenn in trait val statt def eingesetzt wird, ist dann aber nicht so flexibel
 
-    //    new SwingGUI
-    //        val controller = Connect4GameControllerImpl.getCurrentInstance
-//        controller.addObserver(new TUI)
-//        controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
-//    controller.addObserver(new connectfour.ui.gui.scala.swing.SwingGUI)
+    //    controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
 
-    while(true){
-      tui.processInputLine(scala.io.StdIn.readLine())
-    }
-    
-    //TODO: Mit Injections arbeiten
-//    val injector: Injector = Guice.createInjector(new GameControllerModule)
-//    val controller: GameController = injector.getInstance(classOf[GameController])
-//    controller.newGame
-//    controller.addObserver(injector.getInstance(classOf[connectfour.ui.gui.java.swing.SwingGUI]))
-//    controller.addObserver(injector.getInstance(classOf[TUI]))
-//    controller.addObserver(injector.getInstance(classOf[connectfour.ui.gui.scala.swing.SwingGUI]))
+    tui.processInputLine("start")
   }
-
 }

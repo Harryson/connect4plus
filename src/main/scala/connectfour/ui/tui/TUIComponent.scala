@@ -1,23 +1,19 @@
-package connectfour.ui
-
-import java.awt.Color
+package connectfour.ui.tui
 
 import connectfour.controller._
 import connectfour.model.Connect4GameField
-import connectfour.ui.gui.scala.swing.widgets.{ArrowField, CoinField, StatusDisplay, ToolBar}
+import connectfour.ui.UI
 import modelinterfaces.Player
 
-import scala.swing.{BorderPanel, Frame, Reactor}
+import scala.swing.Reactor
 
 /**
- * Created by maharr on 23.12.15.
+ * Created by maharr on 24.12.15.
  */
-trait UIComponent {
+trait TUIComponent {
   this: Connect4GameControllerComponent =>
 
-  val ui: UI
-
-  val tui: UI
+  val tui: TUI
 
   class TUI extends UI with Reactor {
 
@@ -57,6 +53,7 @@ trait UIComponent {
 
     def processInputLine(input: String): Unit = {
       input match {
+        case "start" => println("Start game")
         case "q" => System.exit(0)
         case "n" => gameController.reset
         case "u" =>
@@ -74,6 +71,9 @@ trait UIComponent {
             System.out.println("False Input, not a number!!!")
           }
       }
+
+      // Infinite loop
+      processInputLine(scala.io.StdIn.readLine());
     }
 
     private def renderGameField: String = {
@@ -112,7 +112,7 @@ trait UIComponent {
           currentColumn += 1
         }
         playingField.append(newline)
-        currentRow -= 1;
+        currentRow -= 1
         currentRow + 1
       }
 
@@ -122,68 +122,4 @@ trait UIComponent {
     private def isAllDigits(input: String) = input forall Character.isDigit
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////
-
-  class SwingGUI extends Frame with UI {
-    println("Create SwingGUI")
-
-    visible = true
-    title = "Connect 4 in Scala"
-    menuBar = new ToolBar(gameController)
-
-    val arrowField = new ArrowField(gameController)
-    val coinField = new CoinField(gameController, arrowField)
-    val statusDisplay = new StatusDisplay(gameController)
-
-    contents = new BorderPanel {
-      add(statusDisplay, BorderPanel.Position.South)
-      add(coinField, BorderPanel.Position.Center)
-      add(arrowField, BorderPanel.Position.North)
-    }
-
-    listenTo(gameController.dropCoinEventScala)
-    listenTo(gameController.newGameEventScala)
-
-    reactions += {
-      case e: NewGameScalaSwingEvent => drawGameField
-        listenTo(gameController.dropCoinEventScala)
-        listenTo(gameController.newGameEventScala)
-      case e: DropCoinScalaSwingEvent => drawGameField
-      case e: UndoScalaSwingEvent => drawGameField //TODO
-      case e: RedoScalaSwingEvent => drawGameField //TODO
-    }
-
-    drawGameField
-
-    override def drawGameField {
-      val (user, computer) = gameController.getPlayers
-      statusDisplay.update
-
-      //TODO: Nicht mehr Default Row und Col verwenden (soll skalierbar sein)
-      for (currentRow <- 0 until Connect4GameField.FIELD_ROWS) {
-        for (currentColumn <- 0 until Connect4GameField.FIELD_COLUMNS) {
-          val player = gameController.getPlayerAt(currentRow, currentColumn)
-
-          if (player == null) {
-            coinField.CELLS(currentRow)(currentColumn).foreground = Color.WHITE
-          } else if (player == user) {
-            //TODO: Farben Zentral setzen
-            coinField.CELLS(currentRow)(currentColumn).foreground = Color.RED
-          } else if (player == computer) {
-            coinField.CELLS(currentRow)(currentColumn).foreground = Color.YELLOW
-          } else {
-            //TODO: Noch machen bei Fehlerfall
-            //          JOptionPane.showMessageDialog(this,
-            //            "Fehler beim Einfuegen der Muenze in Zeile "
-            //              + currentRow
-            //              + " und Spalte "
-            //              + currentColumn
-            //              + "!")
-            throw new RuntimeException("Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!")
-          }
-        }
-      }
-      repaint()
-    }
-  }
 }

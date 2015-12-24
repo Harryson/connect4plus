@@ -16,23 +16,17 @@ case class NewGameScalaSwingEvent() extends Event
 case class UndoScalaSwingEvent() extends Event
 case class RedoScalaSwingEvent() extends Event
 
-object Connect4GameControllerImpl {
-  private val defaultUserName = "Hugo"
-  private val computerName = "Computer"
-}
-
-class Connect4GameControllerImpl(player1Name: String = Connect4GameControllerImpl.defaultUserName,
-                                 player2Name: String = Connect4GameControllerImpl.computerName)
-  extends ObservableWithArguments
-  with Connect4GameController
-  with IObserverWithArguments {
-  println("Create Connect4GameControllerImpl")
+class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: String = "Computer")
+        extends ObservableWithArguments
+        with Connect4GameController
+        with IObserverWithArguments {
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = new Connect4Computer(player2Name, this)
   override protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
 
+  // TODO: mal schauen ob man es noch braucht
   //  // computer open this game
   //  if (gameField.getPlayerOnTurn == player2) {
     notifyObservers()
