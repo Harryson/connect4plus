@@ -53,7 +53,7 @@ trait ScalaSwingGUIComponent {
 
     override def drawGameField() {
       val (user, computer) = gameController.getPlayers
-      statusDisplay.update
+      statusDisplay.update()
 
       //TODO: Nicht mehr Default Row und Col verwenden (soll skalierbar sein)
       for (currentRow <- 0 until Connect4GameField.FIELD_ROWS) {

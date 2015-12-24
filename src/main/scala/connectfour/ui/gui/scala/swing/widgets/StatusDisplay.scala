@@ -46,6 +46,6 @@ class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
 
   private def showPlayerOnTurn() {
     setPlayersColor()
-    status.text = String.format("%s is next", gameController.getPlayerOnTurn)
+    status.text = String.format("%s on turn", gameController.getPlayerOnTurn)
   }
 }

@@ -17,6 +17,14 @@ trait TUIComponent {
 
   class TUI extends UI with Reactor {
     private val newline = System.getProperty("line.separator")
+    private val begin: String = "|"
+    private val empty: String = "_"
+    private val end: String = "_|"
+    private val coin1: String = "O"
+    private val coin2: String = "X"
+    private val row: Int = Connect4GameField.FIELD_ROWS - 1
+    private val col: Int = Connect4GameField.FIELD_COLUMNS
+    private val (user, computer) = gameController.getPlayers
 
     listenToEvents()
 
@@ -43,58 +51,56 @@ trait TUIComponent {
     }
 
     private def renderGameField: String = {
-      val (user, computer) = gameController.getPlayers
-
-      val row: Int = Connect4GameField.FIELD_ROWS - 1
-      val col: Int = Connect4GameField.FIELD_COLUMNS
       val playingField: StringBuilder = new StringBuilder
-      val begin: String = "|"
-      val empty: String = "_"
-      val end: String = "_|"
-      val coin1: String = "O"
-      val coin2: String = "X"
       System.out.println("  1   2   3   4   5   6   7")
-      var currentRow: Int = row
 
-      while (currentRow >= 0) {
+      renderRow(playingField, row)
+    }
+
+    private def renderRow(playingField: StringBuilder, currentRow: Int): String = {
+      if (currentRow >= 0) {
         playingField.append(begin)
-        var currentColumn: Int = 0
-        while (currentColumn < col) {
-          playingField.append(empty)
-          val player: Player = gameController.getPlayerAt(currentRow, currentColumn)
-          if (player == null) {
-            playingField.append(empty)
-          }
-          else if (player == user) {
-            playingField.append(coin1)
-          }
-          else if (player == computer) {
-            playingField.append(coin2)
-          }
-          else {
-            playingField.append("ERROR!!!")
-          }
-          playingField.append(end)
-          currentColumn += 1
-        }
+        val currentColumn = 0
+        renderColomn(playingField, currentColumn, currentRow)
         playingField.append(newline)
-        currentRow -= 1
-        currentRow + 1
+        renderRow(playingField, currentRow - 1)
+        //        currentRow + 1
+      } else {
+        playingField.toString()
       }
+    }
 
-      playingField.toString()
+    private def renderColomn(playingField: StringBuilder, currentColumn: Int, currentRow: Int) {
+      if (currentColumn < col) {
+        playingField.append(empty)
+        val player: Player = gameController.getPlayerAt(currentRow, currentColumn)
+        if (player == null) {
+          playingField.append(empty)
+        }
+        else if (player == user) {
+          playingField.append(coin1)
+        }
+        else if (player == computer) {
+          playingField.append(coin2)
+        }
+        else {
+          playingField.append("ERROR!!!")
+        }
+        playingField.append(end)
+
+        renderColomn(playingField, currentColumn + 1, currentRow)
+      }
     }
 
     private def printInformation() {
       val winner = gameController.getWinner
       if (winner != "") {
-        println("%s has won\n", winner)
-      }
-      else {
-        println("%s on turn\n", gameController.getPlayerOnTurn)
+        printf("%s has won\n", winner)
+      } else {
+        printf("%s on turn\n", gameController.getPlayerOnTurn)
       }
 
-      println("Enter command:\n q->Quit; n->New; 1 to 7->Drop_Coin; u->Undo; r->Redo")
+      printf("Enter command:\n q->Quit; n->New; 1 to 7->Drop_Coin; u->Undo; r->Redo\n")
     }
 
     def processInputLine(input: String) {
