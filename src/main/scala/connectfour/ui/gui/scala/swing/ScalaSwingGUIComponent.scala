@@ -20,6 +20,7 @@ trait ScalaSwingGUIComponent {
   class ScalaSwingGUI extends Frame with UI {
     val (user, computer) = gameController.getPlayers
 
+    // constructor
     visible = true
     title = "Connect 4 in Scala"
     menuBar = new ToolBar(gameController)

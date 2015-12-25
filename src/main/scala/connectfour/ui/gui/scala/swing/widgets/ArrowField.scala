@@ -14,32 +14,40 @@ import scala.swing._
  * Top row of playing field. Selected column shows a red arrow.
  */
 class ArrowField(gameController: Connect4GameController) extends FlowPanel with Field {
+  val CELLS = new Array[Button](Connect4GameField.FIELD_COLUMNS)
 
   // constructor
   background = Color.LIGHT_GRAY
-  val CELLS = new Array[Button](Connect4GameField.FIELD_COLUMNS)
-  for (col <- 0 until Connect4GameField.FIELD_COLUMNS) {
-    val CELL = new ButtonCell(this) {
-      background = Color.LIGHT_GRAY
+  drawArrowField(0)
+
+  private def drawArrowField(column: Int) {
+    if (column < Connect4GameField.FIELD_COLUMNS) {
+      val CELL = new ButtonCell(this) {
+        background = Color.LIGHT_GRAY
+      }
+      CELLS(column) = CELL
+      contents += CELL
+
+      drawArrowField(column + 1)
     }
-    CELLS(col) = CELL
-    contents += CELL
   }
 
-  // Mouse in coin field enter new column
+  // Mouse in coin field enter new column, update arrow field
   def updateEnter(col: Int) {
     CELLS(col).icon = new ImageIcon("./res/arrow.png")
   }
 
-  // Mouse in coint field exit current column
+  // Mouse in coint field exit current column, update arrow field
   def updateExit(col: Int) {
     CELLS(col).icon = null
   }
 
+  // Update arrow field
   override def mouseEntered(buttonCell: ButtonCell) {
     buttonCell.icon = new ImageIcon("./res/arrow.png")
   }
 
+  // Update arrow field
   override def mouseExit(buttonCell: ButtonCell) {
     buttonCell.icon = null
   }
