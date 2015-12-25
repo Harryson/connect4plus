@@ -141,6 +141,7 @@ object Connect4MoveEvaluator {
       possibleMove(from, Connect4GameField.FIELD_COLUMNS, Nil)
     }
 
+    //TODO for
     val futureFullMoveList = for {
       one <- futureMoveList1
       two <- futureMoveList2
