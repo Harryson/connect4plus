@@ -31,7 +31,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   override var redoManager = new RedoManager
 
   // TODO: mal schauen ob man es noch braucht
-  //  // computer open this game
+  //  // computer opens this game
   //  if (gameField.getPlayerOnTurn == player2) {
   notifyObservers()
   dropCoinEventScala.dropCoin()
@@ -124,6 +124,10 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
     controller.undoManager = new UndoManager
 
     controller
+  }
+
+  def getCopyOfGameField = {
+    this.cloneController.asInstanceOf[Connect4GameController].gameField
   }
 
   override def update(arg: Any) {
