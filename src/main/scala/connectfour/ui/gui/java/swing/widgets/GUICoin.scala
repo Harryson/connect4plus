@@ -3,7 +3,7 @@ package connectfour.ui.gui.java.swing.widgets
 import java.awt.{Color, Graphics, Graphics2D, RenderingHints}
 import javax.swing.JPanel
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller.Connect4GameControllerImpl
 import connectfour.ui.gui.java.swing.events.{GUICoinMouseListener, MouseColumnObserver}
 import connectfour.util.observer.{IObserver, IObserverWithArguments}
 
@@ -47,7 +47,7 @@ class GUICoin(column: Int, observer: IObserverWithArguments) extends JPanel with
     
     
     override def update() {
-      val controller = Connect4GameController.getCurrentInstance
+      val controller = Connect4GameControllerImpl.getCurrentInstance
     	controller.dropCoin(column);
     }
 }

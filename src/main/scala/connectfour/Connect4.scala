@@ -1,32 +1,31 @@
 package connectfour
 
-import connectfour.ui.gui.scala.swing.SwingGUI
-import connectfour.ui.tui.TUIScala
+import connectfour.controller.NewGameScalaSwingEvent
+
+import scala.swing.Reactor
 
 /**
  * Created by maharr on 19.10.15.
  */
-object Connect4 {
+object Connect4 extends Reactor {
 
   def main(args: Array[String]) {
-    val tui = new TUIScala
+    var registry = new ScalaSwingRegistry
+    var controller = registry.gameController
+    var tui = registry.tui
 
-    new SwingGUI
-//        val controller = Connect4GameController.getCurrentInstance
-//        controller.addObserver(new TUI)
-//        controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
-//    controller.addObserver(new connectfour.ui.gui.scala.swing.SwingGUI)
+    listenTo(controller.newGameEventScala)
 
-    while(true){
-      tui.processInputLine(scala.io.StdIn.readLine())
+    reactions += {
+      case e: NewGameScalaSwingEvent =>
+        //TODO: close old ScalaSwingGUI
+        registry = new ScalaSwingRegistry
+        controller = registry.gameController
+        listenTo(controller.newGameEventScala)
+        tui = registry.tui
     }
-    
-    //TODO: Mit Injections arbeiten
-//    val injector: Injector = Guice.createInjector(new GameControllerModule)
-//    val controller: GameController = injector.getInstance(classOf[GameController])
-//    controller.newGame
-//    controller.addObserver(injector.getInstance(classOf[connectfour.ui.gui.java.swing.SwingGUI]))
-//    controller.addObserver(injector.getInstance(classOf[TUI]))
-//    controller.addObserver(injector.getInstance(classOf[connectfour.ui.gui.scala.swing.SwingGUI]))
+    //TODO: add observer
+    // controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
+    tui.processInputLine("start")
   }
 }

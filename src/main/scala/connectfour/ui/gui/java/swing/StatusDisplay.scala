@@ -3,7 +3,7 @@ package connectfour.ui.gui.java.swing
 import java.awt.Color
 import javax.swing.{JLabel, JPanel}
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller.Connect4GameControllerImpl
 
 /**
  * Created by maharr on 19.12.15.
@@ -16,7 +16,7 @@ class StatusDisplay() extends JPanel {
   this.showPlayerOnTurn()
 
   def update {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
 
     if (controller.getWinner != "") {
       showWinner()
@@ -26,7 +26,7 @@ class StatusDisplay() extends JPanel {
   }
 
   private def setPlayersColor {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
     val (user, computer) = controller.getPlayers
 
     if (controller.getPlayerOnTurn == user) {
@@ -38,14 +38,14 @@ class StatusDisplay() extends JPanel {
   }
 
   private def showWinner() {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
 
     val winner = String.format("%s has won!", controller.getWinner)
     status.setText(winner)
   }
 
   private def showPlayerOnTurn() {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = Connect4GameControllerImpl.getCurrentInstance
 
     setPlayersColor
     val playerOnTurn = String.format("%s is next", controller.getPlayerOnTurn)

@@ -8,20 +8,30 @@ import scala.swing.event._
 /**
  * Created by maharr on 13.11.15.
  */
-class ToolBar extends MenuBar {
+class ToolBar(gameController: Connect4GameController) extends MenuBar {
+
+  // constructor
   contents += new Menu("File") {
-    val controller = Connect4GameController.getCurrentInstance
     mnemonic = Key.F
     contents += new MenuItem(Action("New Game") {
-      Connect4GameController.reset
+      mnemonic = Key.N
+      gameController.reset()
     })
-    contents += new MenuItem(Action("Quit") { System.exit(0) })
+    contents += new MenuItem(Action("Quit") {
+      mnemonic = Key.Q
+      System.exit(0)
+    })
   }
 
   contents += new Menu("Edit") {
     mnemonic = Key.E
-    //TODO: undo und redo implementieren
-//    contents += new MenuItem(Action("Undo") { new UndoEvent})
-//    contents += new MenuItem(Action("Redo") { new RedoEvent})
+    contents += new MenuItem(Action("Undo") {
+      mnemonic = Key.U
+      gameController.undo()
+    })
+    contents += new MenuItem(Action("Redo") {
+      mnemonic = Key.R
+      gameController.undo()
+    })
   }
 }

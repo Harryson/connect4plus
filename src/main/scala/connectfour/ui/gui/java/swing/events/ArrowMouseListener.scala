@@ -2,7 +2,7 @@ package connectfour.ui.gui.java.swing.events
 
 import java.awt.event.{MouseEvent, MouseListener}
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller._
 import connectfour.util.observer.{IObserver, Observable}
 
 /**

@@ -13,46 +13,44 @@ import scala.swing._
  *
  * Status display shows player on turn or winner
  */
-class StatusDisplay() extends FlowPanel {
+class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
 
   // constructor
   background = Color.LIGHT_GRAY
   val status = new Label
   contents += status
-  showPlayerOnTurn
+  showPlayerOnTurn()
 
-  def update {
-    val controller = Connect4GameController.getCurrentInstance
+  private def showPlayerOnTurn() {
+    setPlayersColor()
+    status.text = String.format("%s on turn", gameController.getPlayerOnTurn)
+  }
 
-    if (controller.getWinner != "") {
-      showWinner
+  def error(text: String) {
+    status.text = String.format(text)
+  }
+
+  def update() {
+    if (gameController.getWinner != "") {
+      showWinner()
     } else {
-      showPlayerOnTurn
+      setPlayersColor()
+      showPlayerOnTurn()
     }
   }
 
-  private def setPlayersColor {
-    val controller = Connect4GameController.getCurrentInstance
-    val (user, computer) = controller.getPlayers
+  private def showWinner() {
+    status.text = String.format("%s has won!", gameController.getWinner)
+  }
 
+  private def setPlayersColor() {
+    val (user, _) = gameController.getPlayers
 
-    if (controller.getPlayerOnTurn == user) {
+    if (gameController.getPlayerOnTurn == user) {
       status.foreground = RED
     } else {
       status.foreground = YELLOW
     }
   }
 
-  private def showWinner() {
-    val controller = Connect4GameController.getCurrentInstance
-
-    status.text = String.format("%s has won!", controller.getWinner)
-  }
-
-  private def showPlayerOnTurn() {
-    val controller = Connect4GameController.getCurrentInstance
-
-    setPlayersColor
-    status.text = String.format("%s is next", controller.getPlayerOnTurn)
-  }
 }

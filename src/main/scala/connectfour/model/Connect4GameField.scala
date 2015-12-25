@@ -11,9 +11,11 @@ object Connect4GameField {
  * Created by stefano on 17.02.14.
  */
 class Connect4GameField(player1: Player, player2: Player) {
-  val gameField = Array.ofDim[Player](Connect4GameField.FIELD_COLUMNS, Connect4GameField.FIELD_ROWS)
+  //TODO var
+  var gameField = Array.ofDim[Player](Connect4GameField.FIELD_COLUMNS, Connect4GameField.FIELD_ROWS)
   private var winner: Player = _
-  
+
+  //TODO var
   protected var playerOnTurn: Player = {
     if (Math.random() < 0.5)
       player1
@@ -68,6 +70,7 @@ class Connect4GameField(player1: Player, player2: Player) {
     val newGameField = new Connect4GameField(player1, player2)
     newGameField.playerOnTurn = playerOnTurn
 
+    //TODO: for
     for (col <- 0 until Connect4GameField.FIELD_COLUMNS)
       for (row <- 0 until Connect4GameField.FIELD_ROWS)
         newGameField.gameField(col)(row) = gameField(col)(row)

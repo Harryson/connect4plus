@@ -1,6 +1,6 @@
 package connectfour.ui.gui.scala.swing.widgets
 
-import java.awt.{RenderingHints, Color}
+import java.awt.{Color, RenderingHints}
 
 import connectfour.controller.Connect4GameController
 import connectfour.model.Connect4GameField
@@ -10,16 +10,28 @@ import scala.swing._
 /**
  * Created by maharr on 16.11.15.
  */
-class CoinField(arrowField: ArrowField) extends GridPanel(Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS) with Field{
+class CoinField(gameController: Connect4GameController, arrowField: ArrowField)
+  extends GridPanel(Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS) with Field {
+
+  val CELLS = Array.ofDim[ButtonCell](Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS)
 
   // constructor
   background = Color.LIGHT_GRAY
-  val CELLS = Array.ofDim[ButtonCell](Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS)
 
   // turn row numbers up side down in first for loop
-  for (row <- (Connect4GameField.FIELD_ROWS - 1) to 0 by -1) {
-    for (col <- 0 until Connect4GameField.FIELD_COLUMNS) {
-      var CELL = new ButtonCell(this) {
+  drawCoinFieldRow(Connect4GameField.FIELD_ROWS - 1)
+
+  private def drawCoinFieldRow(row: Int) {
+    if (row >= 0) {
+      drawCoinFieldColumn(0, row)
+
+      drawCoinFieldRow(row - 1)
+    }
+  }
+
+  private def drawCoinFieldColumn(column: Int, row: Int) {
+    if (column < Connect4GameField.FIELD_COLUMNS) {
+      val CELL = new ButtonCell(this) {
         background = Color.BLUE
         foreground = Color.WHITE
 
@@ -32,8 +44,10 @@ class CoinField(arrowField: ArrowField) extends GridPanel(Connect4GameField.FIEL
           g2.fillOval(X_POSITION, Y_POSITION, radius, radius)
         }
       }
-      CELLS(row)(col) = CELL
+      CELLS(row)(column) = CELL
       contents += CELL
+
+      drawCoinFieldColumn(column + 1, row)
     }
   }
 
@@ -49,8 +63,6 @@ class CoinField(arrowField: ArrowField) extends GridPanel(Connect4GameField.FIEL
 
   // Drop a coin form coin field (below top row)
   override def mouseReleased(buttonCell: ButtonCell) {
-    val controller = Connect4GameController.getCurrentInstance
-
-    controller.dropCoin(CELLS.flatten.indexOf(buttonCell) % Connect4GameField.FIELD_COLUMNS)
+    gameController.dropCoin(CELLS.flatten.indexOf(buttonCell) % Connect4GameField.FIELD_COLUMNS)
   }
 }

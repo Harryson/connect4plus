@@ -1,6 +1,6 @@
 package connectfour.model
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller._
 import modelinterfaces.{Move, Player}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -141,6 +141,7 @@ object Connect4MoveEvaluator {
       possibleMove(from, Connect4GameField.FIELD_COLUMNS, Nil)
     }
 
+    //TODO for
     val futureFullMoveList = for {
       one <- futureMoveList1
       two <- futureMoveList2

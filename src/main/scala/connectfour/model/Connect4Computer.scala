@@ -1,9 +1,7 @@
 package connectfour.model
 
 import ai.MiniMax
-import connectfour.controller.Connect4GameController
-import connectfour.util.observer.IObserver
-import controller.{DropCoinScalaSwingEvent, GameController, NewGameScalaSwingEvent}
+import connectfour.controller._
 import modelinterfaces.Player
 
 import scala.swing.Reactor
@@ -12,27 +10,28 @@ import scala.swing.Reactor
 /**
  * Created by stefano on 19.02.14.
  */
-class Connect4Computer(override val name: String, controller: GameController) extends IObserver with Player with Reactor {
+class Connect4Computer(override val name: String, controller: Connect4GameController)
+  extends Player with Reactor {
 
-  listenTo(controller.dropCoinEventScala)
-  listenTo(controller.newGameEventScala)
+  listenToEvents()
 
   reactions += {
     case e: NewGameScalaSwingEvent =>
-      listenTo(Connect4GameController.getCurrentInstance.dropCoinEventScala)
-      listenTo(Connect4GameController.getCurrentInstance.newGameEventScala)
-      draw
+      listenToEvents()
+      draw()
     case e: DropCoinScalaSwingEvent =>
-      draw
+      draw()
   }
 
-  private def draw {
+  private def listenToEvents() {
+    listenTo(controller.dropCoinEventScala)
+    listenTo(controller.newGameEventScala)
+  }
 
+  private def draw() {
     if (controller.getPlayerOnTurn == this && !controller.gameIsOver)
       MiniMax.getNextMove(controller).execute
   }
 
   override def toString: String = name
-
-  override def update = draw
 }

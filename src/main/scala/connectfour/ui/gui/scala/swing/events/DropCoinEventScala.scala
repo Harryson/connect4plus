@@ -1,6 +1,6 @@
 package connectfour.ui.gui.scala.swing.events
 
-import controller.DropCoinScalaSwingEvent
+import connectfour.controller.DropCoinScalaSwingEvent
 
 import scala.swing.Publisher
 
@@ -8,7 +8,7 @@ import scala.swing.Publisher
  * Created by maharr on 19.12.15.
  */
 class DropCoinEventScala extends Publisher{
-  def dropCoin {
+  def dropCoin() {
     publish(new DropCoinScalaSwingEvent)
   }
 }

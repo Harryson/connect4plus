@@ -2,22 +2,19 @@ package connectfour.ui.gui.java.swing.events
 
 import java.awt.event.MouseEvent
 
-import connectfour.controller.Connect4GameController
+import connectfour.controller.{Connect4GameControllerComponent, UndoScalaSwingEvent}
 import connectfour.util.observer.IObserver
 
 import scala.swing.Publisher
-import scala.swing.event.Event
 
 /**
  * Created by maharr on 19.12.15.
  */
-//TODO: Aus java.swing herauslösen
-case class UndoScalaSwingEvent() extends Event
-
 class UndoEvent(observer: IObserver) extends EventAdapter(observer) with Publisher {
+  this: Connect4GameControllerComponent =>
 
   override def mousePressed(e: MouseEvent) {
-    val controller = Connect4GameController.getCurrentInstance
+    val controller = gameController
     controller.undoLastMove
     notifyObservers
     publish(new UndoScalaSwingEvent)

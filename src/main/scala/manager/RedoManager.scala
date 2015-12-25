@@ -1,17 +1,18 @@
-package undomanager
+package manager
 
 import scala.collection.mutable.Stack
 
 /**
- * Created by stefano on 13.02.14.
+ * Created by maharr on 24.12.15.
  */
-class UndoManager {
+class RedoManager {
   var commands: Stack[() => Unit] = Stack()
 
-  def addCommand(command: () => Unit) =
+  def addCommand(command: () => Unit): Unit = {
     commands = commands push command
+  }
 
-  def undoCommand = {
+  def redoCommand() {
     val command = commands.pop
     command()
   }
