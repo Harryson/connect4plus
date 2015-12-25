@@ -1,12 +1,12 @@
 package manager
 
-import scala.collection.mutable.Stack
+import scala.collection.mutable
 
 /**
  * Created by stefano on 13.02.14.
  */
 class UndoManager {
-  var commands: Stack[() => Unit] = Stack()
+  var commands: mutable.Stack[() => Unit] = mutable.Stack()
 
   def addCommand(command: () => Unit) {
     commands = commands push command

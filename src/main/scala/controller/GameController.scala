@@ -10,8 +10,8 @@ import modelinterfaces.{Move, Player}
 
 trait GameController {
   def getPlayers: (Player, Player)
-  
-  def undoLastMove
+
+  def undoLastMove()
 
   //  def redoMove //TODO
 

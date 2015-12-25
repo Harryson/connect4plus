@@ -1,6 +1,7 @@
 package connectfour
 
 import connectfour.controller.{Connect4GameController, Connect4GameControllerImpl}
+
 /**
  * Created by maharr on 23.12.15.
  */

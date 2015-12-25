@@ -12,14 +12,17 @@ import scala.swing.event.Event
  * Created by maharr on 23.12.15.
  */
 case class DropCoinScalaSwingEvent() extends Event
+
 case class NewGameScalaSwingEvent() extends Event
+
 case class UndoScalaSwingEvent() extends Event
+
 case class RedoScalaSwingEvent() extends Event
 
 class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: String = "Computer")
-        extends ObservableWithArguments
-        with Connect4GameController
-        with IObserverWithArguments {
+  extends ObservableWithArguments
+  with Connect4GameController
+  with IObserverWithArguments {
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = new Connect4Computer(player2Name, this)
@@ -30,7 +33,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   // TODO: mal schauen ob man es noch braucht
   //  // computer open this game
   //  if (gameField.getPlayerOnTurn == player2) {
-    notifyObservers()
+  notifyObservers()
   dropCoinEventScala.dropCoin()
 
   //  }
@@ -73,7 +76,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
     success
   }
 
-  override def undoLastMove = undoManager.undoCommand
+  override def undoLastMove() = undoManager.undoCommand()
 
   override def noMovePossible(player: Player): Boolean = {
     if (Connect4MoveEvaluator.noMovePossible(gameField, player)) {

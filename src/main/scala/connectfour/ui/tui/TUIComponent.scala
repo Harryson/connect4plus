@@ -127,4 +127,5 @@ trait TUIComponent {
 
     private def isAllDigits(input: String) = input forall Character.isDigit
   }
+
 }

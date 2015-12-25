@@ -5,5 +5,6 @@ package connectfour.util.observer
  */
 trait IObserverWithArguments extends IObserver {
   def update(arg: Any)
+
   def update() = {}
 }

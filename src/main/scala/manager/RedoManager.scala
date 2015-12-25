@@ -1,12 +1,12 @@
 package manager
 
-import scala.collection.mutable.Stack
+import scala.collection.mutable
 
 /**
  * Created by maharr on 24.12.15.
  */
 class RedoManager {
-  var commands: Stack[() => Unit] = Stack()
+  var commands: mutable.Stack[() => Unit] = mutable.Stack()
 
   def addCommand(command: () => Unit): Unit = {
     commands = commands push command
