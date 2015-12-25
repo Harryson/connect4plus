@@ -2,7 +2,6 @@ package connectfour.controller
 
 import connectfour.model._
 import connectfour.util.observer.{IObserverWithArguments, ObservableWithArguments}
-import controller.GameController
 import manager.{RedoManager, UndoManager}
 import modelinterfaces.{Move, Player}
 
@@ -26,6 +25,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = new Connect4Computer(player2Name, this)
+  //TODO
   override protected var gameField = new Connect4GameField(player1, player2)
   private val undoManager = new UndoManager
   private val redoManager = new RedoManager
@@ -45,6 +45,10 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   override def undo() {
     undoManager.undoCommand()
     undoEventScala.undo()
+  }
+
+  override def undoLastMove() {
+    undoManager.undoCommand()
   }
 
   override def redo() {
@@ -75,8 +79,6 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
     dropCoinEventScala.dropCoin()
     success
   }
-
-  override def undoLastMove() = undoManager.undoCommand()
 
   override def noMovePossible(player: Player): Boolean = {
     if (Connect4MoveEvaluator.noMovePossible(gameField, player)) {
@@ -110,7 +112,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   /**
    * @return deep copy of controller. Observers are not copied!
    */
-  override def cloneController: GameController = {
+  override def cloneController: Connect4GameController = {
     val controller = new Connect4GameControllerImpl(player1.name, player2.name)
     controller.gameField = gameField.cloneGameField()
 

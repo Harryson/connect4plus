@@ -1,5 +1,6 @@
 package controller
 
+import connectfour.controller.Connect4GameController
 import modelinterfaces.{Move, Player}
 
 /**
@@ -11,9 +12,11 @@ import modelinterfaces.{Move, Player}
 trait GameController {
   def getPlayers: (Player, Player)
 
-  def undoLastMove()
+  def reset(): Unit
 
-  //  def redoMove //TODO
+  def undo(): Unit
+
+  def redo(): Unit
 
   def getPlayerOnTurn: Player
 
@@ -45,5 +48,5 @@ trait GameController {
   /**
    * @return deep copy of controller!
    */
-  def cloneController: GameController // clone() doesn't work. See https://issues.scala-lang.org/browse/SI-6760
+  def cloneController: Connect4GameController // clone() doesn't work. See https://issues.scala-lang.org/browse/SI-6760
 }

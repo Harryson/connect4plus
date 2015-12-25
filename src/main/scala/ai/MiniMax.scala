@@ -26,10 +26,11 @@ object MiniMax {
       var maxValue = Double.NegativeInfinity
       val possibleMoves: List[Move] = controllerCopy.generatePossibleMoves(currentPlayer)
 
+      //TODO: for
       for (move <- possibleMoves) {
         move.execute
         val value = -miniMax(controllerCopy.getPlayerOnTurn, depth - 1)
-        controllerCopy.undoLastMove
+        controllerCopy.undoLastMove()
 
         if (value > maxValue) {
           maxValue = value

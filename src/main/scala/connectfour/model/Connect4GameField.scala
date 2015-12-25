@@ -11,34 +11,17 @@ object Connect4GameField {
  * Created by stefano on 17.02.14.
  */
 class Connect4GameField(player1: Player, player2: Player) {
-  //TODO var
+  //TODO 3 x var
   var gameField = Array.ofDim[Player](Connect4GameField.FIELD_COLUMNS, Connect4GameField.FIELD_ROWS)
-  private var winner: Player = _
-
-  //TODO var
-  //  protected var playerOnTurn: Player = {
-  //    if (Math.random() < 0.5)
-  //      player1
-  //    else
-  //      player2
-  //  }
-
-  def initPlayerOnTurn: Player = {
+  protected var playerOnTurn: Player = {
     if (Math.random() < 0.5)
       player1
     else
       player2
   }
+  private var winner: Player = _
 
-  def getPlayerOnTurn(currentPlayer: Player): Player = {
-    //playerOnTurn
-    if (currentPlayer == player1)
-      player1
-    else if (currentPlayer == player2)
-      player2
-    else
-      throw new IllegalStateException("No player is on turn!")
-  }
+  def getPlayerOnTurn: Player = playerOnTurn
 
   def getWinner = {
     if (winner == null) {
@@ -48,11 +31,20 @@ class Connect4GameField(player1: Player, player2: Player) {
     }
   }
 
-  def dropCoin(currentPlayer: Player, column: Int): Player = {
+  def changePlayerOnTurn() = {
+    if (playerOnTurn == player1)
+      playerOnTurn = player2
+    else if (playerOnTurn == player2)
+      playerOnTurn = player1
+    else
+      throw new IllegalStateException("No player is on turn!")
+  }
+
+  def dropCoin(column: Int): Boolean = {
     def insertPlayerInGameField(row: Int) {
       if (row < Connect4GameField.FIELD_ROWS)
         if (gameField(column)(row) == null)
-          gameField(column)(row) = getPlayerOnTurn(currentPlayer)
+          gameField(column)(row) = playerOnTurn
         else
           insertPlayerInGameField(row + 1)
     }
@@ -63,26 +55,18 @@ class Connect4GameField(player1: Player, player2: Player) {
     if (Connect4MoveEvaluator.verticalMoveIsPossible(this, column) && winner == null) {
       insertPlayerInGameField(0)
 
-      if (Connect4MoveEvaluator.playerHasWon(this, getPlayerOnTurn(currentPlayer))) {
-        winner = getPlayerOnTurn(currentPlayer)
-      }
+      if (Connect4MoveEvaluator.playerHasWon(this, playerOnTurn))
+        winner = playerOnTurn
 
-      changePlayerOnTurn(currentPlayer)
+      changePlayerOnTurn()
+      true
     } else
-      null
+      false
   }
 
-  private def changePlayerOnTurn(currentPlayer: Player): Player = {
-    if (currentPlayer == player1)
-      player2
-    else if (currentPlayer == player2)
-      player1
-    else
-      throw new IllegalStateException("No player is on turn!")
-  }
-
-  def cloneGameField(currentPlayer: Player): Connect4GameField = {
+  def cloneGameField(): Connect4GameField = {
     val newGameField = new Connect4GameField(player1, player2)
+    newGameField.playerOnTurn = playerOnTurn
     cloneGameFieldRow(newGameField, 0)
   }
 

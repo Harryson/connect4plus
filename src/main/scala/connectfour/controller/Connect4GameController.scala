@@ -14,6 +14,7 @@ trait Connect4GameController extends GameController {
   val undoEventScala = new UndoEventScala
   val redoEventScala = new RedoEventScala
 
+  //TODO var
   protected var gameField: Connect4GameField
 
   // TODO move this in GameController e.g. doMove(move: Move): Boolean
@@ -21,9 +22,5 @@ trait Connect4GameController extends GameController {
 
   def getPlayerAt(currentRow: Int, currentColumn: Int): Player
 
-  def reset(): Unit
-
-  def undo(): Unit
-
-  def redo(): Unit
+  def undoLastMove(): Unit
 }
