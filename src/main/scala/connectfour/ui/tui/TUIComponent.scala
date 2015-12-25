@@ -61,7 +61,7 @@ trait TUIComponent {
       if (currentRow >= 0) {
         playingField.append(begin)
         val currentColumn = 0
-        renderColomn(playingField, currentColumn, currentRow)
+        renderColumn(playingField, currentColumn, currentRow)
         playingField.append(newline)
         renderRow(playingField, currentRow - 1)
         //        currentRow + 1
@@ -70,7 +70,7 @@ trait TUIComponent {
       }
     }
 
-    private def renderColomn(playingField: StringBuilder, currentColumn: Int, currentRow: Int) {
+    private def renderColumn(playingField: StringBuilder, currentColumn: Int, currentRow: Int) {
       if (currentColumn < col) {
         playingField.append(empty)
         val player: Player = gameController.getPlayerAt(currentRow, currentColumn)
@@ -88,7 +88,7 @@ trait TUIComponent {
         }
         playingField.append(end)
 
-        renderColomn(playingField, currentColumn + 1, currentRow)
+        renderColumn(playingField, currentColumn + 1, currentRow)
       }
     }
 

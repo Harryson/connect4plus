@@ -21,6 +21,15 @@ class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
   contents += status
   showPlayerOnTurn()
 
+  private def showPlayerOnTurn() {
+    setPlayersColor()
+    status.text = String.format("%s on turn", gameController.getPlayerOnTurn)
+  }
+
+  def error(text: String) {
+    status.text = String.format(text)
+  }
+
   def update() {
     if (gameController.getWinner != "") {
       showWinner()
@@ -28,6 +37,10 @@ class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
       setPlayersColor()
       showPlayerOnTurn()
     }
+  }
+
+  private def showWinner() {
+    status.text = String.format("%s has won!", gameController.getWinner)
   }
 
   private def setPlayersColor() {
@@ -40,12 +53,4 @@ class StatusDisplay(gameController: Connect4GameController) extends FlowPanel {
     }
   }
 
-  private def showWinner() {
-    status.text = String.format("%s has won!", gameController.getWinner)
-  }
-
-  private def showPlayerOnTurn() {
-    setPlayersColor()
-    status.text = String.format("%s on turn", gameController.getPlayerOnTurn)
-  }
 }

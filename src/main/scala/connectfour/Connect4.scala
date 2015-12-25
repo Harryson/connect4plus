@@ -18,13 +18,14 @@ object Connect4 extends Reactor {
 
     reactions += {
       case e: NewGameScalaSwingEvent =>
+        //TODO: close old ScalaSwingGUI
         registry = new ScalaSwingRegistry
         controller = registry.gameController
         listenTo(controller.newGameEventScala)
         tui = registry.tui
     }
-
-    //    controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
+    //TODO: add observer
+    // controller.addObserver(new connectfour.ui.gui.java.swing.SwingGUI)
     tui.processInputLine("start")
   }
 }

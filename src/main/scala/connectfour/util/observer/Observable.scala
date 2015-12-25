@@ -4,6 +4,7 @@ package connectfour.util.observer
  * Created by maharr on 19.12.15.
  */
 class Observable {
+  //TODO var
   var subscribers: List[_ <: IObserver] = Nil
 
   def getSubscribers = subscribers
@@ -17,8 +18,13 @@ class Observable {
   def removeAllObservers() = subscribers = Nil
 
   def notifyObservers() {
-    for (subscriber <- subscribers) {
-      subscriber.update()
+    notifyObservers(subscribers)
+  }
+
+  private def notifyObservers(subscribersList: List[_ <: IObserver]) {
+    if (subscribersList.nonEmpty) {
+      subscribersList.head.asInstanceOf[IObserverWithArguments].update()
+      notifyObservers(subscribersList.tail)
     }
   }
 }

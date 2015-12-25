@@ -18,6 +18,8 @@ trait ScalaSwingGUIComponent {
   val scalaSwingGUI: ScalaSwingGUI
 
   class ScalaSwingGUI extends Frame with UI {
+    val (user, computer) = gameController.getPlayers
+
     visible = true
     title = "Connect 4 in Scala"
     menuBar = new ToolBar(gameController)
@@ -52,35 +54,38 @@ trait ScalaSwingGUIComponent {
     drawGameField()
 
     override def drawGameField() {
-      val (user, computer) = gameController.getPlayers
       statusDisplay.update()
-
-      //TODO: Nicht mehr Default Row und Col verwenden (soll skalierbar sein)
-      for (currentRow <- 0 until Connect4GameField.FIELD_ROWS) {
-        for (currentColumn <- 0 until Connect4GameField.FIELD_COLUMNS) {
-          val player = gameController.getPlayerAt(currentRow, currentColumn)
-
-          if (player == null) {
-            coinField.CELLS(currentRow)(currentColumn).foreground = Color.WHITE
-          } else if (player == user) {
-            //TODO: Farben Zentral setzen
-            coinField.CELLS(currentRow)(currentColumn).foreground = Color.RED
-          } else if (player == computer) {
-            coinField.CELLS(currentRow)(currentColumn).foreground = Color.YELLOW
-          } else {
-            //TODO: Noch machen bei Fehlerfall
-            //          JOptionPane.showMessageDialog(this,
-            //            "Fehler beim Einfuegen der Muenze in Zeile "
-            //              + currentRow
-            //              + " und Spalte "
-            //              + currentColumn
-            //              + "!")
-            throw new RuntimeException("Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!")
-          }
-        }
-      }
+      drawGameFieldRow(Connect4GameField.FIELD_ROWS - 1)
       repaint()
     }
-  }
 
+    def drawGameFieldRow(currentRow: Int) {
+      if (currentRow >= 0) {
+        drawGameFieldColumn(currentRow, Connect4GameField.FIELD_COLUMNS - 1)
+
+        drawGameFieldRow(currentRow - 1)
+      }
+    }
+
+    def drawGameFieldColumn(currentRow: Int, currentColumn: Int) {
+      if (currentColumn >= 0) {
+        val player = gameController.getPlayerAt(currentRow, currentColumn)
+
+        if (player == null) {
+          coinField.CELLS(currentRow)(currentColumn).foreground = Color.WHITE
+        } else if (player == user) {
+          //TODO: Farben Zentral setzen
+          coinField.CELLS(currentRow)(currentColumn).foreground = Color.RED
+        } else if (player == computer) {
+          coinField.CELLS(currentRow)(currentColumn).foreground = Color.YELLOW
+        } else {
+          val text = "Problem: Fehler beim Einfuegen der Muenze in Zeile " + currentRow + " und Spalte " + currentColumn + "!"
+          statusDisplay.error(text)
+          throw new RuntimeException(text)
+        }
+
+        drawGameFieldColumn(currentRow, currentColumn - 1)
+      }
+    }
+  }
 }
