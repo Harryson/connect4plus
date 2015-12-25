@@ -31,7 +31,7 @@ class ToolBar(gameController: Connect4GameController) extends MenuBar {
     })
     contents += new MenuItem(Action("Redo") {
       mnemonic = Key.R
-      gameController.undo()
+      gameController.redo()
     })
   }
 }

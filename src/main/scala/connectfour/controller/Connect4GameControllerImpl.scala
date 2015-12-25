@@ -25,10 +25,10 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
 
   val player1: Player = new Connect4Player(player1Name)
   val player2: Player = new Connect4Computer(player2Name, this)
-  //TODO
-  override protected var gameField = new Connect4GameField(player1, player2)
-  private val undoManager = new UndoManager
-  private val redoManager = new RedoManager
+  //TODO 3 x var
+  override var gameField = new Connect4GameField(player1, player2)
+  override var undoManager = new UndoManager
+  override var redoManager = new RedoManager
 
   // TODO: mal schauen ob man es noch braucht
   //  // computer open this game
@@ -43,7 +43,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   }
 
   override def undo() {
-    undoManager.undoCommand()
+    undoManager.undoCommand(redoManager)
     undoEventScala.undo()
   }
 
@@ -52,7 +52,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   }
 
   override def redo() {
-    redoManager.redoCommand()
+    redoManager.redoCommand(undoManager)
     redoEventScala.redo()
   }
 
@@ -68,15 +68,21 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
 
   override def gameIsOver = getWinner != ""
 
+  //TODO zwei verschieden drops einmal richtig und einmal test
   override def dropCoin(column: Int): Boolean = {
     val oldGameField = gameField.cloneGameField()
 
-    undoManager.addCommand(
-      () => gameField = oldGameField
-    )
+
 
     val success = gameField.dropCoin(column)
-    dropCoinEventScala.dropCoin()
+
+    if (success) {
+      dropCoinEventScala.dropCoin()
+      undoManager.addCommand(
+        () => gameField = oldGameField
+      )
+    }
+
     success
   }
 
@@ -115,6 +121,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   override def cloneController: Connect4GameController = {
     val controller = new Connect4GameControllerImpl(player1.name, player2.name)
     controller.gameField = gameField.cloneGameField()
+    controller.undoManager = new UndoManager
 
     controller
   }

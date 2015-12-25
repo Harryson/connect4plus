@@ -3,6 +3,7 @@ package connectfour.controller
 import connectfour.model.Connect4GameField
 import connectfour.ui.gui.scala.swing.events._
 import controller.GameController
+import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player
 
 /**
@@ -15,7 +16,9 @@ trait Connect4GameController extends GameController {
   val redoEventScala = new RedoEventScala
 
   //TODO var
-  protected var gameField: Connect4GameField
+  var gameField: Connect4GameField
+  var undoManager: UndoManager
+  var redoManager: RedoManager
 
   // TODO move this in GameController e.g. doMove(move: Move): Boolean
   def dropCoin(column: Int): Boolean
