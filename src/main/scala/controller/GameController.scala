@@ -16,6 +16,8 @@ trait GameController {
 
   def undo(): Unit
 
+  def undoLastMove(): Unit
+
   def redo(): Unit
 
   def getPlayerOnTurn: Player
@@ -48,5 +50,5 @@ trait GameController {
   /**
    * @return deep copy of controller!
    */
-  def cloneController: Connect4GameController // clone() doesn't work. See https://issues.scala-lang.org/browse/SI-6760
+  def cloneController: GameController // clone() doesn't work. See https://issues.scala-lang.org/browse/SI-6760
 }
