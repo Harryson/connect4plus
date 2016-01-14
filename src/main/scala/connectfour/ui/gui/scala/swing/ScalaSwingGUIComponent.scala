@@ -18,6 +18,10 @@ trait ScalaSwingGUIComponent {
   val scalaSwingGUI: ScalaSwingGUI
 
   class ScalaSwingGUI extends Frame with UI {
+    override def closeOperation() {
+      System.exit(0)
+    }
+
     val (user, computer) = gameController.getPlayers
 
     // constructor
