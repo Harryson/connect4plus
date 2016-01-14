@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local-project language="java" version="4.1.5829" xml-version="3" flavor="j2se">
+  <property name="parse-archive-in-archive" value="false" />
+  <property name="include-injected-dependency" value="true" />
+  <property name="show-as-module" value="false" />
+  <property name="relative-to" value="const(THIS_FILE)" />
+  <property name="action-set-mod" value="1" />
+  <property name="detail-mode" value="true" />
+  <property name="hide-deprecated" value="false" />
+  <property name="project-excluded" />
+  <property name="show-needs-to-compile" value="false" />
+  <property name="project-type" value="classpath" />
+  <property name="hide-externals" value="true" />
+  <classpath>
+    <classpathentry kind="lib" path="Dokumente/Programming/Scala/connect4plus/target/scala-2.11/classes" />
+  </classpath>
+  <pom-root-files />
+  <restructuring>
+    <set version="3" name="Model 1" hiview="Codemap" active="true" todo="false" list="0">
+      <refactorings>
+        <entry description="Remove ai.MiniMax&amp;" />
+        <entry description="Remove connectfour.controller.Connect4Move&amp;" />
+        <entry description="Remove connectfour.controller.Connect4GameControllerImpl&amp;" />
+        <entry description="Remove connectfour.Connect4&amp;" />
+        <entry description="Remove dependency connectfour.controller.Connect4GameControllerImpl$anonfun$1.applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object--&gt;controller.Move.execute():void" />
+        <entry description="Remove dependency connectfour.controller.Connect4GameControllerImpl$anonfun$1.applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object--&gt;controller.Move" />
+        <entry description="Remove dependency connectfour.controller.Connect4GameControllerImpl.generatePossibleMoves(modelinterfaces.Player):scala.collection.immutable.List--&gt;controller.Move" />
+        <entry description="Remove dependency connectfour.controller.Connect4GameControllerImpl.transferMoveToCurrentController(controller.Move):controller.Move--&gt;controller.Move" />
+      </refactorings>
+      <action type="group-delete" active="true" last-applied="true" description="Remove 1 items">
+        <composite-set>
+          <action type="remove-node" active="true" last-applied="true" description="Remove connectfour.Connect4&amp;">
+            <params>
+              <source-fqn fqn="connectfour.Connect4&amp;" type="class" path="connectfour.Connect4&amp;">
+                <node name="connectfour" type="package" />
+                <node name="Connect4&amp;" type="class" />
+              </source-fqn>
+            </params>
+          </action>
+        </composite-set>
+      </action>
+      <action type="group-delete" active="true" last-applied="false" description="Remove 1 items">
+        <composite-set>
+          <action type="remove-node" active="true" last-applied="false" description="Remove connectfour.Registry&amp;">
+            <params>
+              <source-fqn fqn="connectfour.Registry&amp;" type="class" path="connectfour.Registry&amp;">
+                <node name="connectfour" type="package" />
+                <node name="Registry&amp;" type="class" />
+              </source-fqn>
+            </params>
+          </action>
+        </composite-set>
+      </action>
+      <action type="group-delete" active="true" last-applied="true" description="Remove 1 items">
+        <composite-set>
+          <action type="remove-node" active="true" last-applied="true" description="Remove ai.MiniMax&amp;">
+            <params>
+              <source-fqn fqn="ai.MiniMax&amp;" type="class" path="ai.MiniMax&amp;">
+                <node name="ai" type="package" />
+                <node name="MiniMax&amp;" type="class" />
+              </source-fqn>
+            </params>
+          </action>
+        </composite-set>
+      </action>
+      <action type="group-delete" active="true" last-applied="true" description="Remove 1 items">
+        <composite-set>
+          <action type="group-edge-remove" active="true" last-applied="true" description="Remove 4 dependencies">
+            <composite-set>
+              <action type="remove-edge" active="true" last-applied="true" description="Remove dependency connectfour.controller.Connect4GameControllerImpl$anonfun$1.applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object--&gt;controller.Move.execute():void">
+                <params>
+                  <from-fqn fqn="connectfour.controller.Connect4GameControllerImpl.anonfun.1.applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object" type="method" path="connectfour.controller.Connect4GameControllerImpl">
+                    <node name="connectfour" type="package" />
+                    <node name="controller" type="package" />
+                    <node name="Connect4GameControllerImpl" type="class" />
+                    <node name="anonfun" type="class" />
+                    <node name="1" type="class" />
+                    <node name="applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object" type="method" />
+                  </from-fqn>
+                  <to-fqn fqn="controller.Move.execute():void" type="method" path="controller.Move">
+                    <node name="controller" type="package" />
+                    <node name="Move" type="class" />
+                    <node name="execute():void" type="method" />
+                  </to-fqn>
+                </params>
+              </action>
+              <action type="remove-edge" active="true" last-applied="true" description="Remove dependency connectfour.controller.Connect4GameControllerImpl$anonfun$1.applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object--&gt;controller.Move">
+                <params>
+                  <from-fqn fqn="connectfour.controller.Connect4GameControllerImpl.anonfun.1.applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object" type="method" path="connectfour.controller.Connect4GameControllerImpl">
+                    <node name="connectfour" type="package" />
+                    <node name="controller" type="package" />
+                    <node name="Connect4GameControllerImpl" type="class" />
+                    <node name="anonfun" type="class" />
+                    <node name="1" type="class" />
+                    <node name="applyOrElse(scala.swing.event.Event, scala.Function1):java.lang.Object" type="method" />
+                  </from-fqn>
+                  <to-fqn fqn="controller.Move" type="class" path="controller.Move">
+                    <node name="controller" type="package" />
+                    <node name="Move" type="class" />
+                  </to-fqn>
+                </params>
+              </action>
+              <action type="remove-edge" active="true" last-applied="true" description="Remove dependency connectfour.controller.Connect4GameControllerImpl.generatePossibleMoves(modelinterfaces.Player):scala.collection.immutable.List--&gt;controller.Move">
+                <params>
+                  <from-fqn fqn="connectfour.controller.Connect4GameControllerImpl.generatePossibleMoves(modelinterfaces.Player):scala.collection.immutable.List" type="method" path="connectfour.controller.Connect4GameControllerImpl">
+                    <node name="connectfour" type="package" />
+                    <node name="controller" type="package" />
+                    <node name="Connect4GameControllerImpl" type="class" />
+                    <node name="generatePossibleMoves(modelinterfaces.Player):scala.collection.immutable.List" type="method" />
+                  </from-fqn>
+                  <to-fqn fqn="controller.Move" type="class" path="controller.Move">
+                    <node name="controller" type="package" />
+                    <node name="Move" type="class" />
+                  </to-fqn>
+                </params>
+              </action>
+              <action type="remove-edge" active="true" last-applied="true" description="Remove dependency connectfour.controller.Connect4GameControllerImpl.transferMoveToCurrentController(controller.Move):controller.Move--&gt;controller.Move">
+                <params>
+                  <from-fqn fqn="connectfour.controller.Connect4GameControllerImpl.transferMoveToCurrentController(controller.Move):controller.Move" type="method" path="connectfour.controller.Connect4GameControllerImpl">
+                    <node name="connectfour" type="package" />
+                    <node name="controller" type="package" />
+                    <node name="Connect4GameControllerImpl" type="class" />
+                    <node name="transferMoveToCurrentController(controller.Move):controller.Move" type="method" />
+                  </from-fqn>
+                  <to-fqn fqn="controller.Move" type="class" path="controller.Move">
+                    <node name="controller" type="package" />
+                    <node name="Move" type="class" />
+                  </to-fqn>
+                </params>
+              </action>
+            </composite-set>
+          </action>
+        </composite-set>
+      </action>
+      <action type="group-delete" active="true" last-applied="true" description="Remove 1 items">
+        <composite-set>
+          <action type="remove-node" active="true" last-applied="true" description="Remove connectfour.controller.Connect4Move&amp;">
+            <params>
+              <source-fqn fqn="connectfour.controller.Connect4Move&amp;" type="class" path="connectfour.controller.Connect4Move&amp;">
+                <node name="connectfour" type="package" />
+                <node name="controller" type="package" />
+                <node name="Connect4Move&amp;" type="class" />
+              </source-fqn>
+            </params>
+          </action>
+        </composite-set>
+      </action>
+      <action type="group-delete" active="true" last-applied="true" description="Remove 1 items">
+        <composite-set>
+          <action type="remove-node" active="true" last-applied="true" description="Remove connectfour.controller.Connect4GameControllerImpl&amp;">
+            <params>
+              <source-fqn fqn="connectfour.controller.Connect4GameControllerImpl&amp;" type="class" path="connectfour.controller.Connect4GameControllerImpl&amp;">
+                <node name="connectfour" type="package" />
+                <node name="controller" type="package" />
+                <node name="Connect4GameControllerImpl&amp;" type="class" />
+              </source-fqn>
+            </params>
+          </action>
+        </composite-set>
+      </action>
+    </set>
+  </restructuring>
+</local-project>
+
