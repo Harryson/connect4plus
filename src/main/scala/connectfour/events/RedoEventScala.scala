@@ -1,6 +1,4 @@
-package connectfour.ui.gui.scala.swing.events
-
-import connectfour.controller.RedoScalaSwingEvent
+package connectfour.events
 
 import scala.swing.Publisher
 

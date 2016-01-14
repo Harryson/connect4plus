@@ -6,19 +6,6 @@ import controller.Move
 import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player
 
-import scala.swing.event.Event
-
-/**
- * Created by maharr on 23.12.15.
- */
-case class DropCoinScalaSwingEvent() extends Event
-
-case class NewGameScalaSwingEvent() extends Event
-
-case class UndoScalaSwingEvent() extends Event
-
-case class RedoScalaSwingEvent() extends Event
-
 class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: String = "Computer")
   extends ObservableWithArguments
   with Connect4GameController

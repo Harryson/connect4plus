@@ -1,6 +1,6 @@
 package connectfour
 
-import connectfour.controller.NewGameScalaSwingEvent
+import connectfour.events.NewGameScalaSwingEvent
 
 import scala.swing.Reactor
 

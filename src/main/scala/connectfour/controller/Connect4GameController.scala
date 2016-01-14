@@ -1,6 +1,6 @@
 package connectfour.controller
 
-import connectfour.ui.gui.scala.swing.events._
+import connectfour.events.{UndoEventScala, RedoEventScala, NewGameEventScala, DropCoinEventScala}
 import controller.GameController
 import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player

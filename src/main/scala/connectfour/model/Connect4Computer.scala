@@ -2,6 +2,7 @@ package connectfour.model
 
 import ai.MiniMax
 import connectfour.controller._
+import connectfour.events.{NewGameScalaSwingEvent, DropCoinScalaSwingEvent}
 import modelinterfaces.Player
 
 import scala.swing.Reactor
