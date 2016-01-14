@@ -1,6 +1,6 @@
-package modelinterfaces
+package controller
 
-import controller.GameController
+import modelinterfaces.Player
 
 /**
  * User: Stefano Di Martino

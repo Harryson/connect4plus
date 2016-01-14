@@ -1,7 +1,7 @@
 package controller
 
 import connectfour.controller.Connect4GameController
-import modelinterfaces.{Move, Player}
+import modelinterfaces.Player
 
 /**
  * User: Stefano Di Martino

@@ -2,8 +2,9 @@ package connectfour.controller
 
 import connectfour.model._
 import connectfour.util.observer.{IObserverWithArguments, ObservableWithArguments}
+import controller.Move
 import manager.{RedoManager, UndoManager}
-import modelinterfaces.{Move, Player}
+import modelinterfaces.Player
 
 import scala.swing.event.Event
 
