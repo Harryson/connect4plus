@@ -20,11 +20,10 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
 
   // TODO: mal schauen ob man es noch braucht
   //  // computer opens this game
-  //  if (gameField.getPlayerOnTurn == player2) {
-  notifyObservers()
-  dropCoinEventScala.dropCoin()
-
-  //  }
+  if (gameField.getPlayerOnTurn == player2) {
+    notifyObservers()
+    dropCoinEventScala.dropCoin()
+ }
 
   override def reset() {
     newGameEventScala.newGame()
