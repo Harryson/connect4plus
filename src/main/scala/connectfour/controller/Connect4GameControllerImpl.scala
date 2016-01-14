@@ -1,22 +1,36 @@
 package connectfour.controller
 
+import ai.MiniMax
+import connectfour.events.DropCoinScalaSwingEvent
 import connectfour.model._
 import connectfour.util.observer.{IObserverWithArguments, ObservableWithArguments}
 import controller.Move
 import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player
 
+import scala.swing.Reactor
+
 class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: String = "Computer")
   extends ObservableWithArguments
   with Connect4GameController
-  with IObserverWithArguments {
+  with IObserverWithArguments
+  with Reactor {
 
   val player1: Player = new Connect4Player(player1Name)
-  val player2: Player = new Connect4Computer(player2Name, this)
+  val player2: Player = new Connect4Computer(player2Name)
   //TODO 3 x var
   override var gameField = new Connect4GameField(player1, player2)
   override var undoManager = new UndoManager
   override var redoManager = new RedoManager
+
+
+  listenTo(dropCoinEventScala)
+
+  reactions += {
+    case e: DropCoinScalaSwingEvent =>
+      if (getPlayerOnTurn == player2 && !gameIsOver)
+        MiniMax.getNextMove(this).execute
+  }
 
   // TODO: mal schauen ob man es noch braucht
   //  // computer opens this game
