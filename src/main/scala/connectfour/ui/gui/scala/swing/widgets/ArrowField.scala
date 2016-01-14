@@ -3,8 +3,7 @@ package connectfour.ui.gui.scala.swing.widgets
 import java.awt.Color
 import javax.swing.ImageIcon
 
-import connectfour.controller.Connect4GameController
-import connectfour.model.Connect4GameField
+import connectfour.controller.{Connect4GameField, Connect4GameController}
 
 import scala.swing._
 

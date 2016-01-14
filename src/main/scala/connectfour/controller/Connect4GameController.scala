@@ -1,6 +1,5 @@
 package connectfour.controller
 
-import connectfour.model.Connect4GameField
 import connectfour.ui.gui.scala.swing.events._
 import controller.GameController
 import manager.{RedoManager, UndoManager}

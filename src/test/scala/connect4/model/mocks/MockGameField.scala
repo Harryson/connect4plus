@@ -1,6 +1,6 @@
 package connect4.model.mocks
 
-import connectfour.model.Connect4GameField
+import connectfour.controller.Connect4GameField
 import modelinterfaces.Player
 
 class MockGameField(player1: Player, player2: Player) extends Connect4GameField(player1, player2) {
