@@ -8,8 +8,8 @@ class GameFieldWinTest extends MockBase {
    * 0
    * 0X
    * 0XX
-    * 0XX00
-    */
+   * 0XX00
+   */
 
   "The gamefield" should
     "return 'Boss' (KI) as winner, because he won vertically from bottom to top" in {

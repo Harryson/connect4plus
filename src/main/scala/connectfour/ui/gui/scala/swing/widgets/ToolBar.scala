@@ -16,6 +16,7 @@ class ToolBar(gameController: Connect4GameController) extends MenuBar {
     contents += new MenuItem(Action("New Game") {
       mnemonic = Key.N
       gameController.reset()
+      gameController.closeFrameEventScala.close()
     })
     contents += new MenuItem(Action("Quit") {
       mnemonic = Key.Q

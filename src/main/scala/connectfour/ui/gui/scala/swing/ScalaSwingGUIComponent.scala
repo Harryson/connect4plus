@@ -3,7 +3,7 @@ package connectfour.ui.gui.scala.swing
 import java.awt.Color
 
 import connectfour.controller._
-import connectfour.events.{RedoScalaSwingEvent, UndoScalaSwingEvent, NewGameScalaSwingEvent, DropCoinScalaSwingEvent}
+import connectfour.events._
 import connectfour.ui.UI
 import connectfour.ui.gui.scala.swing.widgets.{ArrowField, CoinField, StatusDisplay, ToolBar}
 
@@ -19,7 +19,7 @@ trait ScalaSwingGUIComponent {
 
   class ScalaSwingGUI extends Frame with UI {
     override def closeOperation() {
-      System.exit(0)
+      //      System.exit(0)
     }
 
     val (user, computer) = gameController.getPlayers
@@ -47,6 +47,7 @@ trait ScalaSwingGUIComponent {
       case e: DropCoinScalaSwingEvent => drawGameField()
       case e: UndoScalaSwingEvent => drawGameField()
       case e: RedoScalaSwingEvent => drawGameField()
+      case e: CloseFrameScalaSwingEvent => close()
     }
 
     private def listenToEvents() {
@@ -54,6 +55,7 @@ trait ScalaSwingGUIComponent {
       listenTo(gameController.newGameEventScala)
       listenTo(gameController.undoEventScala)
       listenTo(gameController.redoEventScala)
+      listenTo(gameController.closeFrameEventScala)
     }
 
     drawGameField()

@@ -1,6 +1,6 @@
 package ai
 
-import controller.{NoMovePossible, Move, GameController}
+import controller.{GameController, Move, NoMovePossible}
 import modelinterfaces._
 
 /**
@@ -20,15 +20,16 @@ object MiniMax {
     var savedMove: Move = NoMovePossible
 
     def miniMax(currentPlayer: Player, depth: Int): Double = {
+      // base case
       if (depth == 0 || controllerCopy.gameIsOver || controllerCopy.noMovePossible(currentPlayer))
         return controllerCopy.getScore(currentPlayer).asInstanceOf[Double]
 
       var maxValue = Double.NegativeInfinity
       val possibleMoves: List[Move] = controllerCopy.generatePossibleMoves(currentPlayer)
 
-      //TODO: for
       for (move <- possibleMoves) {
         move.execute
+        // recursion
         val value = -miniMax(controllerCopy.getPlayerOnTurn, depth - 1)
         controllerCopy.undoLastMove()
 

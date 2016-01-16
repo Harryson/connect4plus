@@ -1,6 +1,6 @@
 package connectfour.controller
 
-import connectfour.events.{DropCoinEventScala, NewGameEventScala, RedoEventScala, UndoEventScala}
+import connectfour.events._
 import controller.GameController
 import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player
@@ -13,6 +13,7 @@ trait Connect4GameController extends GameController {
   val newGameEventScala = new NewGameEventScala
   val undoEventScala = new UndoEventScala
   val redoEventScala = new RedoEventScala
+  val closeFrameEventScala = new CloseFrameEventScala
 
   //TODO var
   var gameField: Connect4GameField

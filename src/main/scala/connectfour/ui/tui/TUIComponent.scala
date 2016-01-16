@@ -33,8 +33,7 @@ trait TUIComponent {
     listenToEvents()
 
     reactions += {
-      case e: NewGameScalaSwingEvent => drawGameField()
-        listenToEvents()
+      case e: NewGameScalaSwingEvent => listenToEvents()
       case e: DropCoinScalaSwingEvent => drawGameField()
       case e: UndoScalaSwingEvent => drawGameField()
       case e: RedoScalaSwingEvent => drawGameField()
@@ -107,15 +106,6 @@ trait TUIComponent {
       printf("Enter command:\n q->Quit; n->New; 1 to 7->Drop_Coin; u->Undo; r->Redo\n")
     }
 
-    private def getWinner(gameController: GameController): Option[String] = {
-      val winner = gameController.getWinner
-      if (winner != "") {
-        Some(winner)
-      } else {
-        None
-      }
-    }
-
     def processInputLine(string: String) {
       var input: Any = string
       implicit def string2Int(s: String): Int = new Integer(s) // implicit
@@ -129,6 +119,7 @@ trait TUIComponent {
             case 'i' => printInformation
             case 'q' => System.exit(0)
             case 'n' => gameController.reset()
+              gameController.closeFrameEventScala.close()
             case 'u' => gameController.undo()
             case 'r' => gameController.redo()
             case char =>
@@ -143,6 +134,7 @@ trait TUIComponent {
           s match {
             case "quit" => System.exit(0)
             case "new" => gameController.reset()
+              gameController.closeFrameEventScala.close()
             case "undo" => gameController.undo()
             case "redo" => gameController.redo()
             case "" => println("Misentry, no entry!!!")
@@ -162,10 +154,6 @@ trait TUIComponent {
               }
           }
       }
-
-
-
-
       // Infinite loop
       processInputLine(scala.io.StdIn.readLine())
     }
@@ -195,6 +183,16 @@ trait TUIComponent {
     private def isSingleChar(input: String): Boolean = input.length == 1 && !isAllDigits(input)
 
     def parseIntColumn(value: String): Try[Int] = Try((value.toInt - 1) % Connect4GameField.FIELD_COLUMNS)
+  }
+
+
+  private def getWinner(gameController: GameController): Option[String] = {
+    val winner = gameController.getWinner
+    if (winner != "") {
+      Some(winner)
+    } else {
+      None
+    }
   }
 
 }
