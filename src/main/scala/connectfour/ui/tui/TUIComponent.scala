@@ -3,9 +3,11 @@ package connectfour.ui.tui
 import connectfour.controller._
 import connectfour.events.{DropCoinScalaSwingEvent, NewGameScalaSwingEvent, RedoScalaSwingEvent, UndoScalaSwingEvent}
 import connectfour.ui.UI
+import controller.GameController
 import modelinterfaces.Player
 
 import scala.swing.Reactor
+import scala.util.{Failure, Success, Try}
 
 /**
  * Created by maharr on 24.12.15.
@@ -95,14 +97,23 @@ trait TUIComponent {
     }
 
     private def printInformation() {
-      val winner = gameController.getWinner
-      if (winner != "") {
-        printf("%s has won\n", winner)
-      } else {
-        printf("%s on turn\n", gameController.getPlayerOnTurn)
+      val winner = getWinner(gameController)
+
+      winner match {
+        case Some(name) => printf("%s has won\n", name)
+        case None => printf("%s on turn\n", gameController.getPlayerOnTurn)
       }
 
       printf("Enter command:\n q->Quit; n->New; 1 to 7->Drop_Coin; u->Undo; r->Redo\n")
+    }
+
+    private def getWinner(gameController: GameController): Option[String] = {
+      val winner = gameController.getWinner
+      if (winner != "") {
+        Some(winner)
+      } else {
+        None
+      }
     }
 
     def processInputLine(string: String) {
@@ -115,29 +126,40 @@ trait TUIComponent {
       input match {
         case c: Char =>
           c match {
-            case 's' => println("Start game")
+            case 'i' => printInformation
             case 'q' => System.exit(0)
             case 'n' => gameController.reset()
             case 'u' => gameController.undo()
             case 'r' => gameController.redo()
-            case _ => println("Misentry, not a correct character")
+            case char =>
+              isPrintInfo(char) match {
+                case Some(i) =>
+                  println("You've inserted 'I'")
+                  printInformation
+                case None => println("Misentry, not a correct character")
+              }
           }
         case s: String =>
           s match {
-            case "start" => println("Start game")
             case "quit" => System.exit(0)
             case "new" => gameController.reset()
             case "undo" => gameController.undo()
             case "redo" => gameController.redo()
             case "" => println("Misentry, no entry!!!")
-            case maybeNumber if (isAllDigits(s)) => // with guard
-              //          val col = maybeNumber.toInt - 1                              // explicit
-              val column = maybeNumber - 1 // implicit convert (String - Int)
-            //              gameController.dropCoin(column)                                       // old
+            case maybeNumber if (isSingleDigit(s)) => // with guard
+              val column = new Integer(maybeNumber) - 1 // explicit convert (String - Int)
             val sentence = "Drop coin at " + column // new DSL
               sentence.dropCoin
-            case _ =>
-              System.out.println("Misentry, not a correct number or string!!!")
+            case maybeNumber if (isAllDigits(s)) => // with guard
+              val column = maybeNumber - 1 % Connect4GameField.FIELD_COLUMNS // implicit convert (String - Int)
+              gameController.dropCoin(column) // old
+            case string =>
+
+              val result = parseIntColumn(string)
+              result match {
+                case Success(column) =>
+                case Failure(ex) => System.out.println("Misentry, not a correct number or string!!!")
+              }
           }
       }
 
@@ -150,7 +172,29 @@ trait TUIComponent {
 
     private def isAllDigits(input: String) = input forall Character.isDigit
 
+    private def isSingleDigit(input: String) = {
+      var state = false
+
+      if (input.length == 1) {
+        if (isAllDigits(input)) {
+          state = true
+        }
+      }
+
+      state
+    }
+
+    private def isPrintInfo(input: Char): Option[Char] = {
+      if (input == 'I') {
+        Some('i')
+      } else {
+        None
+      }
+    }
+
     private def isSingleChar(input: String): Boolean = input.length == 1 && !isAllDigits(input)
+
+    def parseIntColumn(value: String): Try[Int] = Try((value.toInt - 1) % Connect4GameField.FIELD_COLUMNS)
   }
 
 }
