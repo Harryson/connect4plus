@@ -1,4 +1,4 @@
-package connectfour.model
+package connectfour.controller
 
 import modelinterfaces.Player
 

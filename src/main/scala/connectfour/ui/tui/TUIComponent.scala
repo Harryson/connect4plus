@@ -1,7 +1,7 @@
 package connectfour.ui.tui
 
 import connectfour.controller._
-import connectfour.model.Connect4GameField
+import connectfour.events.{RedoScalaSwingEvent, UndoScalaSwingEvent, NewGameScalaSwingEvent, DropCoinScalaSwingEvent}
 import connectfour.ui.UI
 import modelinterfaces.Player
 

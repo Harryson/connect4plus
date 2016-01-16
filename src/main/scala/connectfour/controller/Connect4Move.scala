@@ -1,7 +1,6 @@
-package connectfour.model
+package connectfour.controller
 
-import connectfour.controller._
-import modelinterfaces.Move
+import controller.Move
 
 /**
  * User: Stefano Di Martino

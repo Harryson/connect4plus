@@ -1,6 +1,6 @@
 package ai
 
-import controller.GameController
+import controller.{NoMovePossible, Move, GameController}
 import modelinterfaces._
 
 /**

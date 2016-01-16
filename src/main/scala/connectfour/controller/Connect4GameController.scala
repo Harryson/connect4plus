@@ -1,7 +1,6 @@
 package connectfour.controller
 
-import connectfour.model.Connect4GameField
-import connectfour.ui.gui.scala.swing.events._
+import connectfour.events.{UndoEventScala, RedoEventScala, NewGameEventScala, DropCoinEventScala}
 import controller.GameController
 import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player
@@ -24,6 +23,4 @@ trait Connect4GameController extends GameController {
   def dropCoin(column: Int): Boolean
 
   def getPlayerAt(currentRow: Int, currentColumn: Int): Player
-
-  def undoLastMove(): Unit
 }

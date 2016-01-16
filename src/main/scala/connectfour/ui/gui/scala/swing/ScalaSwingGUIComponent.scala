@@ -3,7 +3,7 @@ package connectfour.ui.gui.scala.swing
 import java.awt.Color
 
 import connectfour.controller._
-import connectfour.model.Connect4GameField
+import connectfour.events.{RedoScalaSwingEvent, UndoScalaSwingEvent, NewGameScalaSwingEvent, DropCoinScalaSwingEvent}
 import connectfour.ui.UI
 import connectfour.ui.gui.scala.swing.widgets.{ArrowField, CoinField, StatusDisplay, ToolBar}
 

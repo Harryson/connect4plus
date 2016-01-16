@@ -1,7 +1,7 @@
-package connectfour.model
+package connectfour.controller
 
-import connectfour.controller._
-import modelinterfaces.{Move, Player}
+import controller.Move
+import modelinterfaces.Player
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
