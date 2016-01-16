@@ -53,6 +53,7 @@ class Connect4GameField(player1: Player, player2: Player) {
       throw new ArrayIndexOutOfBoundsException("Move in column %d is not possible!".format(column))
 
     if (Connect4MoveEvaluator.verticalMoveIsPossible(this, column) && winner == null) {
+      //TODO: ask Stefano: why always in row 0?
       insertPlayerInGameField(0)
 
       if (Connect4MoveEvaluator.playerHasWon(this, playerOnTurn))

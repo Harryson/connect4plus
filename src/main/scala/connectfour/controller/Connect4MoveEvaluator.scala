@@ -13,12 +13,15 @@ import scala.concurrent.duration._
  * Time: 17:58
  */
 object Connect4MoveEvaluator {
-
+  //TODO ask Stefano: horizontalMoveIsPossible???
+  //TODO ask Stefano: DEBUG test column 0 is field empty
+  //TODO ask Stefano: column complete occupied and why "Connect4GameField.FIELD_ROWS - 1" always???
   def verticalMoveIsPossible(gameField: Connect4GameField, column: Int): Boolean =
     gameField.gameField(column)(Connect4GameField.FIELD_ROWS - 1) == null
 
   def noMovePossible(gameField: Connect4GameField, player: Player): Boolean = {
     def noMovePossible(column: Int): Boolean = {
+      // base case
       if (column < Connect4GameField.FIELD_COLUMNS)
         !verticalMoveIsPossible(gameField, column) && noMovePossible(column + 1)
       else
@@ -141,7 +144,6 @@ object Connect4MoveEvaluator {
       possibleMove(from, Connect4GameField.FIELD_COLUMNS, Nil)
     }
 
-    //TODO for
     val futureFullMoveList = for {
       one <- futureMoveList1
       two <- futureMoveList2

@@ -108,8 +108,12 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
    * @return transformed Move for the current GameController.
    */
   override def transferMoveToCurrentController(move: Move): Move = {
-    val connect4Move = move.asInstanceOf[Connect4Move]
-    new Connect4Move(this, connect4Move.column)
+    if (move.isInstanceOf[Connect4Move]) {
+      val connect4Move = move.asInstanceOf[Connect4Move]
+      new Connect4Move(this, connect4Move.column)
+    }
+
+    move
   }
 
   /**
