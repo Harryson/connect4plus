@@ -111,9 +111,10 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
     if (move.isInstanceOf[Connect4Move]) {
       val connect4Move = move.asInstanceOf[Connect4Move]
       new Connect4Move(this, connect4Move.column)
+    } else {
+      move
     }
 
-    move
   }
 
   /**
