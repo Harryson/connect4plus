@@ -23,7 +23,6 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   override var undoManager = new UndoManager
   override var redoManager = new RedoManager
 
-
   listenTo(dropCoinEventScala)
 
   reactions += {
@@ -72,9 +71,6 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   //TODO zwei verschieden drops einmal richtig und einmal test
   override def dropCoin(column: Int): Boolean = {
     val oldGameField = gameField.cloneGameField()
-
-
-
     val success = gameField.dropCoin(column)
 
     if (success) {

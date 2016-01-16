@@ -2,7 +2,7 @@ package connectfour.ui.gui.scala.swing.widgets
 
 import java.awt.{Color, RenderingHints}
 
-import connectfour.controller.{Connect4GameField, Connect4GameController}
+import connectfour.controller.{Connect4GameController, Connect4GameField, Drop}
 
 import scala.swing._
 
@@ -13,6 +13,8 @@ class CoinField(gameController: Connect4GameController, arrowField: ArrowField)
   extends GridPanel(Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS) with Field {
 
   val CELLS = Array.ofDim[ButtonCell](Connect4GameField.FIELD_ROWS, Connect4GameField.FIELD_COLUMNS)
+
+  implicit def sentenceToInt(str: String) = new Drop(gameController, str)
 
   // constructor
   background = Color.LIGHT_GRAY
@@ -62,6 +64,7 @@ class CoinField(gameController: Connect4GameController, arrowField: ArrowField)
 
   // Drop a coin form coin field (below top row)
   override def mouseReleased(buttonCell: ButtonCell) {
-    gameController.dropCoin(CELLS.flatten.indexOf(buttonCell) % Connect4GameField.FIELD_COLUMNS)
+    val sentence = "Drop coin at " + (CELLS.flatten.indexOf(buttonCell) % Connect4GameField.FIELD_COLUMNS)
+    sentence.dropCoin
   }
 }

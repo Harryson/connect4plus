@@ -1,7 +1,7 @@
 package connectfour.ui.tui
 
 import connectfour.controller._
-import connectfour.events.{RedoScalaSwingEvent, UndoScalaSwingEvent, NewGameScalaSwingEvent, DropCoinScalaSwingEvent}
+import connectfour.events.{DropCoinScalaSwingEvent, NewGameScalaSwingEvent, RedoScalaSwingEvent, UndoScalaSwingEvent}
 import connectfour.ui.UI
 import modelinterfaces.Player
 
@@ -25,6 +25,8 @@ trait TUIComponent {
     private val row: Int = Connect4GameField.FIELD_ROWS - 1
     private val col: Int = Connect4GameField.FIELD_COLUMNS
     private val (user, computer) = gameController.getPlayers
+
+    implicit def sentenceToInt(str: String) = new Drop(gameController, str)
 
     listenToEvents()
 
@@ -130,8 +132,10 @@ trait TUIComponent {
             case "" => println("Misentry, no entry!!!")
             case maybeNumber if (isAllDigits(s)) => // with guard
               //          val col = maybeNumber.toInt - 1                              // explicit
-              val column = maybeNumber - 1 // implicit (String - Int) DSL
-              gameController.dropCoin(column)
+              val column = maybeNumber - 1 // implicit convert (String - Int)
+            //              gameController.dropCoin(column)                                       // old
+            val sentence = "Drop coin at " + column // new DSL
+              sentence.dropCoin
             case _ =>
               System.out.println("Misentry, not a correct number or string!!!")
           }

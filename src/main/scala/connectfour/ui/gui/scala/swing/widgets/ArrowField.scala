@@ -3,7 +3,7 @@ package connectfour.ui.gui.scala.swing.widgets
 import java.awt.Color
 import javax.swing.ImageIcon
 
-import connectfour.controller.{Connect4GameField, Connect4GameController}
+import connectfour.controller.{Connect4GameController, Connect4GameField, Drop}
 
 import scala.swing._
 
@@ -14,6 +14,8 @@ import scala.swing._
  */
 class ArrowField(gameController: Connect4GameController) extends FlowPanel with Field {
   val CELLS = new Array[Button](Connect4GameField.FIELD_COLUMNS)
+
+  implicit def sentenceToInt(str: String) = new Drop(gameController, str)
 
   // constructor
   background = Color.LIGHT_GRAY
@@ -53,6 +55,7 @@ class ArrowField(gameController: Connect4GameController) extends FlowPanel with 
 
   // Drop a coin form arrow field (top row)
   override def mouseReleased(buttonCell: ButtonCell) {
-    gameController.dropCoin(CELLS.indexOf(buttonCell))
+    val sentence = "Drop coin at " + CELLS.indexOf(buttonCell)
+    sentence.dropCoin
   }
 }
