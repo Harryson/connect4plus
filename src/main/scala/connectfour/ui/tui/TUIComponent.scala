@@ -103,29 +103,50 @@ trait TUIComponent {
       printf("Enter command:\n q->Quit; n->New; 1 to 7->Drop_Coin; u->Undo; r->Redo\n")
     }
 
-    def processInputLine(input: String) {
+    def processInputLine(string: String) {
+      var input: Any = string
+      implicit def string2Int(s: String): Int = new Integer(s) // implicit
+
+      if (isSingleChar(string))
+        input = string.charAt(0)
+
       input match {
-        case "start" => println("Start game")
-        case "q" => System.exit(0)
-        case "n" => gameController.reset()
-        case "u" => gameController.undo()
-        case "r" => gameController.redo()
-        case _ =>
-          if (isAllDigits(input) && input.compareTo("") != 0) {
-            val col = input.toInt - 1
-            if (!gameController.dropCoin(col)) {
-              System.out.println("Misentry, not a correct number !!!")
-            }
-          } else {
-            System.out.println("Misentry, not a number!!!")
+        case c: Char =>
+          c match {
+            case 's' => println("Start game")
+            case 'q' => System.exit(0)
+            case 'n' => gameController.reset()
+            case 'u' => gameController.undo()
+            case 'r' => gameController.redo()
+            case _ => println("Misentry, not a correct character")
+          }
+        case s: String =>
+          s match {
+            case "start" => println("Start game")
+            case "quit" => System.exit(0)
+            case "new" => gameController.reset()
+            case "undo" => gameController.undo()
+            case "redo" => gameController.redo()
+            case "" => println("Misentry, no entry!!!")
+            case maybeNumber if (isAllDigits(s)) => // with guard
+              //          val col = maybeNumber.toInt - 1                              // explicit
+              val column = maybeNumber - 1 // implicit (String - Int) DSL
+              gameController.dropCoin(column)
+            case _ =>
+              System.out.println("Misentry, not a correct number or string!!!")
           }
       }
+
+
+
 
       // Infinite loop
       processInputLine(scala.io.StdIn.readLine())
     }
 
     private def isAllDigits(input: String) = input forall Character.isDigit
+
+    private def isSingleChar(input: String): Boolean = input.length == 1 && !isAllDigits(input)
   }
 
 }
