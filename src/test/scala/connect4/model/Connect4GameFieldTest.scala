@@ -24,26 +24,26 @@ class Connect4GameFieldTest extends MockBase {
     "change player successful" in {
     reset
 
-    val newGamefield = new Connect4GameField(new Connect4Player("Human"), new Connect4Computer("Computer"))
-    val currentPlayer = newGamefield.getPlayerOnTurn
+    val newGameField = new Connect4GameField(new Connect4Player("Human"), new Connect4Computer("Computer"))
+    val currentPlayer = newGameField.getPlayerOnTurn
 
     if (currentPlayer.name == "Human") {
-      val newPlayer = newGamefield.changePlayerOnTurn
+      val newPlayer = newGameField.changePlayerOnTurn
       newPlayer.name == "Computer" should be(true)
     }
 
     if (currentPlayer.name == "Computer") {
-      val newPlayer = newGamefield.changePlayerOnTurn
+      val newPlayer = newGameField.changePlayerOnTurn
       newPlayer.name == "Human" should be(true)
     }
 
     if (currentPlayer.name == "Human") {
-      val newPlayer = newGamefield.changePlayerOnTurn
-      newPlayer.name == "Human" should be(true)
+      val newPlayer = newGameField.changePlayerOnTurn
+      newPlayer.name == "Human" should be(false)
     }
 
     if (currentPlayer.name == "Computer") {
-      val newPlayer = newGamefield.changePlayerOnTurn
+      val newPlayer = newGameField.changePlayerOnTurn
       newPlayer.name == "Computer" should be(false)
     }
   }
