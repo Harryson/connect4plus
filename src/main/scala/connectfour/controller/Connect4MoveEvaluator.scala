@@ -3,6 +3,8 @@ package connectfour.controller
 import controller.Move
 import modelinterfaces.Player
 
+import scala.annotation.tailrec
+
 /**
  * User: Stefano Di Martino
  * Date: 25.01.14
@@ -13,6 +15,7 @@ object Connect4MoveEvaluator {
     gameField.gameField(column)(Connect4GameField.FIELD_ROWS - 1) == null
 
   def noMovePossible(gameField: Connect4GameField, player: Player): Boolean = {
+    @tailrec
     def noMovePossible(column: Int): Boolean = {
       // base case
       if (column < Connect4GameField.FIELD_COLUMNS)
@@ -40,6 +43,7 @@ object Connect4MoveEvaluator {
   }
 
   private def horizontalWin(gameField: Connect4GameField, player: Player): Boolean = {
+    @tailrec
     def horizontalWin(column: Int, row: Int): Boolean = {
       if (column <= Connect4GameField.FIELD_COLUMNS - 4) {
         if (gameField.gameField(column)(row) == player &&
@@ -59,6 +63,7 @@ object Connect4MoveEvaluator {
   }
 
   private def verticalWin(gameField: Connect4GameField, player: Player): Boolean = {
+    @tailrec
     def verticalWin(column: Int, row: Int): Boolean = {
       if (row <= Connect4GameField.FIELD_ROWS - 4) {
         if (gameField.gameField(column)(row) == player &&
@@ -78,6 +83,7 @@ object Connect4MoveEvaluator {
   }
 
   private def diagonalUpWin(gameField: Connect4GameField, player: Player): Boolean = {
+    @tailrec
     def diagonalUpWin(column: Int, row: Int): Boolean = {
       if (row <= Connect4GameField.FIELD_ROWS - 4) {
         if (gameField.gameField(column)(row) == player &&
@@ -97,6 +103,7 @@ object Connect4MoveEvaluator {
   }
 
   private def diagonalDownWin(gameField: Connect4GameField, player: Player): Boolean = {
+    @tailrec
     def diagonalDownWin(column: Int, row: Int): Boolean = {
       if (row >= 3) {
         if (gameField.gameField(column)(row) == player &&
