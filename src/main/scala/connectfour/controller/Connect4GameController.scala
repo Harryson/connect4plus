@@ -17,8 +17,8 @@ trait Connect4GameController extends GameController {
 
   //TODO var
   var gameField: Connect4GameField
-  var undoManager: UndoManager
-  var redoManager: RedoManager
+  //var undoManager: UndoManager
+  //var redoManager: RedoManager
 
   def dropCoin(column: Int): Boolean
 
