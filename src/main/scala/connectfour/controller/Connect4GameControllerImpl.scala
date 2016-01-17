@@ -22,8 +22,6 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   val player2: Player = new Connect4Computer(player2Name)
   //TODO 3 x var
   var gameField = new Connect4GameField(player1, player2)
-  //override var undoManager = new UndoManager
-  //override var redoManager = new RedoManager
 
   listenTo(dropCoinEventScala)
 

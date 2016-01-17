@@ -2,7 +2,6 @@ package connectfour.controller
 
 import connectfour.events._
 import controller.GameController
-import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player
 
 /**
@@ -17,8 +16,6 @@ trait Connect4GameController extends GameController {
 
   //TODO var
   var gameField: Connect4GameField
-  //var undoManager: UndoManager
-  //var redoManager: RedoManager
 
   def dropCoin(column: Int): Boolean
 
