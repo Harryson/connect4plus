@@ -10,7 +10,7 @@ import modelinterfaces.Player
 
 import scala.swing.Reactor
 
-class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: String = "Computer")
+class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: String = "Boos")
   extends ObservableWithArguments
   with Connect4GameController
   with IObserverWithArguments

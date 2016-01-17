@@ -8,7 +8,7 @@ import controller.Move
  * Time: 17:54
  */
 case class Connect4Move(gameController: Connect4GameController, column: Int) extends Move {
-  def execute {
+  def execute: String = {
     implicit def sentenceToInt(str: String) = new Drop(gameController, str)
 
     val sentence = "Drop coin at " + column

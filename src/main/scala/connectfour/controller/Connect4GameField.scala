@@ -31,13 +31,15 @@ class Connect4GameField(player1: Player, player2: Player) {
     }
   }
 
-  def changePlayerOnTurn() = {
+  def changePlayerOnTurn(): Player = {
     if (playerOnTurn == player1)
       playerOnTurn = player2
     else if (playerOnTurn == player2)
       playerOnTurn = player1
     else
       throw new IllegalStateException("No player is on turn!")
+
+    playerOnTurn
   }
 
   def dropCoin(column: Int): Boolean = {

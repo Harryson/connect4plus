@@ -6,5 +6,5 @@ package controller
  * Time: 00:34
  */
 trait Move {
-  def execute
+  def execute: String
 }

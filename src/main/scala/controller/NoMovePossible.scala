@@ -7,5 +7,7 @@ package controller
  */
 //TODO work with Option[Move]
 object NoMovePossible extends Move {
-  def execute: Unit = {}
+  def execute: String = {
+    "No move possible"
+  }
 }
