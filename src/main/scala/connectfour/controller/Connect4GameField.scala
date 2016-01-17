@@ -3,8 +3,8 @@ package connectfour.controller
 import modelinterfaces.Player
 
 object Connect4GameField {
-  val FIELD_ROWS = 6
-  val FIELD_COLUMNS = 7
+  val FIELD_ROWS: Int = 6
+  val FIELD_COLUMNS: Int = 7
 }
 
 /**
