@@ -43,12 +43,12 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
   }
 
   override def undo() {
-    undoManager.undoCommand
+    undoManager.undoCommand(redoManager)
     undoEventScala.undo()
   }
 
   override def undoLastMove() {
-    undoManager.undoCommand
+    undoManager.undoCommand()
   }
 
   override def redo() {
@@ -121,7 +121,7 @@ class Connect4GameControllerImpl(player1Name: String = "Hugo", player2Name: Stri
    * @return deep copy of controller. Observers are not copied!
    */
   override def cloneController: Connect4GameController = {
-    val controller = new Connect4GameControllerImpl(player1.name, player2.name, new UndoManager)
+    val controller = new Connect4GameControllerImpl(player1.name, player2.name, new UndoManager, new RedoManager)
     controller.gameField = gameField.cloneGameField()
 
     controller
