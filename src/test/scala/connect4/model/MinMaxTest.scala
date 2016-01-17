@@ -219,6 +219,6 @@ class MinMaxTest extends MockBase {
 
     val connect4Move = MiniMax.getNextMove(controller).asInstanceOf[Connect4Move]
     //        connect4Move.column should be(6)
-    //    connect4Move.column should be(2)
+    connect4Move.column should be(2)
   }
 }
