@@ -2,7 +2,6 @@ package connectfour.controller
 
 import connectfour.events._
 import controller.GameController
-import manager.{RedoManager, UndoManager}
 import modelinterfaces.Player
 
 /**
