@@ -11,7 +11,7 @@ class RedoManager {
   var commands: mutable.Stack[() => Unit] = mutable.Stack()
 
   def canRedo: Boolean = {
-    commands.isEmpty
+    !commands.isEmpty
   }
 
   def addCommand(command: () => Unit): Unit = {
@@ -19,14 +19,16 @@ class RedoManager {
   }
 
   def redoCommand(undoManager: UndoManager) {
-    val command1 = commands.pop
-    undoManager.addCommand(command1)
-    command1()
+    if (canRedo) {
+      val command1 = commands.pop
+      undoManager.addCommand(command1)
+      command1()
 
-    if (commands.nonEmpty) {
-      val command2 = commands.pop
-      undoManager.addCommand(command2)
-      command2()
+      if (commands.nonEmpty) {
+        val command2 = commands.pop
+        undoManager.addCommand(command2)
+        command2()
+      }
     }
   }
 }
