@@ -29,17 +29,17 @@ class Connect4GameFieldTest extends MockBase {
 
     if (currentPlayer.name == "Human") {
       val newPlayer = newGamefield.changePlayerOnTurn
-      newPlayer.name == "Computer" should be(true)
+      newPlayer.name should be("Computer")
     }
 
     if (currentPlayer.name == "Computer") {
       val newPlayer = newGamefield.changePlayerOnTurn
-      newPlayer.name == "Human" should be(true)
+      newPlayer.name should be("Human")
     }
 
     if (currentPlayer.name == "Human") {
       val newPlayer = newGamefield.changePlayerOnTurn
-      newPlayer.name == "Human" should be(true)
+      newPlayer.name should be("Human")
     }
 /*
     if (currentPlayer.name == "Computer") {
