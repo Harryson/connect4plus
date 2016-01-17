@@ -25,7 +25,7 @@ object MiniMax {
         return controllerCopy.getScore(currentPlayer).asInstanceOf[Double]
 
       var maxValue = Double.NegativeInfinity
-      val possibleMoves: List[Move] = controllerCopy.generatePossibleMoves(currentPlayer)
+      val possibleMoves: Seq[Move] = controllerCopy.generatePossibleMoves(currentPlayer)
 
       for (move <- possibleMoves) {
         move.execute
